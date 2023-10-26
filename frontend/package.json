@@ -6,6 +6,7 @@
   "author": "Zbyšek Vacek",
   "license": "ISC",
   "proxy": "http://localhost:8000",
+  "homepage": "/fe",
   "dependencies": {
     "@tanstack/react-query": "^5.0.5",
     "@tanstack/react-query-devtools": "^5.4.2",
