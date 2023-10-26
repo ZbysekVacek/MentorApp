@@ -10,7 +10,7 @@ export type Meeting = {
 }
 
 export const fetchMeetings = async (): Promise<Meeting[]> => {
-  const res = await fetch('http://localhost:8000/api/meetings/')
+  const res = await fetch('/api/meetings/')
   if (!res.ok) {
     throw new Error('Network response was not ok')
   }
