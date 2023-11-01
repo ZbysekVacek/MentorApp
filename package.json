@@ -1,6 +1,10 @@
 {
   "name": "MentorApp",
-  "version": "1.0.0",
+  "description": "This package.json file is intended for managing all kinds of scripts and for AppPlatform detection of Node.js. Feel free to edit or use different tool",
+  "scripts": {
+      "pylint": "pylint ./backend --errors-only --load-plugins=pylint_django --django-settings-module=mentorapp.settings",
+      "black": "black ./backend"
+    },
   "dependencies": {
   },
     "engines": {

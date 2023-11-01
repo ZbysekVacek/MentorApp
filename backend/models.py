@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Meeting(models.Model):
     subject = models.CharField("Name", max_length=240)
     location = models.TextField()
