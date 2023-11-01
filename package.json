@@ -6,12 +6,14 @@
       "pytest": "pytest",
       "pytestHeaded": "pytest --headed",
       "e2eTest": "pytest",
-      "e2eTesHeaded": "npm run pytestHeaded",
-      "black": "black ./backend"
+      "e2eTestHeaded": "npm run pytestHeaded",
+      "black": "black ./backend --check",
+      "blackFix": "black ./backend",
+      "buildProjectLocal": "pip install -r requirements.txt && cd frontend && npm install && npm run build && npm run test && npm run lint && npm run prettier && cd .. && npm run pylint && npm run black"
     },
   "dependencies": {
   },
-    "engines": {
+  "engines": {
     "node": "20.x"
   }
 }
