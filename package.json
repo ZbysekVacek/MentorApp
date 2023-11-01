@@ -3,6 +3,10 @@
   "description": "This package.json file is intended for managing all kinds of scripts and for AppPlatform detection of Node.js. Feel free to edit or use different tool",
   "scripts": {
       "pylint": "pylint ./backend --errors-only --load-plugins=pylint_django --django-settings-module=mentorapp.settings",
+      "pytest": "pytest",
+      "pytestHeaded": "pytest --headed",
+      "e2eTest": "pytest",
+      "e2eTesHeaded": "npm run pytestHeaded",
       "black": "black ./backend"
     },
   "dependencies": {

@@ -35,7 +35,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
-    "prettier": "prettier --write ./src"
+    "prettierWrite": "prettier --write ./src",
+    "prettier": "prettier ./src"
   },
   "eslintConfig": {
     "extends": [
@@ -54,5 +55,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+    "engines": {
+    "node": "20.x"
   }
 }
