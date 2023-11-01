@@ -5,16 +5,17 @@ from rest_framework import status
 from .models import Meeting
 from .serializers import *
 
-@api_view(['GET', 'POST'])
+
+@api_view(["GET", "POST"])
 def meetings_list(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         data = Meeting.objects.all()
 
-        serializer = MeetingSerializer(data, context={'request': request}, many=True)
+        serializer = MeetingSerializer(data, context={"request": request}, many=True)
 
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    elif request.method == "POST":
         serializer = MeetingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -22,20 +23,23 @@ def meetings_list(request):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT', 'DELETE'])
+
+@api_view(["PUT", "DELETE"])
 def meetings_detail(request, pk):
     try:
         student = Meeting.objects.get(pk=pk)
     except Meeting.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'PUT':
-        serializer = MeetingSerializer(student, data=request.data,context={'request': request})
+    if request.method == "PUT":
+        serializer = MeetingSerializer(
+            student, data=request.data, context={"request": request}
+        )
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    elif request.method == "DELETE":
         student.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
