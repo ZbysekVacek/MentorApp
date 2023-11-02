@@ -26,8 +26,10 @@ from django.conf.urls.static import static
 from backend import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    re_path(r'^api/meetings/$', views.meetings_list),
-    re_path(r'^api/meetings/([0-9])$', views.meetings_detail),
-    path('', TemplateView.as_view(template_name='index.html')),
+    path("admin/", admin.site.urls),
+    # re_path(r'^api/meetings/$', views.meetings_list),
+    re_path(r"^api/meetings/$", views.MeetingsList.as_view()),
+    path("api/meetings/<int:pk>", views.MeetingDetail.as_view()),
+    # re_path(r"^api/meetings/([0-9])$", views.meetings_detail),
+    path("", TemplateView.as_view(template_name="index.html")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
