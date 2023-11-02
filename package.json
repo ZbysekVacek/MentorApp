@@ -9,7 +9,8 @@
       "e2eTestHeaded": "npm run pytestHeaded",
       "black": "black ./backend --check",
       "blackFix": "black ./backend",
-      "buildProjectLocal": "pip install -r requirements.txt && cd frontend && npm install && npm run build && npm run test && npm run lint && npm run prettier && cd .. && npm run pylint && npm run black"
+      "buildProjectLocal": "pip install -r requirements.txt && cd frontend && npm install && npm run build && npm run test && npm run lint && npm run prettier && cd .. && npm run pylint && npm run black",
+      "openApiGenerateSchema": "python ./manage.py generateschema --file openapi-schema.yml"
     },
   "dependencies": {
   },
