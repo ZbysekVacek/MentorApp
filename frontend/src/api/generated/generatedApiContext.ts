@@ -1,5 +1,6 @@
 import type { QueryKey, UseQueryOptions } from '@tanstack/react-query'
 import { QueryOperation } from './generatedApiComponents'
+import { getCSRFToken } from '../../feature/cookies/cookies'
 
 export type GeneratedApiContext = {
   fetcherOptions: {
@@ -42,7 +43,9 @@ export function useGeneratedApiContext<
   >
 ): GeneratedApiContext {
   return {
-    fetcherOptions: {},
+    fetcherOptions: {
+      headers: { 'X-Csrftoken': getCSRFToken() },
+    },
     queryOptions: {},
     queryKeyFn,
   }
