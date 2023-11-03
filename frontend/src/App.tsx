@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { MeetingsList } from './components/MeetingsList'
 import { Typography } from 'antd'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { CreateMeeting } from './components/CreateMeeting'
 
 const queryClient = new QueryClient()
 
@@ -20,6 +21,7 @@ function App() {
             <Typography.Title>Mentoring App</Typography.Title>
             <Typography.Title level={3}>Current meetings</Typography.Title>
             <MeetingsList />
+            <CreateMeeting />
           </header>
         </div>
       </ConfigProvider>

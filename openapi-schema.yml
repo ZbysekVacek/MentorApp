@@ -1,0 +1,170 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/meetings/:
+    get:
+      operationId: listMeetings
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meeting'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createMeeting
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meeting'
+          description: ''
+      tags:
+      - api
+  /api/meetings/{id}:
+    get:
+      operationId: retrieveMeeting
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this meeting.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meeting'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateMeeting
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this meeting.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meeting'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateMeeting
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this meeting.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meeting'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyMeeting
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this meeting.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    Meeting:
+      type: object
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+        subject:
+          type: string
+          maxLength: 240
+        location:
+          type: string
+        dateTime:
+          type: string
+          format: date-time
+          readOnly: true
+        mentorEmail:
+          type: string
+          format: email
+          maxLength: 254
+        menteeEmail:
+          type: string
+          format: email
+          maxLength: 254
+      required:
+      - subject
+      - location
+      - mentorEmail
+      - menteeEmail
