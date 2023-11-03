@@ -4,6 +4,7 @@
   "workspaces": ["frontend"],
   "scripts": {
       "build": "npm run build --workspaces",
+      "build:digitalocean": "npm run build",
       "pylint": "pylint ./backend --errors-only --load-plugins=pylint_django --django-settings-module=mentorapp.settings",
       "pytest": "pytest",
       "pytestHeaded": "pytest --headed",
