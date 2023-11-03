@@ -163,3 +163,4 @@ cython_debug/
 mentorapp_env
 .idea
 static
+node_modules
