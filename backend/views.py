@@ -19,3 +19,11 @@ class MeetingsList(generics.ListCreateAPIView):
 class MeetingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        currentUser = self.serializer_class(request.user)
+        return Response(currentUser.data)

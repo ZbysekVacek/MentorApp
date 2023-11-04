@@ -3,6 +3,7 @@ import { Breadcrumb, Layout, Menu, theme, Typography } from 'antd'
 import logo from '../../logo.svg'
 import { MeetingsList } from '../../components/MeetingsList'
 import { CreateMeeting } from '../../components/CreateMeeting'
+import UserInfo from '../user/UserInfo'
 
 const { Header, Content, Footer } = Layout
 
@@ -36,6 +37,7 @@ const AppLayout: React.FC = () => {
         >
           <Typography.Title>Mentoring App</Typography.Title>
           <Typography.Title level={3}>Current meetings</Typography.Title>
+          <UserInfo />
           <MeetingsList />
           <CreateMeeting />
         </Content>

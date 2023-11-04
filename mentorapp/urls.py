@@ -31,6 +31,7 @@ urlpatterns = [
     # re_path(r'^api/meetings/$', views.meetings_list),
     re_path(r"^api/meetings/$", views.MeetingsList.as_view()),
     path("api/meetings/<int:pk>", views.MeetingDetail.as_view()),
+    path("api/user", views.UserDetail.as_view()),
     # re_path(r"^api/meetings/([0-9])$", views.meetings_detail),
     path("", TemplateView.as_view(template_name="index.html")),
     # Use the `get_schema_view()` helper to add a `SchemaView` to project URLs.

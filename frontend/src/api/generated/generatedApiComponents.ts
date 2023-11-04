@@ -288,6 +288,43 @@ export const useDestroyMeeting = (
   })
 }
 
+export type RetrieveUserError = Fetcher.ErrorWrapper<undefined>
+
+export type RetrieveUserVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchRetrieveUser = (
+  variables: RetrieveUserVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<Schemas.User, RetrieveUserError, undefined, {}, {}, {}>({
+    url: '/api/user',
+    method: 'get',
+    ...variables,
+    signal,
+  })
+
+export const useRetrieveUser = <TData = Schemas.User>(
+  variables: RetrieveUserVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<Schemas.User, RetrieveUserError, TData>,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<Schemas.User, RetrieveUserError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/user',
+      operationId: 'retrieveUser',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchRetrieveUser({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
 export type QueryOperation =
   | {
       path: '/api/meetings/'
@@ -298,4 +335,9 @@ export type QueryOperation =
       path: '/api/meetings/{id}'
       operationId: 'retrieveMeeting'
       variables: RetrieveMeetingVariables
+    }
+  | {
+      path: '/api/user'
+      operationId: 'retrieveUser'
+      variables: RetrieveUserVariables
     }
