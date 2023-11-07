@@ -325,6 +325,112 @@ export const useRetrieveUser = <TData = Schemas.User>(
   })
 }
 
+export type UserLoginError = Fetcher.ErrorWrapper<{
+  status: 401
+  payload: {
+    description?: string
+    code?: string
+  }
+}>
+
+export type UserLoginRequestBody = {
+  username: string
+  /**
+   * @format password
+   */
+  password: string
+}
+
+export type UserLoginVariables = {
+  body: UserLoginRequestBody
+} & GeneratedApiContext['fetcherOptions']
+
+/**
+ * Provides user login
+ */
+export const fetchUserLogin = (
+  variables: UserLoginVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.User,
+    UserLoginError,
+    UserLoginRequestBody,
+    {},
+    {},
+    {}
+  >({ url: '/api/user/login', method: 'post', ...variables, signal })
+
+/**
+ * Provides user login
+ */
+export const useUserLogin = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.User,
+      UserLoginError,
+      UserLoginVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.User,
+    UserLoginError,
+    UserLoginVariables
+  >({
+    mutationFn: (variables: UserLoginVariables) =>
+      fetchUserLogin({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type CreateUserLogoutError = Fetcher.ErrorWrapper<undefined>
+
+export type CreateUserLogoutVariables = {
+  body?: void
+} & GeneratedApiContext['fetcherOptions']
+
+/**
+ * Logouts user from the system
+ */
+export const fetchCreateUserLogout = (
+  variables: CreateUserLogoutVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<void, CreateUserLogoutError, void, {}, {}, {}>({
+    url: '/api/user/logout',
+    method: 'post',
+    ...variables,
+    signal,
+  })
+
+/**
+ * Logouts user from the system
+ */
+export const useCreateUserLogout = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      void,
+      CreateUserLogoutError,
+      CreateUserLogoutVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    void,
+    CreateUserLogoutError,
+    CreateUserLogoutVariables
+  >({
+    mutationFn: (variables: CreateUserLogoutVariables) =>
+      fetchCreateUserLogout({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
 export type QueryOperation =
   | {
       path: '/api/meetings/'

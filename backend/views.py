@@ -1,7 +1,5 @@
 from rest_framework.response import Response
 from rest_framework import generics
-
-from .models import Meeting
 from .serializers import *
 
 
@@ -19,11 +17,3 @@ class MeetingsList(generics.ListCreateAPIView):
 class MeetingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
-
-
-class UserDetail(generics.RetrieveAPIView):
-    serializer_class = UserSerializer
-
-    def get(self, request, *args, **kwargs):
-        currentUser = self.serializer_class(request.user)
-        return Response(currentUser.data)
