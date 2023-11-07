@@ -21,7 +21,6 @@ export function CreateMeeting() {
       <>created meeting with subject {createMeetingMutation.data.subject}</>
     )
   }
-  console.log({ c: subjectRef.current?.value })
 
   return (
     <form

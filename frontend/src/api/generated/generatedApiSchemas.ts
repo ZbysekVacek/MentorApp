@@ -25,3 +25,35 @@ export type Meeting = {
    */
   menteeEmail: string
 }
+
+export type User = {
+  /**
+   * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+   *
+   * @pattern ^[\w.@+-]+\z
+   * @maxLength 150
+   */
+  username: string
+  /**
+   * @format email
+   * @maxLength 254
+   */
+  email?: string
+  id?: number
+  /**
+   * The groups this user belongs to. A user will get all permissions granted to each of their groups.
+   */
+  groups?: number[]
+  /**
+   * Specific permissions for this user.
+   */
+  user_permissions?: number[]
+  /**
+   * @maxLength 150
+   */
+  first_name?: string
+  /**
+   * @maxLength 150
+   */
+  last_name?: string
+}

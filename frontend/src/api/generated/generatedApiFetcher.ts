@@ -10,7 +10,7 @@ export type GeneratedApiFetcherOptions<
   TBody,
   THeaders,
   TQueryParams,
-  TPathParams
+  TPathParams,
 > = {
   url: string
   method: string
@@ -27,7 +27,7 @@ export async function generatedApiFetch<
   TBody extends {} | FormData | undefined | null,
   THeaders extends {},
   TQueryParams extends {},
-  TPathParams extends {}
+  TPathParams extends {},
 >({
   url,
   method,
