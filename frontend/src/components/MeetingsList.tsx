@@ -1,8 +1,8 @@
 import React from 'react'
-import { useListMeetings } from '../api/generated/generatedApiComponents'
+import { useMeetingsList } from '../api/generated/generatedApiComponents'
 
 export function MeetingsList() {
-  const { isLoading, error, data } = useListMeetings({})
+  const { isLoading, error, data } = useMeetingsList({})
   if (isLoading) {
     return <>loading meetings</>
   }

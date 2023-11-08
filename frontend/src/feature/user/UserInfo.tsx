@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import {
-  useCreateUserLogout,
-  useRetrieveUser,
-  useUserLogin,
+  useUserLoginCreate,
+  useUserLogoutCreate,
+  useUserRetrieve,
 } from '../../api/generated/generatedApiComponents'
 import { useQueryClient } from '@tanstack/react-query'
 
 const UserInfo: React.FC = () => {
-  const { isLoading, error, data } = useRetrieveUser({})
-  const loginUser = useUserLogin()
-  const logoutUser = useCreateUserLogout()
+  const { isLoading, error, data } = useUserRetrieve({})
+  const loginUser = useUserLoginCreate()
+  const logoutUser = useUserLogoutCreate()
   const queryClient = useQueryClient()
   const [loginUsername, setLoginUsername] = useState('')
   const [loginPassword, setLoginPassword] = useState('')

@@ -3,6 +3,16 @@
  *
  * @version 1.0.0
  */
+export type Exception = {
+  status_code?: number
+  detail?: string
+}
+
+export type LoginRequest = {
+  username: string
+  password: string
+}
+
 export type Meeting = {
   pk?: number
   /**
@@ -26,11 +36,34 @@ export type Meeting = {
   menteeEmail: string
 }
 
+export type PatchedMeeting = {
+  pk?: number
+  /**
+   * @maxLength 240
+   */
+  subject?: string
+  location?: string
+  /**
+   * @format date-time
+   */
+  dateTime?: string
+  /**
+   * @format email
+   * @maxLength 254
+   */
+  mentorEmail?: string
+  /**
+   * @format email
+   * @maxLength 254
+   */
+  menteeEmail?: string
+}
+
 export type User = {
   /**
    * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
    *
-   * @pattern ^[\w.@+-]+\z
+   * @pattern ^[\w.@+-]+$
    * @maxLength 150
    */
   username: string

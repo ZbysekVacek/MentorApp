@@ -12,7 +12,7 @@ def mentorapp_exception_handler(exc, context):
         response.data["status_code"] = response.status_code
         return response
 
-    responseData = {"status_code": 500, "description": "Server error"}
+    responseData = {"status_code": 500, "detail": "Server error"}
     response = Response(responseData, 500)
 
     return response

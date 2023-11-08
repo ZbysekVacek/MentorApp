@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
-import { useCreateMeeting } from '../api/generated/generatedApiComponents'
+import { useMeetingsCreate } from '../api/generated/generatedApiComponents'
 
 export function CreateMeeting() {
-  const createMeetingMutation = useCreateMeeting({})
+  const createMeetingMutation = useMeetingsCreate({})
   const subjectRef = useRef<HTMLInputElement | null>(null)
   const locationRef = useRef<HTMLInputElement | null>(null)
   const mentorEmailRef = useRef<HTMLInputElement | null>(null)

@@ -1,13 +1,18 @@
-openapi: 3.0.2
+openapi: 3.0.3
 info:
-  title: ''
-  version: ''
+  title: MentorApp internal API
+  version: 1.0.0
+  description: Internal API specification
 paths:
   /api/meetings/:
     get:
-      operationId: listMeetings
-      description: ''
-      parameters: []
+      operationId: meetings_list
+      tags:
+      - meetings
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
       responses:
         '200':
           content:
@@ -17,12 +22,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/Meeting'
           description: ''
-      tags:
-      - api
     post:
-      operationId: createMeeting
-      description: ''
-      parameters: []
+      operationId: meetings_create
+      tags:
+      - meetings
       requestBody:
         content:
           application/json:
@@ -34,6 +37,11 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/Meeting'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
       responses:
         '201':
           content:
@@ -41,19 +49,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Meeting'
           description: ''
-      tags:
-      - api
   /api/meetings/{id}:
     get:
-      operationId: retrieveMeeting
-      description: ''
+      operationId: meetings_retrieve
       parameters:
-      - name: id
-        in: path
-        required: true
-        description: A unique integer value identifying this meeting.
+      - in: path
+        name: id
         schema:
-          type: string
+          type: integer
+        required: true
+      tags:
+      - meetings
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
       responses:
         '200':
           content:
@@ -61,18 +71,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/Meeting'
           description: ''
-      tags:
-      - api
     put:
-      operationId: updateMeeting
-      description: ''
+      operationId: meetings_update
       parameters:
-      - name: id
-        in: path
-        required: true
-        description: A unique integer value identifying this meeting.
+      - in: path
+        name: id
         schema:
-          type: string
+          type: integer
+        required: true
+      tags:
+      - meetings
       requestBody:
         content:
           application/json:
@@ -84,6 +92,11 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/Meeting'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
       responses:
         '200':
           content:
@@ -91,29 +104,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/Meeting'
           description: ''
-      tags:
-      - api
     patch:
-      operationId: partialUpdateMeeting
-      description: ''
+      operationId: meetings_partial_update
       parameters:
-      - name: id
-        in: path
-        required: true
-        description: A unique integer value identifying this meeting.
+      - in: path
+        name: id
         schema:
-          type: string
+          type: integer
+        required: true
+      tags:
+      - meetings
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Meeting'
+              $ref: '#/components/schemas/PatchedMeeting'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Meeting'
+              $ref: '#/components/schemas/PatchedMeeting'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Meeting'
+              $ref: '#/components/schemas/PatchedMeeting'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
       responses:
         '200':
           content:
@@ -121,33 +136,273 @@ paths:
               schema:
                 $ref: '#/components/schemas/Meeting'
           description: ''
-      tags:
-      - api
     delete:
-      operationId: destroyMeeting
-      description: ''
+      operationId: meetings_destroy
       parameters:
-      - name: id
-        in: path
-        required: true
-        description: A unique integer value identifying this meeting.
+      - in: path
+        name: id
         schema:
-          type: string
+          type: integer
+        required: true
+      tags:
+      - meetings
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
       responses:
         '204':
-          description: ''
+          description: No response body
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
       tags:
-      - api
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/user:
+    get:
+      operationId: user_retrieve
+      tags:
+      - user
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/user/login:
+    post:
+      operationId: user_login_create
+      description: Provides user login
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: User was logged in
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: Wrong credentials
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: Generic server error
+  /api/user/logout:
+    post:
+      operationId: user_logout_create
+      description: Logouts user from the system
+      tags:
+      - user
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: User was logged out
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: Generic server error
 components:
   schemas:
+    Exception:
+      type: object
+      properties:
+        status_code:
+          type: integer
+        detail:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+      - password
+      - username
     Meeting:
       type: object
       properties:
         pk:
           type: integer
           readOnly: true
+          title: ID
         subject:
           type: string
+          title: Name
           maxLength: 240
         location:
           type: string
@@ -155,6 +410,7 @@ components:
           type: string
           format: date-time
           readOnly: true
+          title: Registration Date
         mentorEmail:
           type: string
           format: email
@@ -164,7 +420,77 @@ components:
           format: email
           maxLength: 254
       required:
-      - subject
       - location
-      - mentorEmail
       - menteeEmail
+      - mentorEmail
+      - subject
+    PatchedMeeting:
+      type: object
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+          title: ID
+        subject:
+          type: string
+          title: Name
+          maxLength: 240
+        location:
+          type: string
+        dateTime:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Registration Date
+        mentorEmail:
+          type: string
+          format: email
+          maxLength: 254
+        menteeEmail:
+          type: string
+          format: email
+          maxLength: 254
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        id:
+          type: integer
+          readOnly: true
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+      required:
+      - username
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
