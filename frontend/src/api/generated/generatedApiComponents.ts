@@ -13,7 +13,16 @@ import { generatedApiFetch } from './generatedApiFetcher'
 import type * as Schemas from './generatedApiSchemas'
 import type { ClientErrorStatus, ServerErrorStatus } from './generatedApiUtils'
 
-export type MeetingsListError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsListError = Fetcher.ErrorWrapper<
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 403>
+      payload: Schemas.Exception
+    }
+>
 
 export type MeetingsListResponse = Schemas.Meeting[]
 
@@ -54,7 +63,22 @@ export const useMeetingsList = <TData = MeetingsListResponse>(
   })
 }
 
-export type MeetingsCreateError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsCreateError = Fetcher.ErrorWrapper<
+  | {
+      status: 400
+      payload: {
+        [key: string]: string
+      }
+    }
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 201 | 400 | 403>
+      payload: Schemas.Exception
+    }
+>
 
 export type MeetingsCreateVariables = {
   body: Schemas.Meeting
@@ -99,7 +123,16 @@ export type MeetingsRetrievePathParams = {
   id: number
 }
 
-export type MeetingsRetrieveError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsRetrieveError = Fetcher.ErrorWrapper<
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 403>
+      payload: Schemas.Exception
+    }
+>
 
 export type MeetingsRetrieveVariables = {
   pathParams: MeetingsRetrievePathParams
@@ -144,7 +177,22 @@ export type MeetingsUpdatePathParams = {
   id: number
 }
 
-export type MeetingsUpdateError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsUpdateError = Fetcher.ErrorWrapper<
+  | {
+      status: 400
+      payload: {
+        [key: string]: string
+      }
+    }
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 400 | 403>
+      payload: Schemas.Exception
+    }
+>
 
 export type MeetingsUpdateVariables = {
   body: Schemas.Meeting
@@ -190,7 +238,22 @@ export type MeetingsPartialUpdatePathParams = {
   id: number
 }
 
-export type MeetingsPartialUpdateError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsPartialUpdateError = Fetcher.ErrorWrapper<
+  | {
+      status: 400
+      payload: {
+        [key: string]: string
+      }
+    }
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 400 | 403>
+      payload: Schemas.Exception
+    }
+>
 
 export type MeetingsPartialUpdateVariables = {
   body?: Schemas.PatchedMeeting
@@ -236,7 +299,16 @@ export type MeetingsDestroyPathParams = {
   id: number
 }
 
-export type MeetingsDestroyError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsDestroyError = Fetcher.ErrorWrapper<
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 204 | 403>
+      payload: Schemas.Exception
+    }
+>
 
 export type MeetingsDestroyVariables = {
   pathParams: MeetingsDestroyPathParams

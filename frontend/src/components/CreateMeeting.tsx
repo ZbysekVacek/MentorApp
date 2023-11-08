@@ -8,12 +8,30 @@ export function CreateMeeting() {
   const mentorEmailRef = useRef<HTMLInputElement | null>(null)
   const menteeEmailRef = useRef<HTMLInputElement | null>(null)
 
+  const getErrorMessage = (defaultMessage: string) => {
+    const error = createMeetingMutation.error
+    if (error && error.payload) {
+      if (typeof error.payload === 'object') {
+        if (error.payload.detail) {
+          return `${defaultMessage}: ${error.payload.detail}`
+        }
+      }
+
+      // Validation error. Payload is Record<string, string[]>
+      if (typeof error.payload === 'string') {
+        return defaultMessage
+      }
+    }
+
+    return defaultMessage
+  }
+
   if (createMeetingMutation.isPending) {
     return <>creating meeting</>
   }
 
   if (createMeetingMutation.error) {
-    return <>meeting cannot be created</>
+    return <>{getErrorMessage('Meeting cannot be created')}</>
   }
 
   if (createMeetingMutation.isSuccess) {

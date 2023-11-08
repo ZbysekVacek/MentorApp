@@ -12,7 +12,6 @@ paths:
       security:
       - cookieAuth: []
       - basicAuth: []
-      - {}
       responses:
         '200':
           content:
@@ -22,6 +21,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Meeting'
           description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: User is not logged in
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: Generic server error
     post:
       operationId: meetings_create
       tags:
@@ -41,7 +52,6 @@ paths:
       security:
       - cookieAuth: []
       - basicAuth: []
-      - {}
       responses:
         '201':
           content:
@@ -49,6 +59,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Meeting'
           description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+          description: Validation error
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: User is not logged in
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: Generic server error
   /api/meetings/{id}:
     get:
       operationId: meetings_retrieve
@@ -63,7 +93,6 @@ paths:
       security:
       - cookieAuth: []
       - basicAuth: []
-      - {}
       responses:
         '200':
           content:
@@ -71,6 +100,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Meeting'
           description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: User is not logged in
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: Generic server error
     put:
       operationId: meetings_update
       parameters:
@@ -96,7 +137,6 @@ paths:
       security:
       - cookieAuth: []
       - basicAuth: []
-      - {}
       responses:
         '200':
           content:
@@ -104,6 +144,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Meeting'
           description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+          description: Validation error
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: User is not logged in
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: Generic server error
     patch:
       operationId: meetings_partial_update
       parameters:
@@ -128,7 +188,6 @@ paths:
       security:
       - cookieAuth: []
       - basicAuth: []
-      - {}
       responses:
         '200':
           content:
@@ -136,6 +195,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Meeting'
           description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+          description: Validation error
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: User is not logged in
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: Generic server error
     delete:
       operationId: meetings_destroy
       parameters:
@@ -149,10 +228,21 @@ paths:
       security:
       - cookieAuth: []
       - basicAuth: []
-      - {}
       responses:
         '204':
           description: No response body
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: User is not logged in
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exception'
+          description: Generic server error
   /api/schema/:
     get:
       operationId: schema_retrieve

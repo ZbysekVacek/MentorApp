@@ -55,7 +55,7 @@ class UserLogin(generics.GenericAPIView):
             )
 
 
-class UserLogout(generics.GenericAPIView):
+class UserLogout(APIView):
     """
     Logouts user from the system
     """

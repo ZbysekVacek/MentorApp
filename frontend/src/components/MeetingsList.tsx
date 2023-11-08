@@ -8,6 +8,7 @@ export function MeetingsList() {
   }
 
   if (error) {
+    console.log({ error })
     return <>meeting cannot be loaded</>
   }
 
