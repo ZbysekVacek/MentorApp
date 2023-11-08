@@ -7,7 +7,7 @@ export default defineConfig({
   generatedApi: {
     from: {
       source: 'url',
-      url: 'http://localhost:8000/openapi?format=openapi-json',
+      url: 'http://localhost:8000/api/schema/',
     },
     outputDir: 'src/api/generated',
     to: async (context) => {

@@ -1,11 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
+from drf_spectacular.utils import extend_schema, OpenApiResponse
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.schemas.openapi import AutoSchema
 
-from backend.features.user.userSerializers import UserSerializer
+from backend.features.exception.exception_serializer import ExceptionSerializer
+from backend.features.user.userSerializers import UserSerializer, LoginRequestSerializer
 
 
 class UserDetail(generics.RetrieveAPIView):
@@ -16,73 +18,41 @@ class UserDetail(generics.RetrieveAPIView):
         return Response(currentUser.data)
 
 
-class CustomUserLoginSchema(AutoSchema):
-    def get_operation(self, path, method):
-        operation = super().get_operation(path, method)
-        operation["operationId"] = "userLogin"
-        operation["requestBody"] = {
-            "required": True,
-            "content": {
-                "application/json": {
-                    "schema": {
-                        "type": "object",
-                        "properties": {
-                            "username": {"type": "string"},
-                            "password": {
-                                "type": "string",
-                                "format": "password",
-                            },
-                        },
-                        "required": ["username", "password"],
-                    }
-                }
-            },
-        }
-        operation["responses"] = {
-            "200": {
-                "description": "Login successful",
-                "content": {
-                    "application/json": {
-                        "schema": {"$ref": "#/components/schemas/User"}
-                    }
-                },
-            },
-            "401": {
-                "description": "Invalid credentials",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "description": {"type": "string"},
-                                "code": {"type": "string"},
-                            },
-                        }
-                    }
-                },
-            },
-        }
-        return operation
-
-
-class UserLogin(APIView):
+class UserLogin(generics.GenericAPIView):
     """
     Provides user login
     """
 
     serializer_class = UserSerializer
-    schema = CustomUserLoginSchema()
 
+    @extend_schema(
+        request=LoginRequestSerializer,
+        responses={
+            status.HTTP_200_OK: OpenApiResponse(UserSerializer, "User was logged in"),
+            status.HTTP_401_UNAUTHORIZED: OpenApiResponse(
+                ExceptionSerializer, "Wrong credentials"
+            ),
+            "default": OpenApiResponse(ExceptionSerializer, "Generic server error"),
+        },
+    )
     def post(self, request, *args, **kwargs):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            current_user = self.serializer_class(user)
-            return Response(current_user.data)
+        login_serializer = LoginRequestSerializer(data=request.data)
+        if login_serializer.is_valid():
+            username = login_serializer.data.get("username")
+            password = login_serializer.data.get("password")
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                current_user = self.serializer_class(user)
+                return Response(current_user.data, status.HTTP_200_OK)
+            else:
+                raise AuthenticationFailed(
+                    detail="Invalid credentials", code=status.HTTP_401_UNAUTHORIZED
+                )
         else:
-            raise AuthenticationFailed(detail="Invalid credentials", code=None)
+            raise AuthenticationFailed(
+                detail="Invalid credentials", code=status.HTTP_401_UNAUTHORIZED
+            )
 
 
 class UserLogout(APIView):
@@ -90,6 +60,14 @@ class UserLogout(APIView):
     Logouts user from the system
     """
 
+    serializer_class = None
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: OpenApiResponse(None, "User was logged out"),
+            "default": OpenApiResponse(ExceptionSerializer, "Generic server error"),
+        },
+    )
     def post(self, request):
         logout(request)
         return Response(None, status=status.HTTP_200_OK)

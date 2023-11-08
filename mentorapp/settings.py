@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "drf_spectacular",
     "corsheaders",
     "backend",
 ]
@@ -147,3 +148,16 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# REST Framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "EXCEPTION_HANDLER": "backend.features.exception.mentorapp_exception_handler.mentorapp_exception_handler",
+}
+SPECTACULAR_SETTINGS = {
+    "TITLE": "MentorApp internal API",
+    "DESCRIPTION": "Internal API specification",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": True,
+    "COMPONENT_NO_READ_ONLY_REQUIRED": True,
+}

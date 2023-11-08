@@ -1,4 +1,5 @@
 import { GeneratedApiContext } from './generatedApiContext'
+import { ExpectedError } from '../customApiTypes'
 
 const baseUrl = '' // TODO add your baseUrl
 
@@ -23,7 +24,7 @@ export type GeneratedApiFetcherOptions<
 
 export async function generatedApiFetch<
   TData,
-  TError,
+  TError extends ErrorWrapper<ExpectedError | undefined>,
   TBody extends {} | FormData | undefined | null,
   THeaders extends {},
   TQueryParams extends {},
@@ -76,16 +77,23 @@ export async function generatedApiFetch<
       }
     )
     if (!response.ok) {
-      let error: ErrorWrapper<TError>
+      let error: ExpectedError
+      // let error
       try {
-        error = await response.json()
+        const errorBody = await response.json()
+        error = {
+          payload: errorBody,
+          status: response.status,
+        }
       } catch (e) {
         error = {
           status: 'unknown' as const,
-          payload:
-            e instanceof Error
-              ? `Unexpected error (${e.message})`
-              : 'Unexpected error',
+          payload: {
+            detail:
+              e instanceof Error
+                ? `Unexpected error (${e.message})`
+                : 'Unexpected error',
+          },
         }
       }
 
@@ -99,6 +107,9 @@ export async function generatedApiFetch<
       return (await response.blob()) as unknown as TData
     }
   } catch (e) {
+    if (e && typeof e === 'object' && e.hasOwnProperty('payload')) {
+      throw e
+    }
     let errorObject: Error = {
       name: 'unknown' as const,
       message:

@@ -11,73 +11,98 @@ import {
 import type * as Fetcher from './generatedApiFetcher'
 import { generatedApiFetch } from './generatedApiFetcher'
 import type * as Schemas from './generatedApiSchemas'
+import type { ClientErrorStatus, ServerErrorStatus } from './generatedApiUtils'
 
-export type ListMeetingsError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsListError = Fetcher.ErrorWrapper<
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 403>
+      payload: Schemas.Exception
+    }
+>
 
-export type ListMeetingsResponse = Schemas.Meeting[]
+export type MeetingsListResponse = Schemas.Meeting[]
 
-export type ListMeetingsVariables = GeneratedApiContext['fetcherOptions']
+export type MeetingsListVariables = GeneratedApiContext['fetcherOptions']
 
-export const fetchListMeetings = (
-  variables: ListMeetingsVariables,
+export const fetchMeetingsList = (
+  variables: MeetingsListVariables,
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
-    ListMeetingsResponse,
-    ListMeetingsError,
+    MeetingsListResponse,
+    MeetingsListError,
     undefined,
     {},
     {},
     {}
   >({ url: '/api/meetings/', method: 'get', ...variables, signal })
 
-export const useListMeetings = <TData = ListMeetingsResponse>(
-  variables: ListMeetingsVariables,
+export const useMeetingsList = <TData = MeetingsListResponse>(
+  variables: MeetingsListVariables,
   options?: Omit<
-    reactQuery.UseQueryOptions<ListMeetingsResponse, ListMeetingsError, TData>,
+    reactQuery.UseQueryOptions<MeetingsListResponse, MeetingsListError, TData>,
     'queryKey' | 'queryFn' | 'initialData'
   >
 ) => {
   const { fetcherOptions, queryOptions, queryKeyFn } =
     useGeneratedApiContext(options)
-  return reactQuery.useQuery<ListMeetingsResponse, ListMeetingsError, TData>({
+  return reactQuery.useQuery<MeetingsListResponse, MeetingsListError, TData>({
     queryKey: queryKeyFn({
       path: '/api/meetings/',
-      operationId: 'listMeetings',
+      operationId: 'meetingsList',
       variables,
     }),
     queryFn: ({ signal }) =>
-      fetchListMeetings({ ...fetcherOptions, ...variables }, signal),
+      fetchMeetingsList({ ...fetcherOptions, ...variables }, signal),
     ...options,
     ...queryOptions,
   })
 }
 
-export type CreateMeetingError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsCreateError = Fetcher.ErrorWrapper<
+  | {
+      status: 400
+      payload: {
+        [key: string]: string
+      }
+    }
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 201 | 400 | 403>
+      payload: Schemas.Exception
+    }
+>
 
-export type CreateMeetingVariables = {
+export type MeetingsCreateVariables = {
   body: Schemas.Meeting
 } & GeneratedApiContext['fetcherOptions']
 
-export const fetchCreateMeeting = (
-  variables: CreateMeetingVariables,
+export const fetchMeetingsCreate = (
+  variables: MeetingsCreateVariables,
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
     Schemas.Meeting,
-    CreateMeetingError,
+    MeetingsCreateError,
     Schemas.Meeting,
     {},
     {},
     {}
   >({ url: '/api/meetings/', method: 'post', ...variables, signal })
 
-export const useCreateMeeting = (
+export const useMeetingsCreate = (
   options?: Omit<
     reactQuery.UseMutationOptions<
       Schemas.Meeting,
-      CreateMeetingError,
-      CreateMeetingVariables
+      MeetingsCreateError,
+      MeetingsCreateVariables
     >,
     'mutationFn'
   >
@@ -85,96 +110,114 @@ export const useCreateMeeting = (
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
     Schemas.Meeting,
-    CreateMeetingError,
-    CreateMeetingVariables
+    MeetingsCreateError,
+    MeetingsCreateVariables
   >({
-    mutationFn: (variables: CreateMeetingVariables) =>
-      fetchCreateMeeting({ ...fetcherOptions, ...variables }),
+    mutationFn: (variables: MeetingsCreateVariables) =>
+      fetchMeetingsCreate({ ...fetcherOptions, ...variables }),
     ...options,
   })
 }
 
-export type RetrieveMeetingPathParams = {
-  /**
-   * A unique integer value identifying this meeting.
-   */
-  id: string
+export type MeetingsRetrievePathParams = {
+  id: number
 }
 
-export type RetrieveMeetingError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsRetrieveError = Fetcher.ErrorWrapper<
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 403>
+      payload: Schemas.Exception
+    }
+>
 
-export type RetrieveMeetingVariables = {
-  pathParams: RetrieveMeetingPathParams
+export type MeetingsRetrieveVariables = {
+  pathParams: MeetingsRetrievePathParams
 } & GeneratedApiContext['fetcherOptions']
 
-export const fetchRetrieveMeeting = (
-  variables: RetrieveMeetingVariables,
+export const fetchMeetingsRetrieve = (
+  variables: MeetingsRetrieveVariables,
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
     Schemas.Meeting,
-    RetrieveMeetingError,
+    MeetingsRetrieveError,
     undefined,
     {},
     {},
-    RetrieveMeetingPathParams
+    MeetingsRetrievePathParams
   >({ url: '/api/meetings/{id}', method: 'get', ...variables, signal })
 
-export const useRetrieveMeeting = <TData = Schemas.Meeting>(
-  variables: RetrieveMeetingVariables,
+export const useMeetingsRetrieve = <TData = Schemas.Meeting>(
+  variables: MeetingsRetrieveVariables,
   options?: Omit<
-    reactQuery.UseQueryOptions<Schemas.Meeting, RetrieveMeetingError, TData>,
+    reactQuery.UseQueryOptions<Schemas.Meeting, MeetingsRetrieveError, TData>,
     'queryKey' | 'queryFn' | 'initialData'
   >
 ) => {
   const { fetcherOptions, queryOptions, queryKeyFn } =
     useGeneratedApiContext(options)
-  return reactQuery.useQuery<Schemas.Meeting, RetrieveMeetingError, TData>({
+  return reactQuery.useQuery<Schemas.Meeting, MeetingsRetrieveError, TData>({
     queryKey: queryKeyFn({
       path: '/api/meetings/{id}',
-      operationId: 'retrieveMeeting',
+      operationId: 'meetingsRetrieve',
       variables,
     }),
     queryFn: ({ signal }) =>
-      fetchRetrieveMeeting({ ...fetcherOptions, ...variables }, signal),
+      fetchMeetingsRetrieve({ ...fetcherOptions, ...variables }, signal),
     ...options,
     ...queryOptions,
   })
 }
 
-export type UpdateMeetingPathParams = {
-  /**
-   * A unique integer value identifying this meeting.
-   */
-  id: string
+export type MeetingsUpdatePathParams = {
+  id: number
 }
 
-export type UpdateMeetingError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsUpdateError = Fetcher.ErrorWrapper<
+  | {
+      status: 400
+      payload: {
+        [key: string]: string
+      }
+    }
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 400 | 403>
+      payload: Schemas.Exception
+    }
+>
 
-export type UpdateMeetingVariables = {
+export type MeetingsUpdateVariables = {
   body: Schemas.Meeting
-  pathParams: UpdateMeetingPathParams
+  pathParams: MeetingsUpdatePathParams
 } & GeneratedApiContext['fetcherOptions']
 
-export const fetchUpdateMeeting = (
-  variables: UpdateMeetingVariables,
+export const fetchMeetingsUpdate = (
+  variables: MeetingsUpdateVariables,
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
     Schemas.Meeting,
-    UpdateMeetingError,
+    MeetingsUpdateError,
     Schemas.Meeting,
     {},
     {},
-    UpdateMeetingPathParams
+    MeetingsUpdatePathParams
   >({ url: '/api/meetings/{id}', method: 'put', ...variables, signal })
 
-export const useUpdateMeeting = (
+export const useMeetingsUpdate = (
   options?: Omit<
     reactQuery.UseMutationOptions<
       Schemas.Meeting,
-      UpdateMeetingError,
-      UpdateMeetingVariables
+      MeetingsUpdateError,
+      MeetingsUpdateVariables
     >,
     'mutationFn'
   >
@@ -182,48 +225,60 @@ export const useUpdateMeeting = (
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
     Schemas.Meeting,
-    UpdateMeetingError,
-    UpdateMeetingVariables
+    MeetingsUpdateError,
+    MeetingsUpdateVariables
   >({
-    mutationFn: (variables: UpdateMeetingVariables) =>
-      fetchUpdateMeeting({ ...fetcherOptions, ...variables }),
+    mutationFn: (variables: MeetingsUpdateVariables) =>
+      fetchMeetingsUpdate({ ...fetcherOptions, ...variables }),
     ...options,
   })
 }
 
-export type PartialUpdateMeetingPathParams = {
-  /**
-   * A unique integer value identifying this meeting.
-   */
-  id: string
+export type MeetingsPartialUpdatePathParams = {
+  id: number
 }
 
-export type PartialUpdateMeetingError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsPartialUpdateError = Fetcher.ErrorWrapper<
+  | {
+      status: 400
+      payload: {
+        [key: string]: string
+      }
+    }
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 400 | 403>
+      payload: Schemas.Exception
+    }
+>
 
-export type PartialUpdateMeetingVariables = {
-  body: Schemas.Meeting
-  pathParams: PartialUpdateMeetingPathParams
+export type MeetingsPartialUpdateVariables = {
+  body?: Schemas.PatchedMeeting
+  pathParams: MeetingsPartialUpdatePathParams
 } & GeneratedApiContext['fetcherOptions']
 
-export const fetchPartialUpdateMeeting = (
-  variables: PartialUpdateMeetingVariables,
+export const fetchMeetingsPartialUpdate = (
+  variables: MeetingsPartialUpdateVariables,
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
     Schemas.Meeting,
-    PartialUpdateMeetingError,
-    Schemas.Meeting,
+    MeetingsPartialUpdateError,
+    Schemas.PatchedMeeting,
     {},
     {},
-    PartialUpdateMeetingPathParams
+    MeetingsPartialUpdatePathParams
   >({ url: '/api/meetings/{id}', method: 'patch', ...variables, signal })
 
-export const usePartialUpdateMeeting = (
+export const useMeetingsPartialUpdate = (
   options?: Omit<
     reactQuery.UseMutationOptions<
       Schemas.Meeting,
-      PartialUpdateMeetingError,
-      PartialUpdateMeetingVariables
+      MeetingsPartialUpdateError,
+      MeetingsPartialUpdateVariables
     >,
     'mutationFn'
   >
@@ -231,47 +286,53 @@ export const usePartialUpdateMeeting = (
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
     Schemas.Meeting,
-    PartialUpdateMeetingError,
-    PartialUpdateMeetingVariables
+    MeetingsPartialUpdateError,
+    MeetingsPartialUpdateVariables
   >({
-    mutationFn: (variables: PartialUpdateMeetingVariables) =>
-      fetchPartialUpdateMeeting({ ...fetcherOptions, ...variables }),
+    mutationFn: (variables: MeetingsPartialUpdateVariables) =>
+      fetchMeetingsPartialUpdate({ ...fetcherOptions, ...variables }),
     ...options,
   })
 }
 
-export type DestroyMeetingPathParams = {
-  /**
-   * A unique integer value identifying this meeting.
-   */
-  id: string
+export type MeetingsDestroyPathParams = {
+  id: number
 }
 
-export type DestroyMeetingError = Fetcher.ErrorWrapper<undefined>
+export type MeetingsDestroyError = Fetcher.ErrorWrapper<
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 204 | 403>
+      payload: Schemas.Exception
+    }
+>
 
-export type DestroyMeetingVariables = {
-  pathParams: DestroyMeetingPathParams
+export type MeetingsDestroyVariables = {
+  pathParams: MeetingsDestroyPathParams
 } & GeneratedApiContext['fetcherOptions']
 
-export const fetchDestroyMeeting = (
-  variables: DestroyMeetingVariables,
+export const fetchMeetingsDestroy = (
+  variables: MeetingsDestroyVariables,
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
     undefined,
-    DestroyMeetingError,
+    MeetingsDestroyError,
     undefined,
     {},
     {},
-    DestroyMeetingPathParams
+    MeetingsDestroyPathParams
   >({ url: '/api/meetings/{id}', method: 'delete', ...variables, signal })
 
-export const useDestroyMeeting = (
+export const useMeetingsDestroy = (
   options?: Omit<
     reactQuery.UseMutationOptions<
       undefined,
-      DestroyMeetingError,
-      DestroyMeetingVariables
+      MeetingsDestroyError,
+      MeetingsDestroyVariables
     >,
     'mutationFn'
   >
@@ -279,83 +340,246 @@ export const useDestroyMeeting = (
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
     undefined,
-    DestroyMeetingError,
-    DestroyMeetingVariables
+    MeetingsDestroyError,
+    MeetingsDestroyVariables
   >({
-    mutationFn: (variables: DestroyMeetingVariables) =>
-      fetchDestroyMeeting({ ...fetcherOptions, ...variables }),
+    mutationFn: (variables: MeetingsDestroyVariables) =>
+      fetchMeetingsDestroy({ ...fetcherOptions, ...variables }),
     ...options,
   })
 }
 
-export type RetrieveUserError = Fetcher.ErrorWrapper<undefined>
+export type SchemaRetrieveQueryParams = {
+  format?: 'json' | 'yaml'
+  lang?:
+    | 'af'
+    | 'ar'
+    | 'ar-dz'
+    | 'ast'
+    | 'az'
+    | 'be'
+    | 'bg'
+    | 'bn'
+    | 'br'
+    | 'bs'
+    | 'ca'
+    | 'ckb'
+    | 'cs'
+    | 'cy'
+    | 'da'
+    | 'de'
+    | 'dsb'
+    | 'el'
+    | 'en'
+    | 'en-au'
+    | 'en-gb'
+    | 'eo'
+    | 'es'
+    | 'es-ar'
+    | 'es-co'
+    | 'es-mx'
+    | 'es-ni'
+    | 'es-ve'
+    | 'et'
+    | 'eu'
+    | 'fa'
+    | 'fi'
+    | 'fr'
+    | 'fy'
+    | 'ga'
+    | 'gd'
+    | 'gl'
+    | 'he'
+    | 'hi'
+    | 'hr'
+    | 'hsb'
+    | 'hu'
+    | 'hy'
+    | 'ia'
+    | 'id'
+    | 'ig'
+    | 'io'
+    | 'is'
+    | 'it'
+    | 'ja'
+    | 'ka'
+    | 'kab'
+    | 'kk'
+    | 'km'
+    | 'kn'
+    | 'ko'
+    | 'ky'
+    | 'lb'
+    | 'lt'
+    | 'lv'
+    | 'mk'
+    | 'ml'
+    | 'mn'
+    | 'mr'
+    | 'ms'
+    | 'my'
+    | 'nb'
+    | 'ne'
+    | 'nl'
+    | 'nn'
+    | 'os'
+    | 'pa'
+    | 'pl'
+    | 'pt'
+    | 'pt-br'
+    | 'ro'
+    | 'ru'
+    | 'sk'
+    | 'sl'
+    | 'sq'
+    | 'sr'
+    | 'sr-latn'
+    | 'sv'
+    | 'sw'
+    | 'ta'
+    | 'te'
+    | 'tg'
+    | 'th'
+    | 'tk'
+    | 'tr'
+    | 'tt'
+    | 'udm'
+    | 'uk'
+    | 'ur'
+    | 'uz'
+    | 'vi'
+    | 'zh-hans'
+    | 'zh-hant'
+}
 
-export type RetrieveUserVariables = GeneratedApiContext['fetcherOptions']
+export type SchemaRetrieveError = Fetcher.ErrorWrapper<undefined>
 
-export const fetchRetrieveUser = (
-  variables: RetrieveUserVariables,
+export type SchemaRetrieveResponse = {
+  [key: string]: any
+}
+
+export type SchemaRetrieveVariables = {
+  queryParams?: SchemaRetrieveQueryParams
+} & GeneratedApiContext['fetcherOptions']
+
+/**
+ * OpenApi3 schema for this API. Format can be selected via content negotiation.
+ *
+ * - YAML: application/vnd.oai.openapi
+ * - JSON: application/vnd.oai.openapi+json
+ */
+export const fetchSchemaRetrieve = (
+  variables: SchemaRetrieveVariables,
   signal?: AbortSignal
 ) =>
-  generatedApiFetch<Schemas.User, RetrieveUserError, undefined, {}, {}, {}>({
+  generatedApiFetch<
+    SchemaRetrieveResponse,
+    SchemaRetrieveError,
+    undefined,
+    {},
+    SchemaRetrieveQueryParams,
+    {}
+  >({ url: '/api/schema/', method: 'get', ...variables, signal })
+
+/**
+ * OpenApi3 schema for this API. Format can be selected via content negotiation.
+ *
+ * - YAML: application/vnd.oai.openapi
+ * - JSON: application/vnd.oai.openapi+json
+ */
+export const useSchemaRetrieve = <TData = SchemaRetrieveResponse>(
+  variables: SchemaRetrieveVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      SchemaRetrieveResponse,
+      SchemaRetrieveError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    SchemaRetrieveResponse,
+    SchemaRetrieveError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/schema/',
+      operationId: 'schemaRetrieve',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchSchemaRetrieve({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type UserRetrieveError = Fetcher.ErrorWrapper<undefined>
+
+export type UserRetrieveVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchUserRetrieve = (
+  variables: UserRetrieveVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<Schemas.User, UserRetrieveError, undefined, {}, {}, {}>({
     url: '/api/user',
     method: 'get',
     ...variables,
     signal,
   })
 
-export const useRetrieveUser = <TData = Schemas.User>(
-  variables: RetrieveUserVariables,
+export const useUserRetrieve = <TData = Schemas.User>(
+  variables: UserRetrieveVariables,
   options?: Omit<
-    reactQuery.UseQueryOptions<Schemas.User, RetrieveUserError, TData>,
+    reactQuery.UseQueryOptions<Schemas.User, UserRetrieveError, TData>,
     'queryKey' | 'queryFn' | 'initialData'
   >
 ) => {
   const { fetcherOptions, queryOptions, queryKeyFn } =
     useGeneratedApiContext(options)
-  return reactQuery.useQuery<Schemas.User, RetrieveUserError, TData>({
+  return reactQuery.useQuery<Schemas.User, UserRetrieveError, TData>({
     queryKey: queryKeyFn({
       path: '/api/user',
-      operationId: 'retrieveUser',
+      operationId: 'userRetrieve',
       variables,
     }),
     queryFn: ({ signal }) =>
-      fetchRetrieveUser({ ...fetcherOptions, ...variables }, signal),
+      fetchUserRetrieve({ ...fetcherOptions, ...variables }, signal),
     ...options,
     ...queryOptions,
   })
 }
 
-export type UserLoginError = Fetcher.ErrorWrapper<{
-  status: 401
-  payload: {
-    description?: string
-    code?: string
-  }
-}>
+export type UserLoginCreateError = Fetcher.ErrorWrapper<
+  | {
+      status: 401
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 401>
+      payload: Schemas.Exception
+    }
+>
 
-export type UserLoginRequestBody = {
-  username: string
-  /**
-   * @format password
-   */
-  password: string
-}
-
-export type UserLoginVariables = {
-  body: UserLoginRequestBody
+export type UserLoginCreateVariables = {
+  body: Schemas.LoginRequest
 } & GeneratedApiContext['fetcherOptions']
 
 /**
  * Provides user login
  */
-export const fetchUserLogin = (
-  variables: UserLoginVariables,
+export const fetchUserLoginCreate = (
+  variables: UserLoginCreateVariables,
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
     Schemas.User,
-    UserLoginError,
-    UserLoginRequestBody,
+    UserLoginCreateError,
+    Schemas.LoginRequest,
     {},
     {},
     {}
@@ -364,12 +588,12 @@ export const fetchUserLogin = (
 /**
  * Provides user login
  */
-export const useUserLogin = (
+export const useUserLoginCreate = (
   options?: Omit<
     reactQuery.UseMutationOptions<
       Schemas.User,
-      UserLoginError,
-      UserLoginVariables
+      UserLoginCreateError,
+      UserLoginCreateVariables
     >,
     'mutationFn'
   >
@@ -377,29 +601,30 @@ export const useUserLogin = (
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
     Schemas.User,
-    UserLoginError,
-    UserLoginVariables
+    UserLoginCreateError,
+    UserLoginCreateVariables
   >({
-    mutationFn: (variables: UserLoginVariables) =>
-      fetchUserLogin({ ...fetcherOptions, ...variables }),
+    mutationFn: (variables: UserLoginCreateVariables) =>
+      fetchUserLoginCreate({ ...fetcherOptions, ...variables }),
     ...options,
   })
 }
 
-export type CreateUserLogoutError = Fetcher.ErrorWrapper<undefined>
+export type UserLogoutCreateError = Fetcher.ErrorWrapper<{
+  status: Exclude<ClientErrorStatus | ServerErrorStatus, 200>
+  payload: Schemas.Exception
+}>
 
-export type CreateUserLogoutVariables = {
-  body?: void
-} & GeneratedApiContext['fetcherOptions']
+export type UserLogoutCreateVariables = GeneratedApiContext['fetcherOptions']
 
 /**
  * Logouts user from the system
  */
-export const fetchCreateUserLogout = (
-  variables: CreateUserLogoutVariables,
+export const fetchUserLogoutCreate = (
+  variables: UserLogoutCreateVariables,
   signal?: AbortSignal
 ) =>
-  generatedApiFetch<void, CreateUserLogoutError, void, {}, {}, {}>({
+  generatedApiFetch<undefined, UserLogoutCreateError, undefined, {}, {}, {}>({
     url: '/api/user/logout',
     method: 'post',
     ...variables,
@@ -409,24 +634,24 @@ export const fetchCreateUserLogout = (
 /**
  * Logouts user from the system
  */
-export const useCreateUserLogout = (
+export const useUserLogoutCreate = (
   options?: Omit<
     reactQuery.UseMutationOptions<
-      void,
-      CreateUserLogoutError,
-      CreateUserLogoutVariables
+      undefined,
+      UserLogoutCreateError,
+      UserLogoutCreateVariables
     >,
     'mutationFn'
   >
 ) => {
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
-    void,
-    CreateUserLogoutError,
-    CreateUserLogoutVariables
+    undefined,
+    UserLogoutCreateError,
+    UserLogoutCreateVariables
   >({
-    mutationFn: (variables: CreateUserLogoutVariables) =>
-      fetchCreateUserLogout({ ...fetcherOptions, ...variables }),
+    mutationFn: (variables: UserLogoutCreateVariables) =>
+      fetchUserLogoutCreate({ ...fetcherOptions, ...variables }),
     ...options,
   })
 }
@@ -434,16 +659,21 @@ export const useCreateUserLogout = (
 export type QueryOperation =
   | {
       path: '/api/meetings/'
-      operationId: 'listMeetings'
-      variables: ListMeetingsVariables
+      operationId: 'meetingsList'
+      variables: MeetingsListVariables
     }
   | {
       path: '/api/meetings/{id}'
-      operationId: 'retrieveMeeting'
-      variables: RetrieveMeetingVariables
+      operationId: 'meetingsRetrieve'
+      variables: MeetingsRetrieveVariables
+    }
+  | {
+      path: '/api/schema/'
+      operationId: 'schemaRetrieve'
+      variables: SchemaRetrieveVariables
     }
   | {
       path: '/api/user'
-      operationId: 'retrieveUser'
-      variables: RetrieveUserVariables
+      operationId: 'userRetrieve'
+      variables: UserRetrieveVariables
     }

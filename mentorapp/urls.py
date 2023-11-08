@@ -19,29 +19,27 @@ from django.urls import path, re_path, include
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework.schemas import get_schema_view
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from backend import views
 from backend.features.user.userUrls import userUrls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # re_path(r'^api/meetings/$', views.meetings_list),
     re_path(r"^api/meetings/$", views.MeetingsList.as_view()),
     path("api/meetings/<int:pk>", views.MeetingDetail.as_view()),
-    # re_path(r"^api/meetings/([0-9])$", views.meetings_detail),
     path("", TemplateView.as_view(template_name="index.html")),
     path("api/", include(userUrls)),
-    # Use the `get_schema_view()` helper to add a `SchemaView` to project URLs.
-    #   * `title` and `description` parameters are passed to `SchemaGenerator`.
-    #   * Provide view name for use with `reverse()`.
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
-        "openapi",
-        get_schema_view(
-            title="MentorApp internal API",
-            description="Internal API for communication between BE and FE",
-            version="1.0.0",
-        ),
-        name="openapi-schema",
+        "api/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
     ),
+    # If you need Redoc, just uncomment
+    # path(
+    #     "api/schema/redoc/",
+    #     SpectacularRedocView.as_view(url_name="schema"),
+    #     name="redoc",
+    # ),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
