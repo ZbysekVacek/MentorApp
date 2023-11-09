@@ -12,14 +12,19 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
     { title: 'Meetings', href: Routes.Meetings },
   ],
 }
+const defaultItems: ItemType[] = [{ title: 'Home', href: Routes.Index }]
 
 const MentorAppBreadcrumbs = () => {
   const pathname = useLocation().pathname
-  assertIsRoute(pathname)
 
-  const items = breadcrumbsByRoute[pathname]
+  let usedBreadCrumbs = defaultItems
 
-  return <Breadcrumb style={{ margin: '16px 0' }} items={items} />
+  if ((Object.values(Routes) as string[]).includes(pathname)) {
+    assertIsRoute(pathname)
+    usedBreadCrumbs = breadcrumbsByRoute[pathname]
+  }
+
+  return <Breadcrumb style={{ margin: '16px 0' }} items={usedBreadCrumbs} />
 }
 
 export default MentorAppBreadcrumbs

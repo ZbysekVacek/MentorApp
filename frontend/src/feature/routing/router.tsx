@@ -5,6 +5,7 @@ import MeetingsPage from '../../pages/MeetingsPage'
 import React from 'react'
 import AppLayout from '../app/AppLayout'
 import { Routes } from './routes'
+import NotFoundPage from '../../pages/NotFoundPage'
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.Meetings,
         element: <MeetingsPage />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },
