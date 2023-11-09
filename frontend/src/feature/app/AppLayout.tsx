@@ -1,9 +1,8 @@
 import React from 'react'
-import { Breadcrumb, Layout, Menu, theme, Typography } from 'antd'
+import { Layout, Menu, theme } from 'antd'
 import logo from '../../logo.svg'
-import { MeetingsList } from '../../components/MeetingsList'
-import { CreateMeeting } from '../../components/CreateMeeting'
-import UserInfo from '../user/UserInfo'
+import MentorAppBreadcrumbs from '../routing/RouteBreadcrumbs'
+import { Outlet } from 'react-router-dom'
 
 const { Header, Content, Footer } = Layout
 
@@ -24,9 +23,7 @@ const AppLayout: React.FC = () => {
         />
       </Header>
       <Content style={{ padding: '0 50px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-        </Breadcrumb>
+        <MentorAppBreadcrumbs />
         <Content
           style={{
             padding: '24px',
@@ -35,11 +32,7 @@ const AppLayout: React.FC = () => {
             background: colorBgContainer,
           }}
         >
-          <Typography.Title>Mentoring App</Typography.Title>
-          <Typography.Title level={3}>Current meetings</Typography.Title>
-          <UserInfo />
-          <MeetingsList />
-          <CreateMeeting />
+          <Outlet />
         </Content>
       </Content>
       <Footer style={{ textAlign: 'center' }}>MentorApp ©2023</Footer>
