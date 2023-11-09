@@ -1,18 +1,20 @@
 import { ItemType } from 'antd/lib/breadcrumb/Breadcrumb'
 import { Breadcrumb } from 'antd'
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { assertIsRoute, Routes } from './routes'
 
 const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
   [Routes.Index]: [],
-  [Routes.HomePage]: [{ title: 'Home', href: Routes.Index }],
+  [Routes.HomePage]: [{ title: <NavLink to={Routes.HomePage}>Home</NavLink> }],
   [Routes.Meetings]: [
-    { title: 'Home', href: Routes.Index },
-    { title: 'Meetings', href: Routes.Meetings },
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.Meetings}>Meetings</NavLink> },
   ],
 }
-const defaultItems: ItemType[] = [{ title: 'Home', href: Routes.Index }]
+const defaultItems: ItemType[] = [
+  { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+]
 
 const MentorAppBreadcrumbs = () => {
   const pathname = useLocation().pathname

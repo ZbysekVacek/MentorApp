@@ -2,8 +2,9 @@ import React from 'react'
 import { Layout, Menu, theme } from 'antd'
 import logo from '../../logo.svg'
 import MentorAppBreadcrumbs from '../routing/RouteBreadcrumbs'
-import { Outlet } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import AppErrorBoundary from '../../components/AppErrorBoundary'
+import { Routes } from '../routing/routes'
 
 const { Header, Content, Footer } = Layout
 
@@ -20,7 +21,16 @@ const AppLayout: React.FC = () => {
           theme="dark"
           mode="horizontal"
           style={{ width: '100%' }}
-          items={[{ key: 'homepage', label: 'Home' }]}
+          items={[
+            {
+              key: 'homepage',
+              label: <NavLink to={Routes.HomePage}>Home</NavLink>,
+            },
+            {
+              key: 'meetings',
+              label: <NavLink to={Routes.Meetings}>Meetings</NavLink>,
+            },
+          ]}
         />
       </Header>
       <Content style={{ padding: '0 50px' }}>
