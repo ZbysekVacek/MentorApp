@@ -3,6 +3,7 @@ import { Layout, Menu, theme } from 'antd'
 import logo from '../../logo.svg'
 import MentorAppBreadcrumbs from '../routing/RouteBreadcrumbs'
 import { Outlet } from 'react-router-dom'
+import AppErrorBoundary from '../../components/AppErrorBoundary'
 
 const { Header, Content, Footer } = Layout
 
@@ -32,7 +33,9 @@ const AppLayout: React.FC = () => {
             background: colorBgContainer,
           }}
         >
-          <Outlet />
+          <AppErrorBoundary>
+            <Outlet />
+          </AppErrorBoundary>
         </Content>
       </Content>
       <Footer style={{ textAlign: 'center' }}>MentorApp ©2023</Footer>
