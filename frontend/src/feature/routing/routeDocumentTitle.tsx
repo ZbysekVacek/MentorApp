@@ -11,6 +11,7 @@ const routeByRoute: Record<Routes, string> = {
   [Routes.HomePage]: 'Home - MentorApp',
   [Routes.Meetings]: 'Meetings - MentorApp',
   [Routes.MyMentoring]: 'My Mentoring - MentorApp',
+  [Routes.MyMentoringMyMentors]: 'My Mentors - MentorApp',
   [Routes.Posts]: 'Posts - MentorApp',
 }
 

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { Routes } from '../routing/routes'
 import Logo from './Logo'
 import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
+import './MainNavigation.css'
 
 const { Header } = Layout
 
@@ -14,7 +15,17 @@ const loggedInMenuItems = [
   },
   {
     key: 'my-mentoring',
-    label: <NavLink to={Routes.MyMentoring}>My Mentoring</NavLink>,
+    label: (
+      <NavLink to={Routes.MyMentoring} className="ant-menu-title-content">
+        My Mentoring
+      </NavLink>
+    ),
+    children: [
+      {
+        key: 'my-mentoring-my-mentors',
+        label: <NavLink to={Routes.MyMentoringMyMentors}>My Mentors</NavLink>,
+      },
+    ],
   },
   {
     key: 'posts',
@@ -49,7 +60,7 @@ const MainNavigation: React.FC = () => {
   } = useUserRetrieve({})
 
   return (
-    <Header style={{ display: 'flex', alignItems: 'center' }}>
+    <Header className="MainNavigation">
       <Logo />
       <Menu
         theme="dark"

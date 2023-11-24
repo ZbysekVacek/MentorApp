@@ -1,0 +1,12 @@
+.MainNavigation {
+    display: flex;
+    align-items: center;
+}
+
+.MainNavigation a {
+    /**
+    * Fix for navigation item that have sub-items was displayed in blue color
+    */
+    color: currentColor;
+}
+
