@@ -17,6 +17,7 @@ import SearchMentorPage from '../../pages/restricted/myMentoring/SearchMentorPag
 import TasksPage from '../../pages/restricted/tasks/TasksPage'
 import TasksCreatedPage from '../../pages/restricted/tasks/TasksCreatedPage'
 import NotesPage from '../../pages/restricted/NotesPage'
+import ConnectionsPage from '../../pages/restricted/connections/ConnectionsPage'
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.Notes,
         element: <NotesPage />,
+      },
+      {
+        path: Routes.Connections,
+        element: <ConnectionsPage />,
       },
       {
         path: '*',
