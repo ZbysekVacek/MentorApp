@@ -21,6 +21,11 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
     { title: <NavLink to={Routes.MyMentoring}>My Mentoring</NavLink> },
     { title: <NavLink to={Routes.MyMentoringMyMentors}>My Mentors</NavLink> },
   ],
+  [Routes.MyMentoringMyMentees]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.MyMentoring}>My Mentoring</NavLink> },
+    { title: <NavLink to={Routes.MyMentoringMyMentees}>My Mentees</NavLink> },
+  ],
   [Routes.Posts]: [
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Posts}>Posts</NavLink> },

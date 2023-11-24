@@ -18,8 +18,8 @@ const MentoringTabs = () => {
           key: Routes.MyMentoringMyMentors,
         },
         {
-          label: 'My Mentees',
-          key: '3',
+          label: <Link to={Routes.MyMentoringMyMentees}>My Mentees</Link>,
+          key: Routes.MyMentoringMyMentees,
         },
         {
           label: 'Search for mentor',

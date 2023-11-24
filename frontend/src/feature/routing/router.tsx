@@ -12,6 +12,7 @@ import RegisterPage from '../../pages/public/RegisterPage'
 import PostsPage from '../../pages/restricted/PostsPage'
 import MyMentoringPage from '../../pages/restricted/myMentoring/MyMentoringPage'
 import MyMentorsPage from '../../pages/restricted/myMentoring/MyMentorsPage'
+import MyMenteesPage from '../../pages/restricted/myMentoring/MyMenteesPage'
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.MyMentoringMyMentors,
         element: <MyMentorsPage />,
+      },
+      {
+        path: Routes.MyMentoringMyMentees,
+        element: <MyMenteesPage />,
       },
       {
         path: Routes.Posts,
