@@ -18,6 +18,7 @@ export enum Routes {
   TasksCreated = '/tasks/created',
   Notes = '/notes',
   Connections = '/connections',
+  ConnectionsSearch = '/connections-search',
 }
 
 export function assertIsRoute(path: string): asserts path is Routes {

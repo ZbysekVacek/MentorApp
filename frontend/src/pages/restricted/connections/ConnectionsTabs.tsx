@@ -15,9 +15,9 @@ const ConnectionsTabs = () => {
         },
         {
           label: (
-            <Link to={Routes.MyMentoringMyMentors}>Search For Connections</Link>
+            <Link to={Routes.ConnectionsSearch}>Search For Connections</Link>
           ),
-          key: Routes.MyMentoringMyMentors,
+          key: Routes.ConnectionsSearch,
         },
       ]}
     />
