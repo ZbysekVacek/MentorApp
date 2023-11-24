@@ -5,6 +5,7 @@ import { ExternalRoutes, Routes } from '../routing/routes'
 import Logo from './Logo'
 import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
 import './MainNavigation.css'
+import { BellOutlined } from '@ant-design/icons'
 
 const { Header } = Layout
 
@@ -58,6 +59,14 @@ const loggedInMenuItems = [
   {
     key: 'connections',
     label: <NavLink to={Routes.Connections}>Connections</NavLink>,
+  },
+  {
+    key: 'notifications',
+    label: (
+      <NavLink to={Routes.Notifications} className="MainNavigation__iconItem">
+        <BellOutlined />
+      </NavLink>
+    ),
   },
 ]
 

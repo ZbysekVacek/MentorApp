@@ -19,6 +19,7 @@ import TasksCreatedPage from '../../pages/restricted/tasks/TasksCreatedPage'
 import NotesPage from '../../pages/restricted/NotesPage'
 import ConnectionsPage from '../../pages/restricted/connections/ConnectionsPage'
 import ConnectionsSearchPage from '../../pages/restricted/connections/ConnectionsSearchPage'
+import NotificationsPage from '../../pages/restricted/NotificationsPage'
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +88,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.ConnectionsSearch,
         element: <ConnectionsSearchPage />,
+      },
+      {
+        path: Routes.Notifications,
+        element: <NotificationsPage />,
       },
       {
         path: '*',
