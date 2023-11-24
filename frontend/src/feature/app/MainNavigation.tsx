@@ -47,6 +47,10 @@ const loggedInMenuItems = [
     key: 'meetings',
     label: <NavLink to={Routes.Meetings}>Meetings</NavLink>,
   },
+  {
+    key: 'tasks',
+    label: <NavLink to={Routes.Tasks}>Tasks</NavLink>,
+  },
 ]
 
 const notLoggedInMenuItems = [
