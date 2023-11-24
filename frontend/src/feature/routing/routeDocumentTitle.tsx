@@ -5,6 +5,7 @@ const routeByRoute: Record<Routes, string> = {
     'MentorApp - free opensource mentoring application for small and medium organizations',
   [Routes.HomePage]: 'Home - MentorApp',
   [Routes.Meetings]: 'Meetings - MentorApp',
+  [Routes.About]: 'About the project - MentorApp',
 }
 
 /**

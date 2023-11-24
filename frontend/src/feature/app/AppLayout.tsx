@@ -1,12 +1,11 @@
 import React from 'react'
-import { Layout, Menu, theme } from 'antd'
+import { Layout, theme } from 'antd'
 import MentorAppBreadcrumbs from '../routing/RouteBreadcrumbs'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import AppErrorBoundary from '../../components/AppErrorBoundary'
-import { Routes } from '../routing/routes'
-import Logo from './Logo'
+import MainNavigation from './MainNavigation'
 
-const { Header, Content, Footer } = Layout
+const { Content, Footer } = Layout
 
 const AppLayout: React.FC = () => {
   const {
@@ -15,24 +14,7 @@ const AppLayout: React.FC = () => {
 
   return (
     <Layout className="layout">
-      <Header style={{ display: 'flex', alignItems: 'center' }}>
-        <Logo />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          style={{ width: '100%' }}
-          items={[
-            {
-              key: 'homepage',
-              label: <NavLink to={Routes.HomePage}>Home</NavLink>,
-            },
-            {
-              key: 'meetings',
-              label: <NavLink to={Routes.Meetings}>Meetings</NavLink>,
-            },
-          ]}
-        />
-      </Header>
+      <MainNavigation />
       <Content style={{ padding: '0 50px' }}>
         <MentorAppBreadcrumbs />
         <Content

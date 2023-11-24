@@ -6,6 +6,7 @@ import React from 'react'
 import AppLayout from '../app/AppLayout'
 import { Routes } from './routes'
 import NotFoundPage from '../../pages/NotFoundPage'
+import AboutPage from '../../pages/AboutPage'
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.Meetings,
         element: <MeetingsPage />,
+      },
+      {
+        path: Routes.About,
+        element: <AboutPage />,
       },
       {
         path: '*',
