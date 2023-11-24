@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Routes } from '../feature/routing/routes'
+import { Routes } from '../../feature/routing/routes'
 import { Typography } from 'antd'
 import { useDocumentTitle } from '@uidotdev/usehooks'
-import { getRouteTitle } from '../feature/routing/routeDocumentTitle'
+import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
 
 // TODO MentorApp: implement the page
 const AboutPage = () => {

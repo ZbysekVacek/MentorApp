@@ -1,11 +1,11 @@
 import React from 'react'
-import UserInfo from '../feature/user/UserInfo'
-import { useUserRetrieve } from '../api/generated/generatedApiComponents'
+import UserInfo from '../../feature/user/UserInfo'
+import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
 
-import { Routes } from '../feature/routing/routes'
+import { Routes } from '../../feature/routing/routes'
 import { Typography } from 'antd'
 import { useDocumentTitle } from '@uidotdev/usehooks'
-import { getRouteTitle } from '../feature/routing/routeDocumentTitle'
+import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
 
 // TODO MentorApp: implement the page
 const IndexPage: React.FC = () => {
