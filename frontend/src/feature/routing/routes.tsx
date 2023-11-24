@@ -4,6 +4,7 @@ export enum Routes {
   Meetings = '/meetings',
   About = '/about',
   Login = '/login',
+  Register = '/register',
 }
 
 export function assertIsRoute(path: string): asserts path is Routes {

@@ -8,6 +8,7 @@ import { Routes } from './routes'
 import NotFoundPage from '../../pages/NotFoundPage'
 import AboutPage from '../../pages/AboutPage'
 import LoginPage from '../../pages/LoginPage'
+import RegisterPage from '../../pages/RegisterPage'
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.Login,
         element: <LoginPage />,
+      },
+      {
+        path: Routes.Register,
+        element: <RegisterPage />,
       },
       {
         path: '*',

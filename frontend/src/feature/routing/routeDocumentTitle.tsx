@@ -7,6 +7,7 @@ const routeByRoute: Record<Routes, string> = {
   [Routes.Meetings]: 'Meetings - MentorApp',
   [Routes.About]: 'About the project - MentorApp',
   [Routes.Login]: 'Login in - MentorApp',
+  [Routes.Register]: 'Registration - MentorApp',
 }
 
 /**
