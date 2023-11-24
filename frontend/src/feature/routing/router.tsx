@@ -10,6 +10,7 @@ import AboutPage from '../../pages/public/AboutPage'
 import LoginPage from '../../pages/public/LoginPage'
 import RegisterPage from '../../pages/public/RegisterPage'
 import PostsPage from '../../pages/restricted/PostsPage'
+import MyMentoringPage from '../../pages/restricted/MyMentoringPage'
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.Meetings,
         element: <MeetingsPage />,
+      },
+      {
+        path: Routes.MyMentoring,
+        element: <MyMentoringPage />,
       },
       {
         path: Routes.Posts,

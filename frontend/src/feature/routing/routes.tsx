@@ -1,3 +1,7 @@
+/**
+ * Enum of all routes in the app.
+ * It is required to add all new routes there.
+ */
 export enum Routes {
   Index = '/',
   HomePage = '/home',
@@ -6,6 +10,7 @@ export enum Routes {
   Login = '/login',
   Register = '/register',
   Posts = '/posts',
+  MyMentoring = '/my-mentoring',
 }
 
 export function assertIsRoute(path: string): asserts path is Routes {

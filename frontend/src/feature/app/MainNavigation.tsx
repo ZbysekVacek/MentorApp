@@ -13,6 +13,10 @@ const loggedInMenuItems = [
     label: <NavLink to={Routes.HomePage}>Home</NavLink>,
   },
   {
+    key: 'my-mentoring',
+    label: <NavLink to={Routes.MyMentoring}>My Mentoring</NavLink>,
+  },
+  {
     key: 'posts',
     label: <NavLink to={Routes.Posts}>Posts</NavLink>,
   },
