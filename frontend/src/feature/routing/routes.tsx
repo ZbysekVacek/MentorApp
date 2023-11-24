@@ -20,6 +20,7 @@ export enum Routes {
   Connections = '/connections',
   ConnectionsSearch = '/connections-search',
   Notifications = '/notifications',
+  Messages = '/messages',
 }
 
 /**
