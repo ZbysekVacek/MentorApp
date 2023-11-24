@@ -1,13 +1,13 @@
 import React from 'react'
 import UserInfo from '../feature/user/UserInfo'
 import { useUserRetrieve } from '../api/generated/generatedApiComponents'
-import { Link } from 'react-router-dom'
 
 import { Routes } from '../feature/routing/routes'
-import { Button, Typography } from 'antd'
+import { Typography } from 'antd'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../feature/routing/routeDocumentTitle'
 
+// TODO MentorApp: implement the page
 const IndexPage: React.FC = () => {
   const { data: userData, isLoading } = useUserRetrieve({})
   useDocumentTitle(getRouteTitle(Routes.Index))
@@ -21,12 +21,6 @@ const IndexPage: React.FC = () => {
           <UserInfo />
         </div>
       )}
-      {userData && (
-        <Link to={Routes.HomePage}>
-          <Button type="primary">Enter the application</Button>
-        </Link>
-      )}
-      <UserInfo />
     </>
   )
 }

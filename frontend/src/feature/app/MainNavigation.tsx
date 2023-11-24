@@ -23,6 +23,10 @@ const notLoggedInMenuItems = [
     key: 'about',
     label: <NavLink to={Routes.About}>About</NavLink>,
   },
+  {
+    key: 'login',
+    label: <NavLink to={Routes.Login}>Sign in</NavLink>,
+  },
 ]
 
 const MainNavigation: React.FC = () => {

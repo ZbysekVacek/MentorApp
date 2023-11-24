@@ -7,6 +7,7 @@ import AppLayout from '../app/AppLayout'
 import { Routes } from './routes'
 import NotFoundPage from '../../pages/NotFoundPage'
 import AboutPage from '../../pages/AboutPage'
+import LoginPage from '../../pages/LoginPage'
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.About,
         element: <AboutPage />,
+      },
+      {
+        path: Routes.Login,
+        element: <LoginPage />,
       },
       {
         path: '*',
