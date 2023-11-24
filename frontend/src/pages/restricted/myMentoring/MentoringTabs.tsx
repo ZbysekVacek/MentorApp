@@ -1,7 +1,7 @@
 import { Routes } from '../../../feature/routing/routes'
-import { Tabs } from 'antd'
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import Tabs from '../../../components/Tabs'
 
 const MentoringTabs = () => {
   const location = useLocation()
