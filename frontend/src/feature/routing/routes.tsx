@@ -21,6 +21,14 @@ export enum Routes {
   ConnectionsSearch = '/connections-search',
 }
 
+/**
+ * Routes that do not need special handling in the app.
+ * They don't need breadcrumbs, document title and so on
+ */
+export enum ExternalRoutes {
+  Admin = '/admin',
+}
+
 export function assertIsRoute(path: string): asserts path is Routes {
   const allRoutes = Object.values(Routes) as string[]
   if (!allRoutes.includes(path)) {

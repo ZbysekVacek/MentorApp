@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Menu } from 'antd'
 import { NavLink } from 'react-router-dom'
-import { Routes } from '../routing/routes'
+import { ExternalRoutes, Routes } from '../routing/routes'
 import Logo from './Logo'
 import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
 import './MainNavigation.css'
@@ -83,6 +83,17 @@ const MainNavigation: React.FC = () => {
     data: user,
   } = useUserRetrieve({})
 
+  let loggedItems = loggedInMenuItems
+  if (user?.is_staff) {
+    loggedItems = [
+      ...loggedInMenuItems,
+      {
+        key: 'admin',
+        label: <NavLink to={ExternalRoutes.Admin}>Admin</NavLink>,
+      },
+    ]
+  }
+
   return (
     <Header className="MainNavigation">
       <Logo />
@@ -93,7 +104,7 @@ const MainNavigation: React.FC = () => {
         items={
           isLoadingUser || isErrorLoadingUser || !user || !user.id
             ? notLoggedInMenuItems
-            : loggedInMenuItems
+            : loggedItems
         }
       />
     </Header>
