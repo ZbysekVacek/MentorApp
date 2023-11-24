@@ -15,6 +15,7 @@ export enum Routes {
   MyMentoringMyMentees = '/my-mentoring/my-mentees',
   MyMentoringSearchMentor = '/my-mentoring/search-mentor',
   Tasks = '/tasks',
+  TasksCreated = '/tasks/created',
 }
 
 export function assertIsRoute(path: string): asserts path is Routes {

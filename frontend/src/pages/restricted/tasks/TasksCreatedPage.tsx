@@ -7,15 +7,15 @@ import { Routes } from '../../../feature/routing/routes'
 import TasksTabs from './TasksTabs'
 
 // TODO MentorApp: implement the page
-const TasksPage: React.FC = () => {
+const TasksCreatedPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Tasks))
 
   return (
     <RestrictedRoute>
       <TasksTabs />
-      <Typography.Title>Tasks Created By Me</Typography.Title>
+      <Typography.Title>Tasks</Typography.Title>
     </RestrictedRoute>
   )
 }
 
-export default TasksPage
+export default TasksCreatedPage

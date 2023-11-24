@@ -14,8 +14,8 @@ const TasksTabs = () => {
           key: Routes.Tasks,
         },
         {
-          label: <Link to={Routes.MyMentoringMyMentors}>Created By Me</Link>,
-          key: Routes.MyMentoringMyMentors,
+          label: <Link to={Routes.TasksCreated}>Created By Me</Link>,
+          key: Routes.TasksCreated,
         },
       ]}
     />
