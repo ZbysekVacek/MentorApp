@@ -21,6 +21,7 @@ import ConnectionsPage from '../../pages/restricted/connections/ConnectionsPage'
 import ConnectionsSearchPage from '../../pages/restricted/connections/ConnectionsSearchPage'
 import NotificationsPage from '../../pages/restricted/NotificationsPage'
 import MessagesPage from '../../pages/restricted/MessagesPage'
+import ProfilePage from '../../pages/restricted/ProfilePage'
 
 export const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.Messages,
         element: <MessagesPage />,
+      },
+      {
+        path: Routes.Profile,
+        element: <ProfilePage />,
       },
       {
         path: '*',

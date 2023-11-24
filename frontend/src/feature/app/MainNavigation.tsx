@@ -5,11 +5,12 @@ import { ExternalRoutes, Routes } from '../routing/routes'
 import Logo from './Logo'
 import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
 import './MainNavigation.css'
-import { BellOutlined, MessageOutlined } from '@ant-design/icons'
+import { BellOutlined, MessageOutlined, UserOutlined } from '@ant-design/icons'
+import { User } from '../../api/generated/generatedApiSchemas'
 
 const { Header } = Layout
 
-const loggedInMenuItems = [
+const getLoggedInMenuItems = (user: User) => [
   {
     key: 'homepage',
     label: <NavLink to={Routes.HomePage}>Home</NavLink>,
@@ -60,6 +61,14 @@ const loggedInMenuItems = [
     key: 'connections',
     label: <NavLink to={Routes.Connections}>Connections</NavLink>,
   },
+  ...(user?.is_staff
+    ? [
+        {
+          key: 'admin',
+          label: <NavLink to={ExternalRoutes.Admin}>Admin</NavLink>,
+        },
+      ]
+    : []),
   {
     key: 'notifications',
     label: (
@@ -73,6 +82,20 @@ const loggedInMenuItems = [
     label: (
       <NavLink to={Routes.Messages} className="MainNavigation__iconItem">
         <MessageOutlined />
+      </NavLink>
+    ),
+  },
+  {
+    key: 'profile',
+    label: (
+      <NavLink
+        to={Routes.Profile.replace(':userId', String(user.id))}
+        className="MainNavigation__iconItem"
+      >
+        <UserOutlined />
+        <span className="MainNavigation__userName">
+          {user.first_name} {user.last_name?.[0]}.
+        </span>
       </NavLink>
     ),
   },
@@ -100,15 +123,12 @@ const MainNavigation: React.FC = () => {
     data: user,
   } = useUserRetrieve({})
 
-  let loggedItems = loggedInMenuItems
-  if (user?.is_staff) {
-    loggedItems = [
-      ...loggedInMenuItems,
-      {
-        key: 'admin',
-        label: <NavLink to={ExternalRoutes.Admin}>Admin</NavLink>,
-      },
-    ]
+  const getItems = () => {
+    if (isLoadingUser || isErrorLoadingUser || !user || !user.id) {
+      return notLoggedInMenuItems
+    }
+
+    return getLoggedInMenuItems(user)
   }
 
   return (
@@ -118,11 +138,7 @@ const MainNavigation: React.FC = () => {
         theme="dark"
         mode="horizontal"
         style={{ width: '100%' }}
-        items={
-          isLoadingUser || isErrorLoadingUser || !user || !user.id
-            ? notLoggedInMenuItems
-            : loggedItems
-        }
+        items={getItems()}
       />
     </Header>
   )

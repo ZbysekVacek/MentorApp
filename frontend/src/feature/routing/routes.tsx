@@ -21,6 +21,7 @@ export enum Routes {
   ConnectionsSearch = '/connections-search',
   Notifications = '/notifications',
   Messages = '/messages',
+  Profile = '/profile/:userId',
 }
 
 /**

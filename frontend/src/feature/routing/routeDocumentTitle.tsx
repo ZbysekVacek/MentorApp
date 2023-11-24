@@ -22,6 +22,7 @@ const routeByRoute: Record<Routes, string> = {
   [Routes.ConnectionsSearch]: 'Search For Connection - MentorApp',
   [Routes.Notifications]: 'Notifications - MentorApp',
   [Routes.Messages]: 'Messages - MentorApp',
+  [Routes.Profile]: 'User detail - MentorApp',
 }
 
 /**

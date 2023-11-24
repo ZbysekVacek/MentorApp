@@ -77,6 +77,11 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Messages}>Messages</NavLink> },
   ],
+  /** Doesn't work because of parameter in URL */
+  [Routes.Profile]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: 'User Detail' },
+  ],
 }
 const defaultItems: ItemType[] = [
   { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
