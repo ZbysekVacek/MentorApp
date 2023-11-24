@@ -86,7 +86,7 @@ export type User = {
    */
   first_name?: string
   /**
-   * @maxLength 150
+   * Designates whether the user can log into this admin site.
    */
-  last_name?: string
+  is_staff?: boolean
 }
