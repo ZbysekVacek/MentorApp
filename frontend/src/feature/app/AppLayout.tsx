@@ -1,9 +1,10 @@
 import React from 'react'
-import { Breadcrumb, Layout, Menu, theme, Typography } from 'antd'
+import { Layout, Menu, theme } from 'antd'
 import logo from '../../logo.svg'
-import { MeetingsList } from '../../components/MeetingsList'
-import { CreateMeeting } from '../../components/CreateMeeting'
-import UserInfo from '../user/UserInfo'
+import MentorAppBreadcrumbs from '../routing/RouteBreadcrumbs'
+import { NavLink, Outlet } from 'react-router-dom'
+import AppErrorBoundary from '../../components/AppErrorBoundary'
+import { Routes } from '../routing/routes'
 
 const { Header, Content, Footer } = Layout
 
@@ -20,13 +21,20 @@ const AppLayout: React.FC = () => {
           theme="dark"
           mode="horizontal"
           style={{ width: '100%' }}
-          items={[{ key: 'homepage', label: 'Home' }]}
+          items={[
+            {
+              key: 'homepage',
+              label: <NavLink to={Routes.HomePage}>Home</NavLink>,
+            },
+            {
+              key: 'meetings',
+              label: <NavLink to={Routes.Meetings}>Meetings</NavLink>,
+            },
+          ]}
         />
       </Header>
       <Content style={{ padding: '0 50px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-        </Breadcrumb>
+        <MentorAppBreadcrumbs />
         <Content
           style={{
             padding: '24px',
@@ -35,11 +43,9 @@ const AppLayout: React.FC = () => {
             background: colorBgContainer,
           }}
         >
-          <Typography.Title>Mentoring App</Typography.Title>
-          <Typography.Title level={3}>Current meetings</Typography.Title>
-          <UserInfo />
-          <MeetingsList />
-          <CreateMeeting />
+          <AppErrorBoundary>
+            <Outlet />
+          </AppErrorBoundary>
         </Content>
       </Content>
       <Footer style={{ textAlign: 'center' }}>MentorApp ©2023</Footer>

@@ -55,6 +55,18 @@ class UserLogin(generics.GenericAPIView):
             )
 
 
+class UserRegistration(generics.GenericAPIView):
+    def post(self, request, *args, **kwargs):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message": "User registration successfull"},
+                status=status.HTTP_201_CREATED,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class UserLogout(APIView):
     """
     Logouts user from the system

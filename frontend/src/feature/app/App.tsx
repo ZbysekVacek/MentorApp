@@ -3,7 +3,8 @@ import './App.css'
 import { ConfigProvider } from 'antd'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import AppLayout from './AppLayout'
+import { RouterProvider } from 'react-router-dom'
+import { router } from '../routing/router'
 
 const queryClient = new QueryClient()
 
@@ -12,7 +13,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <ConfigProvider>
-        <AppLayout />
+        <RouterProvider router={router} />
       </ConfigProvider>
     </QueryClientProvider>
   )

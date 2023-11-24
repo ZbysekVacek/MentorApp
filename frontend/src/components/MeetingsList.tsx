@@ -1,5 +1,6 @@
 import React from 'react'
 import { useMeetingsList } from '../api/generated/generatedApiComponents'
+import MeetingsCalendar from '../pages/meetings/MeetingsCalendar'
 
 export function MeetingsList() {
   const { isLoading, error, data } = useMeetingsList({})
@@ -13,10 +14,15 @@ export function MeetingsList() {
   }
 
   return (
-    <ul>
-      {data?.map((currMeeting) => (
-        <li key={currMeeting.subject}>{currMeeting.subject}</li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {data?.map((currMeeting) => (
+          <li key={currMeeting.subject}>
+            {currMeeting.subject}: {currMeeting.dateTime}
+          </li>
+        ))}
+      </ul>
+      {data && <MeetingsCalendar meetings={data} />}
+    </>
   )
 }
