@@ -29,6 +29,14 @@ const loggedInMenuItems = [
         key: 'my-mentoring-my-mentees',
         label: <NavLink to={Routes.MyMentoringMyMentees}>My Mentees</NavLink>,
       },
+      {
+        key: 'my-mentoring-search-mentor',
+        label: (
+          <NavLink to={Routes.MyMentoringSearchMentor}>
+            Search For Mentor
+          </NavLink>
+        ),
+      },
     ],
   },
   {

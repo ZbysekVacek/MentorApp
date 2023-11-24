@@ -22,8 +22,10 @@ const MentoringTabs = () => {
           key: Routes.MyMentoringMyMentees,
         },
         {
-          label: 'Search for mentor',
-          key: '4',
+          label: (
+            <Link to={Routes.MyMentoringSearchMentor}>Search For Mentor</Link>
+          ),
+          key: Routes.MyMentoringSearchMentor,
         },
       ]}
     />
