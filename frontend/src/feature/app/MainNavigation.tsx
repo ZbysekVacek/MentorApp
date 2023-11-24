@@ -1,16 +1,20 @@
 import React from 'react'
 import { Layout, Menu } from 'antd'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { ExternalRoutes, Routes } from '../routing/routes'
 import Logo from './Logo'
-import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
+import {
+  useUserLogoutCreate,
+  useUserRetrieve,
+} from '../../api/generated/generatedApiComponents'
 import './MainNavigation.css'
 import { BellOutlined, MessageOutlined, UserOutlined } from '@ant-design/icons'
 import { User } from '../../api/generated/generatedApiSchemas'
+import { useQueryClient } from '@tanstack/react-query'
 
 const { Header } = Layout
 
-const getLoggedInMenuItems = (user: User) => [
+const getLoggedInMenuItems = (user: User, handleLogout: () => void) => [
   {
     key: 'homepage',
     label: <NavLink to={Routes.HomePage}>Home</NavLink>,
@@ -98,6 +102,16 @@ const getLoggedInMenuItems = (user: User) => [
         </span>
       </NavLink>
     ),
+    children: [
+      {
+        key: 'logout',
+        label: (
+          <Link to="#" onClick={handleLogout}>
+            Log out
+          </Link>
+        ),
+      },
+    ],
   },
 ]
 
@@ -123,12 +137,24 @@ const MainNavigation: React.FC = () => {
     data: user,
   } = useUserRetrieve({})
 
+  const queryClient = useQueryClient()
+  const logoutUser = useUserLogoutCreate({})
+  const handleLogout = () => {
+    logoutUser.mutate(
+      {},
+      {
+        onSuccess: () =>
+          queryClient.invalidateQueries({ queryKey: ['api', 'user'] }),
+      }
+    )
+  }
+
   const getItems = () => {
     if (isLoadingUser || isErrorLoadingUser || !user || !user.id) {
       return notLoggedInMenuItems
     }
 
-    return getLoggedInMenuItems(user)
+    return getLoggedInMenuItems(user, handleLogout)
   }
 
   return (
