@@ -17,6 +17,7 @@ const routeByRoute: Record<Routes, string> = {
   [Routes.Posts]: 'Posts - MentorApp',
   [Routes.Tasks]: 'Tasks - MentorApp',
   [Routes.TasksCreated]: 'Tasks Created By Me - MentorApp',
+  [Routes.Notes]: 'Notes - MentorApp',
 }
 
 /**

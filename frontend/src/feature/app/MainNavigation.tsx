@@ -51,6 +51,10 @@ const loggedInMenuItems = [
     key: 'tasks',
     label: <NavLink to={Routes.Tasks}>Tasks</NavLink>,
   },
+  {
+    key: 'notes',
+    label: <NavLink to={Routes.Notes}>Notes</NavLink>,
+  },
 ]
 
 const notLoggedInMenuItems = [
