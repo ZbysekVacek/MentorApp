@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import IndexPage from '../../pages/IndexPage'
 import HomePage from '../../pages/HomePage'
-import MeetingsPage from '../../pages/MeetingsPage'
+import MeetingsPage from '../../pages/meetings/MeetingsPage'
 import React from 'react'
 import AppLayout from '../app/AppLayout'
 import { Routes } from './routes'

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Typography } from 'antd'
-import { MeetingsList } from '../components/MeetingsList'
-import { CreateMeeting } from '../components/CreateMeeting'
-import RestrictedRoute from '../feature/routing/RestrictedRoute'
+import { MeetingsList } from '../../components/MeetingsList'
+import { CreateMeeting } from '../../components/CreateMeeting'
+import RestrictedRoute from '../../feature/routing/RestrictedRoute'
 
 const MeetingsPage: React.FC = () => {
   return (
