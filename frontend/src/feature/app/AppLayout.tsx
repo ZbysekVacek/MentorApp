@@ -1,10 +1,10 @@
 import React from 'react'
 import { Layout, Menu, theme } from 'antd'
-import logo from '../../logo.svg'
 import MentorAppBreadcrumbs from '../routing/RouteBreadcrumbs'
 import { NavLink, Outlet } from 'react-router-dom'
 import AppErrorBoundary from '../../components/AppErrorBoundary'
 import { Routes } from '../routing/routes'
+import Logo from './Logo'
 
 const { Header, Content, Footer } = Layout
 
@@ -16,7 +16,7 @@ const AppLayout: React.FC = () => {
   return (
     <Layout className="layout">
       <Header style={{ display: 'flex', alignItems: 'center' }}>
-        <img src={logo} className="App-logo" alt="logo" />
+        <Logo />
         <Menu
           theme="dark"
           mode="horizontal"

@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom'
 
 import { Routes } from '../feature/routing/routes'
 import { Button, Typography } from 'antd'
+import { useDocumentTitle } from '@uidotdev/usehooks'
+import { getRouteTitle } from '../feature/routing/routeDocumentTitle'
 
 const IndexPage: React.FC = () => {
   const { data: userData, isLoading } = useUserRetrieve({})
+  useDocumentTitle(getRouteTitle(Routes.Index))
 
   return (
     <>
