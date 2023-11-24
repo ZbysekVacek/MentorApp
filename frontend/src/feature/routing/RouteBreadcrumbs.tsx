@@ -14,6 +14,10 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
   [Routes.About]: [{ title: <NavLink to={Routes.Index}>Index</NavLink> }],
   [Routes.Login]: [{ title: <NavLink to={Routes.Index}>Index</NavLink> }],
   [Routes.Register]: [{ title: <NavLink to={Routes.Index}>Index</NavLink> }],
+  [Routes.Posts]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.Posts}>Posts</NavLink> },
+  ],
 }
 const defaultItems: ItemType[] = [
   { title: <NavLink to={Routes.HomePage}>Home</NavLink> },

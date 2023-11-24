@@ -9,6 +9,7 @@ import NotFoundPage from '../../pages/public/NotFoundPage'
 import AboutPage from '../../pages/public/AboutPage'
 import LoginPage from '../../pages/public/LoginPage'
 import RegisterPage from '../../pages/public/RegisterPage'
+import PostsPage from '../../pages/restricted/PostsPage'
 
 export const router = createBrowserRouter([
   {
@@ -23,10 +24,6 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: Routes.Meetings,
-        element: <MeetingsPage />,
-      },
-      {
         path: Routes.About,
         element: <AboutPage />,
       },
@@ -37,6 +34,14 @@ export const router = createBrowserRouter([
       {
         path: Routes.Register,
         element: <RegisterPage />,
+      },
+      {
+        path: Routes.Meetings,
+        element: <MeetingsPage />,
+      },
+      {
+        path: Routes.Posts,
+        element: <PostsPage />,
       },
       {
         path: '*',
