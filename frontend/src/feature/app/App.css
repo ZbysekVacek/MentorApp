@@ -1,6 +1,7 @@
 :root {
     --container-max-width: 1200px;
     --mobile-breakpoint: 400px;
+    --hide-logo-text: 700px;
     --contentPadding: 24px;
 }
 

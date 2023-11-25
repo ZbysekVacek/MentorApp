@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { Routes } from '../routing/routes'
-import logo from '../../logo.svg'
+import logo from '../../images/logo.png'
 import React from 'react'
 import './Logo.css'
 
@@ -12,12 +12,15 @@ const Logo = () => {
   }
 
   return (
-    <img
-      src={logo}
-      className="Logo"
-      alt="MentorApp logo"
-      onClick={handleLogoClick}
-    />
+    <div className="Logo">
+      <img
+        src={logo}
+        className="Logo__image"
+        alt="MentorApp logo"
+        onClick={handleLogoClick}
+      />
+      <span className="Logo__text">MentorApp</span>
+    </div>
   )
 }
 

@@ -1,15 +1,18 @@
-
-  .Logo {
-    animation: Logo-spin infinite 20s linear;
-    height: 30px;
+.Logo {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.Logo__image {
+    max-height: 60px;
+    display: inline;
 }
 
-@keyframes Logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* We can use variable --hide-logo-text directly in media query */
+@media screen and (max-width: 700px) {
+    .Logo__text {
+        display: none;
+    }
 }
-
