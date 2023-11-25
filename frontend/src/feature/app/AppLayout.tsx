@@ -4,6 +4,7 @@ import MentorAppBreadcrumbs from '../routing/RouteBreadcrumbs'
 import { Outlet } from 'react-router-dom'
 import AppErrorBoundary from '../../components/AppErrorBoundary'
 import MainNavigation from './MainNavigation'
+import './AppLayout.css'
 
 const { Content, Footer } = Layout
 
@@ -13,15 +14,13 @@ const AppLayout: React.FC = () => {
   } = theme.useToken()
 
   return (
-    <Layout className="layout">
+    <Layout className="AppLayout">
       <MainNavigation />
-      <Content style={{ padding: '0 50px' }}>
+      <Content className="AppLayout__contentWrapper">
         <MentorAppBreadcrumbs />
         <Content
+          className="AppLayout__content"
           style={{
-            padding: '24px',
-            margin: 0,
-            minHeight: 280,
             background: colorBgContainer,
           }}
         >

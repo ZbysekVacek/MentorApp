@@ -1,0 +1,10 @@
+.RouteBreadcrumbs {
+    margin: 16px 0;
+}
+
+/* We can use variable --mobile-breakpoint directly in media query */
+@media screen and (max-width: 400px) {
+  .RouteBreadcrumbs {
+      margin: 16px var(--contentPadding);
+  }
+}

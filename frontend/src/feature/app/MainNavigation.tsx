@@ -11,6 +11,7 @@ import './MainNavigation.css'
 import { BellOutlined, MessageOutlined, UserOutlined } from '@ant-design/icons'
 import { User } from '../../api/generated/generatedApiSchemas'
 import { useQueryClient } from '@tanstack/react-query'
+import classNames from 'classnames'
 
 const { Header } = Layout
 
@@ -149,8 +150,11 @@ const MainNavigation: React.FC = () => {
     )
   }
 
+  const userNotLoggedIn =
+    isLoadingUser || isErrorLoadingUser || !user || !user.id
+
   const getItems = () => {
-    if (isLoadingUser || isErrorLoadingUser || !user || !user.id) {
+    if (userNotLoggedIn) {
       return notLoggedInMenuItems
     }
 
@@ -158,14 +162,23 @@ const MainNavigation: React.FC = () => {
   }
 
   return (
-    <Header className="MainNavigation">
-      <Logo />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        style={{ width: '100%' }}
-        items={getItems()}
-      />
+    <Header
+      className={classNames('MainNavigation', {
+        'MainNavigation--notLoggedIn': userNotLoggedIn,
+        'MainNavigation--loggedIn': !userNotLoggedIn,
+      })}
+    >
+      <div className="MainNavigation__wrapper">
+        <Logo />
+        <div className="MainNavigation__menuWrapper">
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            items={getItems()}
+            className="MainNavigation__menu"
+          />
+        </div>
+      </div>
     </Header>
   )
 }

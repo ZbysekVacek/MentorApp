@@ -1,9 +1,44 @@
 .MainNavigation {
-    display: flex;
-    align-items: center;
+
 }
 
-.MainNavigation a {
+/* We can use variable --mobile-breakpoint directly in media query */
+@media screen and (max-width: 400px) {
+  .MainNavigation {
+    padding: 0;
+  }
+
+    .MainNavigation__wrapper {
+        padding: 0 var(--contentPadding);
+    }
+}
+
+.MainNavigation__wrapper {
+    max-width: var(--container-max-width);
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: space-around;
+}
+
+.MainNavigation__menuWrapper {
+    width: 100%;
+}
+
+.MainNavigation--notLoggedIn {
+    justify-content: space-between;
+}
+
+
+.MainNavigation--loggedIn {
+    justify-content: space-between;
+}
+
+.MainNavigation--loggedIn ul {
+    width: 100%;
+}
+
+.MainNavigation a, .ant-menu-submenu a {
     /**
     * Fix for navigation item that have sub-items was displayed in blue color
     */
@@ -27,5 +62,10 @@
 
 span.MainNavigation__userName {
     font-size: 15px !important;
+}
+
+.MainNavigation__menu {
+    display: flex;
+    justify-content: flex-end;
 }
 

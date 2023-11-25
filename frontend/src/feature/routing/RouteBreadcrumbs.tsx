@@ -3,6 +3,7 @@ import { Breadcrumb } from 'antd'
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { assertIsRoute, Routes } from './routes'
+import './RouteBreadcrumbs.css'
 
 const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
   // Public routes
@@ -97,7 +98,7 @@ const MentorAppBreadcrumbs = () => {
     usedBreadCrumbs = breadcrumbsByRoute[pathname]
   }
 
-  return <Breadcrumb style={{ margin: '16px 0' }} items={usedBreadCrumbs} />
+  return <Breadcrumb className="RouteBreadcrumbs" items={usedBreadCrumbs} />
 }
 
 export default MentorAppBreadcrumbs
