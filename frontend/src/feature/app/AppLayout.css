@@ -1,0 +1,25 @@
+.AppLayout {
+
+}
+
+.AppLayout__contentWrapper {
+    padding: 0 50px;
+    width: 100%;
+    position: relative;
+}
+
+/* We can use variable --mobile-breakpoint directly in media query */
+@media screen and (max-width: 400px) {
+  .AppLayout__contentWrapper {
+    padding: 0;
+  }
+}
+
+
+.AppLayout__content {
+    padding: var(--contentPadding);
+    min-height: 90vh;
+    max-width: var(--container-max-width);
+    position: relative;
+    margin: auto;
+}

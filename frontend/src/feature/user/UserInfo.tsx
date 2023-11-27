@@ -6,6 +6,7 @@ import {
 } from '../../api/generated/generatedApiComponents'
 import { useQueryClient } from '@tanstack/react-query'
 
+// TODO MentorApp delete component when not needed
 const UserInfo: React.FC = () => {
   const { isLoading, error, data } = useUserRetrieve({})
   const loginUser = useUserLoginCreate()
