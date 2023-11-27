@@ -98,7 +98,14 @@ const MentorAppBreadcrumbs = () => {
     usedBreadCrumbs = breadcrumbsByRoute[pathname]
   }
 
-  return <Breadcrumb className="RouteBreadcrumbs" items={usedBreadCrumbs} />
+  return (
+    <div className="RouteBreadcrumbs">
+      <Breadcrumb
+        className="RouteBreadcrumbs__breadcrumbs"
+        items={usedBreadCrumbs}
+      />
+    </div>
+  )
 }
 
 export default MentorAppBreadcrumbs
