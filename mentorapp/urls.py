@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from backend import views
-from backend.features.user.userUrls import userUrls
+from backend.features.user.user_urls import userUrls
 
 urlpatterns = [
     path("admin/", admin.site.urls),

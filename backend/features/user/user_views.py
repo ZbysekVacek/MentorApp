@@ -7,15 +7,18 @@ from rest_framework.views import APIView
 from rest_framework.schemas.openapi import AutoSchema
 
 from backend.features.exception.exception_serializer import ExceptionSerializer
-from backend.features.user.userSerializers import UserSerializer, LoginRequestSerializer
+from backend.features.user.user_serializers import (
+    UserSerializer,
+    LoginRequestSerializer,
+)
 
 
 class UserDetail(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
-        currentUser = self.serializer_class(request.user)
-        return Response(currentUser.data)
+        current_user = self.serializer_class(request.user)
+        return Response(current_user.data)
 
 
 class UserLogin(generics.GenericAPIView):
