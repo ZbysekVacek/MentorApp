@@ -1,0 +1,18 @@
+.Logo {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.Logo__image {
+    max-height: 60px;
+    display: inline;
+}
+
+/* We can use variable --hide-logo-text directly in media query */
+@media screen and (max-width: 700px) {
+    .Logo__text {
+        display: none;
+    }
+}

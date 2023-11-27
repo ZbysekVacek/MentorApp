@@ -13,6 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
             "user_permissions",
             "first_name",
             "last_name",
+            "is_staff",
         )
 
 

@@ -1,10 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDocumentTitle } from '@uidotdev/usehooks'
 
-import { Routes } from '../feature/routing/routes'
+import { Routes } from '../../feature/routing/routes'
 import { Button, Result } from 'antd'
 
 const NotFoundPage: React.FC = () => {
+  useDocumentTitle('Page not found - MentorApp')
+
   return (
     <Result
       status="404"

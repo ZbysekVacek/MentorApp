@@ -3,7 +3,7 @@ import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
 import type { BadgeProps, CalendarProps } from 'antd'
 import { Badge, Calendar } from 'antd'
-import { Meeting } from '../../api/generated/generatedApiSchemas'
+import { Meeting } from '../../../api/generated/generatedApiSchemas'
 
 type Props = {
   meetings: Meeting[]

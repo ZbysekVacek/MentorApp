@@ -1,6 +1,6 @@
 import React from 'react'
 import { useMeetingsList } from '../api/generated/generatedApiComponents'
-import MeetingsCalendar from '../pages/meetings/MeetingsCalendar'
+import MeetingsCalendar from '../pages/restricted/meetings/MeetingsCalendar'
 
 export function MeetingsList() {
   const { isLoading, error, data } = useMeetingsList({})
