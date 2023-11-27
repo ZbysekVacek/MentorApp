@@ -23,8 +23,8 @@ class Profile(models.Model):
     # Show user as a mentor who accepts mentees
     accepts_mentees = models.BooleanField(blank=False, default=False)
     # General information the  user wants to share about themselves
-    about = models.TextField(blank=True, null=True)
+    about = models.TextField(default="")
     # Contact information the user wants to share
-    contact = models.TextField(blank=True, null=True)
+    contact = models.TextField(default="")
     # In what skills can user share knowledge
-    skills = models.TextField(blank=True, null=True)
+    skills = models.TextField(default="")

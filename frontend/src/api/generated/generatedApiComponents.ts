@@ -482,6 +482,152 @@ export const useUserRetrieve = <TData = Schemas.User>(
   })
 }
 
+export type UserProfileRetrievePathParams = {
+  userId: number
+}
+
+export type UserProfileRetrieveError = Fetcher.ErrorWrapper<undefined>
+
+export type UserProfileRetrieveVariables = {
+  pathParams: UserProfileRetrievePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchUserProfileRetrieve = (
+  variables: UserProfileRetrieveVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Profile,
+    UserProfileRetrieveError,
+    undefined,
+    {},
+    {},
+    UserProfileRetrievePathParams
+  >({ url: '/api/user/{userId}/profile', method: 'get', ...variables, signal })
+
+export const useUserProfileRetrieve = <TData = Schemas.Profile>(
+  variables: UserProfileRetrieveVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      Schemas.Profile,
+      UserProfileRetrieveError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<Schemas.Profile, UserProfileRetrieveError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/user/{userId}/profile',
+      operationId: 'userProfileRetrieve',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchUserProfileRetrieve({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type UserProfileUpdatePathParams = {
+  userId: number
+}
+
+export type UserProfileUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type UserProfileUpdateVariables = {
+  body: Schemas.Profile
+  pathParams: UserProfileUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchUserProfileUpdate = (
+  variables: UserProfileUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Profile,
+    UserProfileUpdateError,
+    Schemas.Profile,
+    {},
+    {},
+    UserProfileUpdatePathParams
+  >({ url: '/api/user/{userId}/profile', method: 'put', ...variables, signal })
+
+export const useUserProfileUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Profile,
+      UserProfileUpdateError,
+      UserProfileUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Profile,
+    UserProfileUpdateError,
+    UserProfileUpdateVariables
+  >({
+    mutationFn: (variables: UserProfileUpdateVariables) =>
+      fetchUserProfileUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type UserProfilePartialUpdatePathParams = {
+  userId: number
+}
+
+export type UserProfilePartialUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type UserProfilePartialUpdateVariables = {
+  body?: Schemas.PatchedProfile
+  pathParams: UserProfilePartialUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchUserProfilePartialUpdate = (
+  variables: UserProfilePartialUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Profile,
+    UserProfilePartialUpdateError,
+    Schemas.PatchedProfile,
+    {},
+    {},
+    UserProfilePartialUpdatePathParams
+  >({
+    url: '/api/user/{userId}/profile',
+    method: 'patch',
+    ...variables,
+    signal,
+  })
+
+export const useUserProfilePartialUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Profile,
+      UserProfilePartialUpdateError,
+      UserProfilePartialUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Profile,
+    UserProfilePartialUpdateError,
+    UserProfilePartialUpdateVariables
+  >({
+    mutationFn: (variables: UserProfilePartialUpdateVariables) =>
+      fetchUserProfilePartialUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
 export type UserLoginCreateError = Fetcher.ErrorWrapper<
   | {
       status: 401
@@ -604,4 +750,9 @@ export type QueryOperation =
       path: '/api/user'
       operationId: 'userRetrieve'
       variables: UserRetrieveVariables
+    }
+  | {
+      path: '/api/user/{userId}/profile'
+      operationId: 'userProfileRetrieve'
+      variables: UserProfileRetrieveVariables
     }

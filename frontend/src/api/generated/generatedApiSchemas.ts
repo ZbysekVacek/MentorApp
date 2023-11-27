@@ -59,6 +59,24 @@ export type PatchedMeeting = {
   menteeEmail?: string
 }
 
+export type PatchedProfile = {
+  accepts_mentees?: boolean
+  about?: string
+  contact?: string
+  skills?: string
+  id?: number
+  user?: number
+}
+
+export type Profile = {
+  accepts_mentees?: boolean
+  about?: string
+  contact?: string
+  skills?: string
+  id?: number
+  user: number
+}
+
 export type User = {
   /**
    * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
@@ -93,4 +111,5 @@ export type User = {
    * Designates whether the user can log into this admin site.
    */
   is_staff?: boolean
+  profile?: Profile
 }

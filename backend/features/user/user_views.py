@@ -1,14 +1,17 @@
 from django.contrib.auth import authenticate, login, logout
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.generics import RetrieveAPIView, RetrieveUpdateAPIView
 from rest_framework.response import Response
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
 from backend.features.exception.exception_serializer import ExceptionSerializer
 from backend.features.user.user_serializers import (
     UserSerializer,
     LoginRequestSerializer,
+    ProfileSerializer,
 )
+from backend.models import Profile
 
 
 class UserDetail(generics.RetrieveAPIView):
@@ -84,3 +87,10 @@ class UserLogout(APIView):
     def post(self, request):
         logout(request)
         return Response(None, status=status.HTTP_200_OK)
+
+
+class ProfileDetail(RetrieveUpdateAPIView):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    lookup_field = "user_id"
+    permission_classes = [permissions.IsAuthenticated]
