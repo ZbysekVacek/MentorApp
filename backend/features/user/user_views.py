@@ -6,10 +6,15 @@ from rest_framework.response import Response
 from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
 from backend.features.exception.exception_serializer import ExceptionSerializer
+from backend.features.exception.reusable_exceptions import (
+    validation_exception,
+    generic_exception,
+)
 from backend.features.user.user_serializers import (
     UserSerializer,
     LoginRequestSerializer,
     ProfileSerializer,
+    UserRegisterSerializer,
 )
 from backend.models import Profile
 
@@ -67,16 +72,38 @@ class UserLogin(generics.GenericAPIView):
             )
 
 
-class UserRegistration(generics.GenericAPIView):
-    def post(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"message": "User registration successfull"},
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@extend_schema(
+    operation_id="register_user",
+    responses={
+        201: OpenApiResponse(None, "User was registered"),
+        **validation_exception,
+        **generic_exception,
+    },
+)
+class UserRegistration(generics.CreateAPIView):
+    """
+    Endpoint for user registration
+
+    Creates both User and related Profile models
+    """
+
+    serializer_class = UserRegisterSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = get_user_model().objects.create_user(
+            serializer.validated_data.get("username"),
+            serializer.validated_data.get("email"),
+            serializer.validated_data.get("password"),
+        )
+        user.first_name = serializer.validated_data.get("first_name")
+        user.last_name = serializer.validated_data.get("last_name")
+        user.save()
+        profile = Profile.objects.create(user=user)
+        profile.save()
+
+        return Response(None, status=status.HTTP_201_CREATED)
 
 
 class UserLogout(APIView):

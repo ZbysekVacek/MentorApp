@@ -777,6 +777,68 @@ export const useUserLogoutCreate = (
   })
 }
 
+export type RegisterUserError = Fetcher.ErrorWrapper<
+  | {
+      status: 400
+      payload: {
+        [key: string]: string
+      }
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 201 | 400>
+      payload: Schemas.Exception
+    }
+>
+
+export type RegisterUserVariables = {
+  body: Schemas.UserRegisterRequest
+} & GeneratedApiContext['fetcherOptions']
+
+/**
+ * Endpoint for user registration
+ *
+ * Creates both User and related Profile models
+ */
+export const fetchRegisterUser = (
+  variables: RegisterUserVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    RegisterUserError,
+    Schemas.UserRegisterRequest,
+    {},
+    {},
+    {}
+  >({ url: '/api/user/register', method: 'post', ...variables, signal })
+
+/**
+ * Endpoint for user registration
+ *
+ * Creates both User and related Profile models
+ */
+export const useRegisterUser = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      RegisterUserError,
+      RegisterUserVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    RegisterUserError,
+    RegisterUserVariables
+  >({
+    mutationFn: (variables: RegisterUserVariables) =>
+      fetchRegisterUser({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
 export type QueryOperation =
   | {
       path: '/api/meetings/'

@@ -161,4 +161,7 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": True,
     "COMPONENT_NO_READ_ONLY_REQUIRED": True,
     "COMPONENT_SPLIT_REQUEST": True,
+    "SWAGGER_UI_SETTINGS": {
+        "displayOperationId": True,
+    },
 }

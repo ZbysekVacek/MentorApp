@@ -169,3 +169,32 @@ export type User = {
   is_staff?: boolean
   profile?: Profile
 }
+
+export type UserRegisterRequest = {
+  /**
+   * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+   *
+   * @minLength 1
+   * @pattern ^[\w.@+-]+$
+   * @maxLength 150
+   */
+  username: string
+  /**
+   * @minLength 1
+   * @maxLength 128
+   */
+  password: string
+  /**
+   * @format email
+   * @maxLength 254
+   */
+  email?: string
+  /**
+   * @maxLength 150
+   */
+  first_name?: string
+  /**
+   * @maxLength 150
+   */
+  last_name?: string
+}
