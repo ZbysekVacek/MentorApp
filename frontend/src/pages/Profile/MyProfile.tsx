@@ -6,9 +6,9 @@ import {
   useUserCurrentRetrieve,
   useUserProfilePartialUpdate,
 } from '../../api/generated/generatedApiComponents'
-import TextArea from 'antd/lib/input/TextArea'
 import Button from '../../components/Button'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
+import MarkdownEditor from '../../components/markdown/MarkdownEditor'
 
 const MyProfile = () => {
   useDocumentTitle('My profile - MentorApp')
@@ -22,27 +22,6 @@ const MyProfile = () => {
   const [skills, setSkills] = useState(user?.profile?.skills ?? '')
   const [about, setAbout] = useState(user?.profile?.about ?? '')
   const [api, contextHolder] = notification.useNotification()
-
-  const handleAboutChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setAbout(e.target.value)
-    },
-    [setAbout]
-  )
-
-  const handleContactChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setContact(e.target.value)
-    },
-    [setContact]
-  )
-
-  const handleSkillsChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setSkills(e.target.value)
-    },
-    [setSkills]
-  )
 
   const handleMenteesChange = useCallback(
     (e: CheckboxChangeEvent) => {
@@ -91,36 +70,36 @@ const MyProfile = () => {
       <Typography.Title>My profile</Typography.Title>
       <Typography.Title level={2}>General</Typography.Title>
       <Row gutter={[20, 20]}>
-        <Col lg={12} sm={24}>
+        <Col span={24}>
           <div>
             <Typography.Title level={3}>About me</Typography.Title>
-            <Typography.Text>
+            <Typography.Paragraph>
               Tell use something about you. What are you doing, what are your
               objectives, why are here?
-            </Typography.Text>
-            <TextArea
-              rows={10}
-              value={about}
-              onChange={handleAboutChange}
-              disabled={updateProfile.isPending}
+            </Typography.Paragraph>
+            <MarkdownEditor
+              markdown={about}
+              onChange={setAbout}
+              loading={updateProfile.isPending}
             />
+            <br />
             <Button type="primary" onClick={handleSubmit}>
               Save
             </Button>
           </div>
         </Col>
-        <Col lg={12} sm={24}>
+        <Col span={24}>
           <div>
             <Typography.Title level={3}>Contact information</Typography.Title>
-            <Typography.Text>
+            <Typography.Paragraph>
               Please let use know, where can other users contact you
-            </Typography.Text>
-            <TextArea
-              rows={10}
-              value={contact}
-              onChange={handleContactChange}
-              disabled={updateProfile.isPending}
+            </Typography.Paragraph>
+            <MarkdownEditor
+              markdown={contact}
+              onChange={setContact}
+              loading={updateProfile.isPending}
             />
+            <br />
             <Button type="primary" onClick={handleSubmit}>
               Save
             </Button>
@@ -147,20 +126,18 @@ const MyProfile = () => {
             </Button>
           </div>
         </Col>
-        <Col lg={12} sm={24}>
+        <Col span={24}>
           <div>
             <Typography.Title level={3}>My expertise</Typography.Title>
             <Typography.Paragraph>
               What are your skills? What can you offer to the mentees
             </Typography.Paragraph>
-            <Typography.Paragraph>
-              <TextArea
-                rows={10}
-                value={skills}
-                onChange={handleSkillsChange}
-                disabled={updateProfile.isPending}
-              />
-            </Typography.Paragraph>
+            <MarkdownEditor
+              markdown={skills}
+              onChange={setSkills}
+              loading={updateProfile.isPending}
+            />
+            <br />
             <Button type="primary" onClick={handleSubmit}>
               Save
             </Button>

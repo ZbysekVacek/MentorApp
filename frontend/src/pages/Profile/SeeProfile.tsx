@@ -7,6 +7,7 @@ import { Routes } from '../../feature/routing/routes'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
 import PageLoader from '../../components/PageLoader'
+import MarkdownDisplay from '../../components/markdown/MarkdownDisplay'
 
 // TODO MentorApp: add Mentoring areas and competencies when ready
 const ProfilePage: React.FC = () => {
@@ -43,19 +44,19 @@ const ProfilePage: React.FC = () => {
           <Row gutter={[20, 20]}>
             <Col lg={12} sm={24}>
               <Card title="About me">
-                <Typography.Text>{profileUser.profile?.about}</Typography.Text>
+                <MarkdownDisplay markdown={profileUser.profile?.about ?? ''} />
               </Card>
             </Col>
             <Col lg={12} sm={24}>
               <Card title=" Contact information">
-                <Typography.Text>
-                  {profileUser.profile?.contact}
-                </Typography.Text>
+                <MarkdownDisplay
+                  markdown={profileUser.profile?.contact ?? ''}
+                />
               </Card>
             </Col>
             <Col span={24}>
               <Card title="My expertise">
-                <Typography.Text>{profileUser.profile?.skills}</Typography.Text>
+                <MarkdownDisplay markdown={profileUser.profile?.skills ?? ''} />
               </Card>
             </Col>
           </Row>

@@ -1,21 +1,21 @@
 {
   "name": "MentorApp",
   "description": "This package.json file is intended for managing all kinds of scripts and for AppPlatform detection of Node.js. Feel free to edit or use different tool",
-  "workspaces": ["frontend"],
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
-      "build": "npm run build --workspaces",
-      "build:digitalocean": "npm run build",
-      "pylint": "pylint ./backend --errors-only --load-plugins=pylint_django --django-settings-module=mentorapp.settings",
-      "pytest": "pytest",
-      "pytestHeaded": "pytest --headed",
-      "e2eTest": "pytest",
-      "e2eTestHeaded": "npm run pytestHeaded",
-      "black": "black ./backend --check",
-      "blackFix": "black ./backend",
-      "buildProjectLocal": "pip install -r requirements.txt && cd frontend && npm ci && npm run build && npm run test && npm run lint && npm run prettier && cd .. && npm run pylint && npm run black",
-      "openApiGenerateSchema": "python ./manage.py spectacular --color --file openapi-schema.yml"
-    },
-  "dependencies": {
+    "build": "npm run build --workspaces",
+    "build:digitalocean": "npm run build",
+    "pylint": "pylint ./backend --errors-only --load-plugins=pylint_django --django-settings-module=mentorapp.settings",
+    "pytest": "pytest",
+    "pytestHeaded": "pytest --headed",
+    "e2eTest": "pytest",
+    "e2eTestHeaded": "npm run pytestHeaded",
+    "black": "black ./backend --check",
+    "blackFix": "black ./backend",
+    "buildProjectLocal": "pip install -r requirements.txt && cd frontend && npm ci && npm run build && npm run test && npm run lint && npm run prettier && cd .. && npm run pylint && npm run black",
+    "openApiGenerateSchema": "python ./manage.py spectacular --color --file openapi-schema.yml"
   },
   "engines": {
     "node": "20.x"
