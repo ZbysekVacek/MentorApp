@@ -8,8 +8,14 @@ export type Exception = {
   detail?: string
 }
 
-export type LoginRequest = {
+export type LoginRequestRequest = {
+  /**
+   * @minLength 1
+   */
   username: string
+  /**
+   * @minLength 1
+   */
   password: string
 }
 
@@ -36,35 +42,68 @@ export type Meeting = {
   menteeEmail: string
 }
 
-export type PatchedMeeting = {
-  pk?: number
+export type MeetingRequest = {
   /**
+   * @minLength 1
+   * @maxLength 240
+   */
+  subject: string
+  /**
+   * @minLength 1
+   */
+  location: string
+  /**
+   * @format email
+   * @minLength 1
+   * @maxLength 254
+   */
+  mentorEmail: string
+  /**
+   * @format email
+   * @minLength 1
+   * @maxLength 254
+   */
+  menteeEmail: string
+}
+
+export type PatchedMeetingRequest = {
+  /**
+   * @minLength 1
    * @maxLength 240
    */
   subject?: string
+  /**
+   * @minLength 1
+   */
   location?: string
   /**
-   * @format date-time
-   */
-  dateTime?: string
-  /**
    * @format email
+   * @minLength 1
    * @maxLength 254
    */
   mentorEmail?: string
   /**
    * @format email
+   * @minLength 1
    * @maxLength 254
    */
   menteeEmail?: string
 }
 
-export type PatchedProfile = {
+export type PatchedProfileRequest = {
   accepts_mentees?: boolean
+  /**
+   * @minLength 1
+   */
   about?: string
+  /**
+   * @minLength 1
+   */
   contact?: string
+  /**
+   * @minLength 1
+   */
   skills?: string
-  id?: number
   user?: number
 }
 
@@ -74,6 +113,23 @@ export type Profile = {
   contact?: string
   skills?: string
   id?: number
+  user: number
+}
+
+export type ProfileRequest = {
+  accepts_mentees?: boolean
+  /**
+   * @minLength 1
+   */
+  about?: string
+  /**
+   * @minLength 1
+   */
+  contact?: string
+  /**
+   * @minLength 1
+   */
+  skills?: string
   user: number
 }
 

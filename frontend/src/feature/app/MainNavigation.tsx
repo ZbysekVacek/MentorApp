@@ -4,8 +4,8 @@ import { Link, NavLink } from 'react-router-dom'
 import { ExternalRoutes, Routes } from '../routing/routes'
 import Logo from './Logo'
 import {
+  useUserCurrentRetrieve,
   useUserLogoutCreate,
-  useUserRetrieve,
 } from '../../api/generated/generatedApiComponents'
 import './MainNavigation.css'
 import { BellOutlined, MessageOutlined, UserOutlined } from '@ant-design/icons'
@@ -136,7 +136,7 @@ const MainNavigation: React.FC = () => {
     isLoading: isLoadingUser,
     isError: isErrorLoadingUser,
     data: user,
-  } = useUserRetrieve({})
+  } = useUserCurrentRetrieve({})
 
   const queryClient = useQueryClient()
   const logoutUser = useUserLogoutCreate({})

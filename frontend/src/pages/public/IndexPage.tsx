@@ -1,6 +1,6 @@
 import React from 'react'
 import UserInfo from '../../feature/user/UserInfo'
-import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
+import { useUserCurrentRetrieve } from '../../api/generated/generatedApiComponents'
 
 import { Routes } from '../../feature/routing/routes'
 import { Typography } from 'antd'
@@ -9,7 +9,7 @@ import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
 
 // TODO MentorApp: implement the page
 const IndexPage: React.FC = () => {
-  const { data: userData, isLoading } = useUserRetrieve({})
+  const { data: userData, isLoading } = useUserCurrentRetrieve({})
   useDocumentTitle(getRouteTitle(Routes.Index))
 
   return (

@@ -10,12 +10,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ("accepts_mentees", "about", "contact", "skills", "id", "user")
 
 
-class ProfileSerializer2(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ("accepts_mentees", "about", "contact", "skills", "id", "user")
-
-
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False, read_only=True)
 

@@ -1,7 +1,7 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from rest_framework.exceptions import AuthenticationFailed
-from rest_framework.generics import RetrieveAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
@@ -20,6 +20,14 @@ class UserDetail(generics.RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         current_user = self.serializer_class(request.user)
         return Response(current_user.data)
+
+
+class UserDetailById(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return get_user_model().objects.all()
 
 
 class UserLogin(generics.GenericAPIView):

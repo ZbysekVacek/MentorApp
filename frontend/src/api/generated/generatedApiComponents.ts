@@ -57,7 +57,7 @@ export const useMeetingsList = <TData = MeetingsListResponse>(
 export type MeetingsCreateError = Fetcher.ErrorWrapper<undefined>
 
 export type MeetingsCreateVariables = {
-  body: Schemas.Meeting
+  body: Schemas.MeetingRequest
 } & GeneratedApiContext['fetcherOptions']
 
 export const fetchMeetingsCreate = (
@@ -67,7 +67,7 @@ export const fetchMeetingsCreate = (
   generatedApiFetch<
     Schemas.Meeting,
     MeetingsCreateError,
-    Schemas.Meeting,
+    Schemas.MeetingRequest,
     {},
     {},
     {}
@@ -147,7 +147,7 @@ export type MeetingsUpdatePathParams = {
 export type MeetingsUpdateError = Fetcher.ErrorWrapper<undefined>
 
 export type MeetingsUpdateVariables = {
-  body: Schemas.Meeting
+  body: Schemas.MeetingRequest
   pathParams: MeetingsUpdatePathParams
 } & GeneratedApiContext['fetcherOptions']
 
@@ -158,7 +158,7 @@ export const fetchMeetingsUpdate = (
   generatedApiFetch<
     Schemas.Meeting,
     MeetingsUpdateError,
-    Schemas.Meeting,
+    Schemas.MeetingRequest,
     {},
     {},
     MeetingsUpdatePathParams
@@ -193,7 +193,7 @@ export type MeetingsPartialUpdatePathParams = {
 export type MeetingsPartialUpdateError = Fetcher.ErrorWrapper<undefined>
 
 export type MeetingsPartialUpdateVariables = {
-  body?: Schemas.PatchedMeeting
+  body?: Schemas.PatchedMeetingRequest
   pathParams: MeetingsPartialUpdatePathParams
 } & GeneratedApiContext['fetcherOptions']
 
@@ -204,7 +204,7 @@ export const fetchMeetingsPartialUpdate = (
   generatedApiFetch<
     Schemas.Meeting,
     MeetingsPartialUpdateError,
-    Schemas.PatchedMeeting,
+    Schemas.PatchedMeetingRequest,
     {},
     {},
     MeetingsPartialUpdatePathParams
@@ -445,20 +445,28 @@ export const useSchemaRetrieve = <TData = SchemaRetrieveResponse>(
   })
 }
 
+export type UserRetrievePathParams = {
+  id: number
+}
+
 export type UserRetrieveError = Fetcher.ErrorWrapper<undefined>
 
-export type UserRetrieveVariables = GeneratedApiContext['fetcherOptions']
+export type UserRetrieveVariables = {
+  pathParams: UserRetrievePathParams
+} & GeneratedApiContext['fetcherOptions']
 
 export const fetchUserRetrieve = (
   variables: UserRetrieveVariables,
   signal?: AbortSignal
 ) =>
-  generatedApiFetch<Schemas.User, UserRetrieveError, undefined, {}, {}, {}>({
-    url: '/api/user',
-    method: 'get',
-    ...variables,
-    signal,
-  })
+  generatedApiFetch<
+    Schemas.User,
+    UserRetrieveError,
+    undefined,
+    {},
+    {},
+    UserRetrievePathParams
+  >({ url: '/api/user/{id}', method: 'get', ...variables, signal })
 
 export const useUserRetrieve = <TData = Schemas.User>(
   variables: UserRetrieveVariables,
@@ -471,7 +479,7 @@ export const useUserRetrieve = <TData = Schemas.User>(
     useGeneratedApiContext(options)
   return reactQuery.useQuery<Schemas.User, UserRetrieveError, TData>({
     queryKey: queryKeyFn({
-      path: '/api/user',
+      path: '/api/user/{id}',
       operationId: 'userRetrieve',
       variables,
     }),
@@ -538,7 +546,7 @@ export type UserProfileUpdatePathParams = {
 export type UserProfileUpdateError = Fetcher.ErrorWrapper<undefined>
 
 export type UserProfileUpdateVariables = {
-  body: Schemas.Profile
+  body: Schemas.ProfileRequest
   pathParams: UserProfileUpdatePathParams
 } & GeneratedApiContext['fetcherOptions']
 
@@ -549,7 +557,7 @@ export const fetchUserProfileUpdate = (
   generatedApiFetch<
     Schemas.Profile,
     UserProfileUpdateError,
-    Schemas.Profile,
+    Schemas.ProfileRequest,
     {},
     {},
     UserProfileUpdatePathParams
@@ -584,7 +592,7 @@ export type UserProfilePartialUpdatePathParams = {
 export type UserProfilePartialUpdateError = Fetcher.ErrorWrapper<undefined>
 
 export type UserProfilePartialUpdateVariables = {
-  body?: Schemas.PatchedProfile
+  body?: Schemas.PatchedProfileRequest
   pathParams: UserProfilePartialUpdatePathParams
 } & GeneratedApiContext['fetcherOptions']
 
@@ -595,7 +603,7 @@ export const fetchUserProfilePartialUpdate = (
   generatedApiFetch<
     Schemas.Profile,
     UserProfilePartialUpdateError,
-    Schemas.PatchedProfile,
+    Schemas.PatchedProfileRequest,
     {},
     {},
     UserProfilePartialUpdatePathParams
@@ -628,6 +636,45 @@ export const useUserProfilePartialUpdate = (
   })
 }
 
+export type UserCurrentRetrieveError = Fetcher.ErrorWrapper<undefined>
+
+export type UserCurrentRetrieveVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchUserCurrentRetrieve = (
+  variables: UserCurrentRetrieveVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.User,
+    UserCurrentRetrieveError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/user/current', method: 'get', ...variables, signal })
+
+export const useUserCurrentRetrieve = <TData = Schemas.User>(
+  variables: UserCurrentRetrieveVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<Schemas.User, UserCurrentRetrieveError, TData>,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<Schemas.User, UserCurrentRetrieveError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/user/current',
+      operationId: 'userCurrentRetrieve',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchUserCurrentRetrieve({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
 export type UserLoginCreateError = Fetcher.ErrorWrapper<
   | {
       status: 401
@@ -640,7 +687,7 @@ export type UserLoginCreateError = Fetcher.ErrorWrapper<
 >
 
 export type UserLoginCreateVariables = {
-  body: Schemas.LoginRequest
+  body: Schemas.LoginRequestRequest
 } & GeneratedApiContext['fetcherOptions']
 
 /**
@@ -653,7 +700,7 @@ export const fetchUserLoginCreate = (
   generatedApiFetch<
     Schemas.User,
     UserLoginCreateError,
-    Schemas.LoginRequest,
+    Schemas.LoginRequestRequest,
     {},
     {},
     {}
@@ -747,7 +794,7 @@ export type QueryOperation =
       variables: SchemaRetrieveVariables
     }
   | {
-      path: '/api/user'
+      path: '/api/user/{id}'
       operationId: 'userRetrieve'
       variables: UserRetrieveVariables
     }
@@ -755,4 +802,9 @@ export type QueryOperation =
       path: '/api/user/{userId}/profile'
       operationId: 'userProfileRetrieve'
       variables: UserProfileRetrieveVariables
+    }
+  | {
+      path: '/api/user/current'
+      operationId: 'userCurrentRetrieve'
+      variables: UserCurrentRetrieveVariables
     }
