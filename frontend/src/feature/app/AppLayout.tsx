@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, theme } from 'antd'
 import MentorAppBreadcrumbs from '../routing/RouteBreadcrumbs'
 import { Outlet } from 'react-router-dom'
-import AppErrorBoundary from '../../components/AppErrorBoundary'
+import AppErrorBoundary from '../../components/errors/AppErrorBoundary'
 import MainNavigation from './MainNavigation'
 import './AppLayout.css'
 

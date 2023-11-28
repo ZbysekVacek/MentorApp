@@ -9,6 +9,7 @@ import {
 import Button from '../../components/Button'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 import MarkdownEditor from '../../components/markdown/MarkdownEditor'
+import ValidationErrorList from '../../components/errors/ValidationErrorList'
 
 const MyProfile = () => {
   useDocumentTitle('My profile - MentorApp')
@@ -48,10 +49,20 @@ const MyProfile = () => {
               description: 'Your profile was successfully updated',
             })
           },
-          onError: () => {
+          onError: (updateError) => {
             api.error({
               message: 'Profile was not updated',
-              description: 'Your profile could not be updated',
+              duration: 0,
+              description: (
+                <div>
+                  <Typography.Paragraph>
+                    Your profile could not be updated
+                  </Typography.Paragraph>
+                  <>
+                    <ValidationErrorList error={updateError} />
+                  </>
+                </div>
+              ),
             })
           },
         }
