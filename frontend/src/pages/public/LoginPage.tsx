@@ -4,7 +4,7 @@ import { Routes } from '../../feature/routing/routes'
 import { Typography } from 'antd'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
-import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
+import { useUserCurrentRetrieve } from '../../api/generated/generatedApiComponents'
 import { useNavigate } from 'react-router-dom'
 import LoginForm from '../../feature/user/LoginForm'
 import './LoginPage.css'
@@ -12,7 +12,7 @@ import './LoginPage.css'
 const LoginPage = () => {
   useDocumentTitle(getRouteTitle(Routes.Login))
   const navigate = useNavigate()
-  const { data: user } = useUserRetrieve({})
+  const { data: user } = useUserCurrentRetrieve({})
 
   useEffect(() => {
     if (user?.id) {

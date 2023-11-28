@@ -1,21 +1,33 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
-from rest_framework.schemas.openapi import AutoSchema
-
 from backend.features.exception.exception_serializer import ExceptionSerializer
-from backend.features.user.userSerializers import UserSerializer, LoginRequestSerializer
+from backend.features.user.user_serializers import (
+    UserSerializer,
+    LoginRequestSerializer,
+    ProfileSerializer,
+)
+from backend.models import Profile
 
 
 class UserDetail(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
-        currentUser = self.serializer_class(request.user)
-        return Response(currentUser.data)
+        current_user = self.serializer_class(request.user)
+        return Response(current_user.data)
+
+
+class UserDetailById(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return get_user_model().objects.all()
 
 
 class UserLogin(generics.GenericAPIView):
@@ -83,3 +95,10 @@ class UserLogout(APIView):
     def post(self, request):
         logout(request)
         return Response(None, status=status.HTTP_200_OK)
+
+
+class ProfileDetail(RetrieveUpdateAPIView):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    lookup_field = "user_id"
+    permission_classes = [permissions.IsAuthenticated]

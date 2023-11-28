@@ -1,10 +1,21 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
+
+from backend.models import Profile
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ("accepts_mentees", "about", "contact", "skills", "id", "user")
 
 
 class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(many=False, read_only=True)
+
     class Meta:
-        model = User
+        model = get_user_model()
+
         fields = (
             "username",
             "email",
@@ -14,6 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "is_staff",
+            "profile",
         )
 
 

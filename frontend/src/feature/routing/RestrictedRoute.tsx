@@ -1,13 +1,13 @@
 import React, { PropsWithChildren } from 'react'
 import { Navigate } from 'react-router-dom'
-import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
+import { useUserCurrentRetrieve } from '../../api/generated/generatedApiComponents'
 
 import { Routes } from './routes'
 import PageLoader from '../../components/PageLoader'
 import { Typography } from 'antd'
 
 const RestrictedRoute = (props: PropsWithChildren) => {
-  const { data: userData, isLoading, isError } = useUserRetrieve({})
+  const { data: userData, isLoading, isError } = useUserCurrentRetrieve({})
 
   if (!isLoading && !userData?.id) {
     return <Navigate to={Routes.Index} />
