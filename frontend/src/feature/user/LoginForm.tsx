@@ -38,7 +38,7 @@ const LoginForm: React.FC = () => {
         },
       },
       {
-        onSuccess: (d) =>
+        onSuccess: () =>
           queryClient.invalidateQueries({ queryKey: ['api', 'user'] }),
       }
     )

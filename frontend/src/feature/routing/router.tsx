@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import IndexPage from '../../pages/public/IndexPage'
-import HomePage from '../../pages/restricted/HomePage'
+import HomePage from '../../pages/restricted/homepage/HomePage'
 import MeetingsPage from '../../pages/restricted/meetings/MeetingsPage'
 import React from 'react'
 import AppLayout from '../app/AppLayout'

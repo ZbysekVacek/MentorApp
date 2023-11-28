@@ -1,10 +1,11 @@
 import React from 'react'
 import { Typography } from 'antd'
-import RestrictedRoute from '../../feature/routing/RestrictedRoute'
+import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
-import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
-import { Routes } from '../../feature/routing/routes'
-import { useUserCurrentRetrieve } from '../../api/generated/generatedApiComponents'
+import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
+import { Routes } from '../../../feature/routing/routes'
+import { useUserCurrentRetrieve } from '../../../api/generated/generatedApiComponents'
+import NotFilledProfile from './NotFilledProfile'
 
 // TODO MentorApp: implement the page
 const HomePage: React.FC = () => {
@@ -19,6 +20,7 @@ const HomePage: React.FC = () => {
   return (
     <RestrictedRoute>
       <Typography.Title>Welcome back {userFullName}</Typography.Title>
+      <NotFilledProfile />
     </RestrictedRoute>
   )
 }
