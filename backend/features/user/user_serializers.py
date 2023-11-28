@@ -29,6 +29,13 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
+class UserRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ("username", "password", "email", "first_name", "last_name")
+        extra_kwargs = {"password": {"write_only": True}}
+
+
 class LoginRequestSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)

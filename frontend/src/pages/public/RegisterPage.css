@@ -1,0 +1,7 @@
+.RegisterPage {
+
+}
+
+.RegisterPage__alert {
+    margin: 0 0 var(--contentPadding) 0;
+}
