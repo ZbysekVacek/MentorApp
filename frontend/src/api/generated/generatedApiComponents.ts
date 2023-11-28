@@ -277,6 +277,179 @@ export const useMeetingsDestroy = (
   })
 }
 
+export type NotificationsGetAllError = Fetcher.ErrorWrapper<undefined>
+
+export type NotificationsGetAllResponse = Schemas.Notification[]
+
+export type NotificationsGetAllVariables = GeneratedApiContext['fetcherOptions']
+
+/**
+ * Lists all notifications for the current user
+ */
+export const fetchNotificationsGetAll = (
+  variables: NotificationsGetAllVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    NotificationsGetAllResponse,
+    NotificationsGetAllError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/notifications', method: 'get', ...variables, signal })
+
+/**
+ * Lists all notifications for the current user
+ */
+export const useNotificationsGetAll = <TData = NotificationsGetAllResponse>(
+  variables: NotificationsGetAllVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      NotificationsGetAllResponse,
+      NotificationsGetAllError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    NotificationsGetAllResponse,
+    NotificationsGetAllError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/notifications',
+      operationId: 'notificationsGetAll',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchNotificationsGetAll({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type NotificationsMarkAsSeenError = Fetcher.ErrorWrapper<
+  | {
+      status: 403
+      payload: Schemas.Exception
+    }
+  | {
+      status: Exclude<ClientErrorStatus | ServerErrorStatus, 200 | 403>
+      payload: Schemas.Exception
+    }
+>
+
+export type NotificationsMarkAsSeenVariables =
+  GeneratedApiContext['fetcherOptions']
+
+/**
+ * Marks all unseen notifications as seen for logged in user
+ */
+export const fetchNotificationsMarkAsSeen = (
+  variables: NotificationsMarkAsSeenVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    NotificationsMarkAsSeenError,
+    undefined,
+    {},
+    {},
+    {}
+  >({
+    url: '/api/notifications/mark-as-seen',
+    method: 'get',
+    ...variables,
+    signal,
+  })
+
+/**
+ * Marks all unseen notifications as seen for logged in user
+ */
+export const useNotificationsMarkAsSeen = <TData = undefined>(
+  variables: NotificationsMarkAsSeenVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<undefined, NotificationsMarkAsSeenError, TData>,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<undefined, NotificationsMarkAsSeenError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/notifications/mark-as-seen',
+      operationId: 'notificationsMarkAsSeen',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchNotificationsMarkAsSeen({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type NotificationsGetUnseenError = Fetcher.ErrorWrapper<undefined>
+
+export type NotificationsGetUnseenResponse = Schemas.Notification[]
+
+export type NotificationsGetUnseenVariables =
+  GeneratedApiContext['fetcherOptions']
+
+/**
+ * Lists all NOT SEEN notifications for the current user
+ */
+export const fetchNotificationsGetUnseen = (
+  variables: NotificationsGetUnseenVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    NotificationsGetUnseenResponse,
+    NotificationsGetUnseenError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/notifications/unseen', method: 'get', ...variables, signal })
+
+/**
+ * Lists all NOT SEEN notifications for the current user
+ */
+export const useNotificationsGetUnseen = <
+  TData = NotificationsGetUnseenResponse
+>(
+  variables: NotificationsGetUnseenVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      NotificationsGetUnseenResponse,
+      NotificationsGetUnseenError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    NotificationsGetUnseenResponse,
+    NotificationsGetUnseenError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/notifications/unseen',
+      operationId: 'notificationsGetUnseen',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchNotificationsGetUnseen({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
 export type SchemaRetrieveQueryParams = {
   format?: 'json' | 'yaml'
   lang?:
@@ -849,6 +1022,21 @@ export type QueryOperation =
       path: '/api/meetings/{id}'
       operationId: 'meetingsRetrieve'
       variables: MeetingsRetrieveVariables
+    }
+  | {
+      path: '/api/notifications'
+      operationId: 'notificationsGetAll'
+      variables: NotificationsGetAllVariables
+    }
+  | {
+      path: '/api/notifications/mark-as-seen'
+      operationId: 'notificationsMarkAsSeen'
+      variables: NotificationsMarkAsSeenVariables
+    }
+  | {
+      path: '/api/notifications/unseen'
+      operationId: 'notificationsGetUnseen'
+      variables: NotificationsGetUnseenVariables
     }
   | {
       path: '/api/schema/'

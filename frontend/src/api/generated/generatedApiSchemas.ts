@@ -66,6 +66,32 @@ export type MeetingRequest = {
   menteeEmail: string
 }
 
+export type Notification = {
+  id?: number
+  /**
+   * @maxLength 255
+   */
+  source?: string | null
+  /**
+   * @format date-time
+   */
+  created_at?: string
+  seen: boolean
+  /**
+   * @maxLength 255
+   */
+  title: string
+  /**
+   * @maxLength 255
+   */
+  followup?: string | null
+  /**
+   * @maxLength 255
+   */
+  content: string
+  user: number
+}
+
 export type PatchedMeetingRequest = {
   /**
    * @minLength 1

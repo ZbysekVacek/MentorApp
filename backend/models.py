@@ -28,3 +28,27 @@ class Profile(models.Model):
     contact = models.TextField(default="")
     # In what skills can user share knowledge
     skills = models.TextField(default="")
+
+
+class Notification(models.Model):
+    """Notification model is used to show user what is happening with his account"""
+
+    # Link to the user model
+    user = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="notifications"
+    )
+    # Source of the notification. Doesn't have to be defined
+    source = models.CharField(max_length=255, null=True)
+    # When was the notification created - defaults to now
+    created_at = models.DateTimeField(auto_now_add=True, null=False)
+    # Has the user seen the notification
+    seen = models.BooleanField(null=False)
+    # Title of the notification
+    title = models.CharField(max_length=255, null=False)
+    # Followup action. Can be empty
+    followup = models.CharField(max_length=255, null=True)
+    content = models.TextField(max_length=255, null=False)
+
+    def __str__(self):
+        # pylint: disable=E1101
+        return f"{self.user.username} - {self.title}"
