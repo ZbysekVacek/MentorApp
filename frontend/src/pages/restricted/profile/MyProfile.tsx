@@ -11,7 +11,6 @@ import {
   Row,
   Typography,
   Upload,
-  UploadProps,
 } from 'antd'
 import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
