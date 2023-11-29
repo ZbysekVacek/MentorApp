@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { Card, Col, Row, Typography } from 'antd'
-import RestrictedRoute from '../../feature/routing/RestrictedRoute'
+import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
-import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
-import { Routes } from '../../feature/routing/routes'
+import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
+import { Routes } from '../../../feature/routing/routes'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useUserRetrieve } from '../../api/generated/generatedApiComponents'
-import PageLoader from '../../components/PageLoader'
-import MarkdownDisplay from '../../components/markdown/MarkdownDisplay'
+import { useUserRetrieve } from '../../../api/generated/generatedApiComponents'
+import PageLoader from '../../../components/PageLoader'
+import MarkdownDisplay from '../../../components/markdown/MarkdownDisplay'
 
 // TODO MentorApp: add Mentoring areas and competencies when ready
 const ProfilePage: React.FC = () => {

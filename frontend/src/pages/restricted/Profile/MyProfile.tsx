@@ -1,15 +1,15 @@
 import React, { useCallback, useState } from 'react'
 import { Checkbox, Col, Divider, notification, Row, Typography } from 'antd'
-import RestrictedRoute from '../../feature/routing/RestrictedRoute'
+import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import {
   useUserCurrentRetrieve,
   useUserProfilePartialUpdate,
-} from '../../api/generated/generatedApiComponents'
-import Button from '../../components/Button'
+} from '../../../api/generated/generatedApiComponents'
+import Button from '../../../components/Button'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
-import MarkdownEditor from '../../components/markdown/MarkdownEditor'
-import ValidationErrorList from '../../components/errors/ValidationErrorList'
+import MarkdownEditor from '../../../components/markdown/MarkdownEditor'
+import ValidationErrorList from '../../../components/errors/ValidationErrorList'
 
 const MyProfile = () => {
   useDocumentTitle('My profile - MentorApp')
