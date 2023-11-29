@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from backend.features.user.user_serializers import UserSerializer
@@ -17,6 +18,7 @@ class ConnectionListItemSerializer(serializers.ModelSerializer):
         model = Connection
         exclude = ["first_user", "second_user"]
 
+    @extend_schema_field(UserSerializer)
     def get_to(self, obj):
         user = self.context["request"].user
         other_user = obj.first_user if user != obj.first_user else obj.second_user
