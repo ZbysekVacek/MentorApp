@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card, Typography } from 'antd'
-import { Routes } from '../../../feature/routing/routes'
+import { Card } from 'antd'
+import { urlGenerator } from '../../../feature/routing/routes'
 import { useUserCurrentRetrieve } from '../../../api/generated/generatedApiComponents'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../../components/Button'
@@ -25,9 +25,7 @@ const NotFilledProfile = () => {
         <Card
           actions={[
             <Button
-              onClick={() =>
-                navigate(Routes.Profile.replace(':userId', String(userId)))
-              }
+              onClick={() => navigate(urlGenerator.profile(userId))}
               type="primary"
             >
               Edit my profile

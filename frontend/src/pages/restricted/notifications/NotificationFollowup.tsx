@@ -1,7 +1,7 @@
 import React from 'react'
 import { FollowupEnum } from '../../../api/generated/generatedApiSchemas'
 import { Link } from 'react-router-dom'
-import { Routes } from '../../../feature/routing/routes'
+import { urlGenerator } from '../../../feature/routing/routes'
 
 type Props = {
   followup?: FollowupEnum
@@ -13,11 +13,7 @@ const NotificationFollowup = ({ followup, userId }: Props) => {
   }
 
   if (followup === 'FILL_PROFILE') {
-    return (
-      <Link to={Routes.Profile.replace(':userId', String(userId))}>
-        Fill in your profile
-      </Link>
-    )
+    return <Link to={urlGenerator.profile(userId)}>Fill in your profile</Link>
   }
 
   return <></>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Menu } from 'antd'
 import { Link, NavLink } from 'react-router-dom'
-import { ExternalRoutes, Routes } from '../../routing/routes'
+import { ExternalRoutes, Routes, urlGenerator } from '../../routing/routes'
 import Logo from '../Logo'
 import {
   useUserCurrentRetrieve,
@@ -95,7 +95,7 @@ const getLoggedInMenuItems = (user: User, handleLogout: () => void) => [
     key: 'profile',
     label: (
       <NavLink
-        to={Routes.Profile.replace(':userId', String(user.id))}
+        to={urlGenerator.profile(user.id)}
         className="MainNavigation__iconItem"
       >
         <UserOutlined />

@@ -38,3 +38,8 @@ export function assertIsRoute(path: string): asserts path is Routes {
     throw new Error(`Path ${path} is not part of Routes enum`)
   }
 }
+
+export const urlGenerator = {
+  profile: (userId?: number) =>
+    Routes.Profile.replace(':userId', String(userId)),
+}
