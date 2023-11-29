@@ -2,7 +2,7 @@ from django.urls import path
 
 from backend.features.user import user_views
 
-userUrls = [
+user_urls = [
     path("user/current", user_views.UserDetail.as_view()),
     path("user/<int:pk>", user_views.UserDetailById.as_view()),
     path("user/<int:user_id>/profile", user_views.ProfileDetail.as_view()),

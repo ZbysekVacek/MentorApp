@@ -9,13 +9,14 @@ import {
   message,
   notification,
   Row,
+  Select,
   Typography,
   Upload,
-  UploadProps,
 } from 'antd'
 import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import {
+  useCompetencyAllList,
   useUserCurrentRetrieve,
   useUserProfilePartialUpdate,
 } from '../../../api/generated/generatedApiComponents'
@@ -37,9 +38,14 @@ const MyProfile = () => {
     user?.profile?.accepts_mentees ?? false
   )
   const [skills, setSkills] = useState(user?.profile?.skills ?? '')
+  const [selectedCompetencies, setSelectedCompetencies] = useState(
+    user?.profile?.competencies ?? []
+  )
   const [about, setAbout] = useState(user?.profile?.about ?? '')
   const [api, contextHolder] = notification.useNotification()
   const queryClient = useQueryClient()
+
+  const { data: competencies } = useCompetencyAllList({})
 
   const handleMenteesChange = useCallback(
     (e: CheckboxChangeEvent) => {
@@ -48,7 +54,7 @@ const MyProfile = () => {
     [setAcceptsMentees]
   )
   const handleSubmit = (
-    field: 'about' | 'contact' | 'accepts_mentees' | 'skills'
+    field: 'about' | 'contact' | 'accepts_mentees' | 'skills' | 'competencies'
   ) => {
     if (userId) {
       updateProfile.mutate(
@@ -60,6 +66,8 @@ const MyProfile = () => {
             accepts_mentees:
               field === 'accepts_mentees' ? acceptsMentees : undefined,
             skills: field === 'skills' ? skills : undefined,
+            competencies:
+              field === 'competencies' ? selectedCompetencies : undefined,
           },
         },
         {
@@ -117,7 +125,6 @@ const MyProfile = () => {
     },
   ]
 
-  // TODO MentorApp: add mentoring areas and competencies selection
   return (
     <RestrictedRoute>
       {contextHolder}
@@ -234,6 +241,29 @@ const MyProfile = () => {
             />
             <br />
             <Button type="primary" onClick={() => handleSubmit('skills')}>
+              Save
+            </Button>
+          </div>
+        </Col>
+        <Col span={24}>
+          <div>
+            <Typography.Title level={3}>My competencies</Typography.Title>
+            <Typography.Paragraph>
+              In which competencies and areas can you mentor and give advice?
+            </Typography.Paragraph>
+            <Select
+              mode="multiple"
+              onChange={(value) => setSelectedCompetencies(value)}
+              value={selectedCompetencies}
+              style={{ width: '100%' }}
+              options={competencies?.map((currCompetency) => ({
+                label: currCompetency.name,
+                value: currCompetency.id,
+              }))}
+            />
+            <br />
+            <br />
+            <Button type="primary" onClick={() => handleSubmit('competencies')}>
               Save
             </Button>
           </div>

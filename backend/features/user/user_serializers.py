@@ -15,6 +15,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "id",
             "user",
             "avatar",
+            "competencies",
         )
 
 

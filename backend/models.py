@@ -16,6 +16,13 @@ class Meeting(models.Model):
         return self.subject
 
 
+class Competency(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class Profile(models.Model):
     """Profile model is used to store additional information about the user"""
 
@@ -49,6 +56,7 @@ class Profile(models.Model):
             validate_avatar_dimensions,
         ],
     )
+    competencies = models.ManyToManyField(Competency)
 
 
 class Notification(models.Model):

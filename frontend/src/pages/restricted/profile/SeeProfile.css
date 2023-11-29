@@ -1,0 +1,15 @@
+.SeeProfile__name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* We can use variable --hide-logo-text directly in media query */
+@media screen and (max-width: 700px) {
+    .SeeProfile__name {
+        flex-direction: column;
+        gap: 0;
+    }
+}

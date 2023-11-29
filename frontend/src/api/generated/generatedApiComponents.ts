@@ -13,6 +13,55 @@ import { generatedApiFetch } from './generatedApiFetcher'
 import type * as Schemas from './generatedApiSchemas'
 import type { ClientErrorStatus, ServerErrorStatus } from './generatedApiUtils'
 
+export type CompetencyAllListError = Fetcher.ErrorWrapper<undefined>
+
+export type CompetencyAllListResponse = Schemas.Competency[]
+
+export type CompetencyAllListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchCompetencyAllList = (
+  variables: CompetencyAllListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    CompetencyAllListResponse,
+    CompetencyAllListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/competency/all', method: 'get', ...variables, signal })
+
+export const useCompetencyAllList = <TData = CompetencyAllListResponse>(
+  variables: CompetencyAllListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      CompetencyAllListResponse,
+      CompetencyAllListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    CompetencyAllListResponse,
+    CompetencyAllListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/competency/all',
+      operationId: 'competencyAllList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchCompetencyAllList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
 export type MeetingsListError = Fetcher.ErrorWrapper<undefined>
 
 export type MeetingsListResponse = Schemas.Meeting[]
@@ -1116,6 +1165,11 @@ export const useRegisterUser = (
 }
 
 export type QueryOperation =
+  | {
+      path: '/api/competency/all'
+      operationId: 'competencyAllList'
+      variables: CompetencyAllListVariables
+    }
   | {
       path: '/api/meetings/'
       operationId: 'meetingsList'

@@ -1,19 +1,27 @@
 import React, { useEffect } from 'react'
-import { Card, Col, Row, Typography } from 'antd'
+import { Avatar, Card, Col, Divider, Row, Tag, Typography } from 'antd'
 import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
 import { Routes } from '../../../feature/routing/routes'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useUserRetrieve } from '../../../api/generated/generatedApiComponents'
+import {
+  useCompetencyAllList,
+  useUserRetrieve,
+} from '../../../api/generated/generatedApiComponents'
 import PageLoader from '../../../components/PageLoader'
 import MarkdownDisplay from '../../../components/markdown/MarkdownDisplay'
+import './SeeProfile.css'
 
-// TODO MentorApp: add Mentoring areas and competencies when ready
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate()
   useDocumentTitle(getRouteTitle(Routes.Notifications))
   const params = useParams<{ userId: string }>()
+  const {
+    data: competencies,
+    isLoading: isLoadingCompetencies,
+    isError: isCompetenciesError,
+  } = useCompetencyAllList({})
 
   let userUrl = params.userId
   useEffect(() => {
@@ -35,9 +43,13 @@ const ProfilePage: React.FC = () => {
       {isLoading && <PageLoader />}
       {profileUser && (
         <>
-          <Typography.Title level={1}>
-            {profileUser.first_name} {profileUser.last_name}
-          </Typography.Title>
+          <div className="SeeProfile__name">
+            <Avatar size={150} src={profileUser.profile?.avatar} />
+            <Typography.Title level={1}>
+              {profileUser.first_name} {profileUser.last_name}
+            </Typography.Title>
+          </div>
+          <Divider />
           {profileUser.profile?.accepts_mentees && (
             <Typography.Title level={3}>Mentor</Typography.Title>
           )}
@@ -54,9 +66,22 @@ const ProfilePage: React.FC = () => {
                 />
               </Card>
             </Col>
-            <Col span={24}>
+            <Col lg={12} sm={24}>
               <Card title="My expertise">
                 <MarkdownDisplay markdown={profileUser.profile?.skills ?? ''} />
+              </Card>
+            </Col>
+            <Col lg={12} sm={24}>
+              <Card title="My compenecies">
+                {!isLoadingCompetencies &&
+                  !isCompetenciesError &&
+                  competencies &&
+                  profileUser &&
+                  profileUser.profile?.competencies?.map((competency) => (
+                    <Tag color="blue" key={competency}>
+                      {competencies[competency]?.name}
+                    </Tag>
+                  ))}
               </Card>
             </Col>
           </Row>

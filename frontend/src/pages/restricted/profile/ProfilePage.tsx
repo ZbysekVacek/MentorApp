@@ -8,7 +8,6 @@ import { useUserCurrentRetrieve } from '../../../api/generated/generatedApiCompo
 import MyProfile from './MyProfile'
 import SeeProfile from './SeeProfile'
 
-// TODO MentorApp: implement the page
 const ProfilePage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Notifications))
   const params = useParams<{ userId: string }>()

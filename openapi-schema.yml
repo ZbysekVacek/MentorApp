@@ -4,6 +4,23 @@ info:
   version: 1.0.0
   description: Internal API specification
 paths:
+  /api/competency/all:
+    get:
+      operationId: competency_all_list
+      tags:
+      - competency
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Competency'
+          description: ''
   /api/meetings/:
     get:
       operationId: meetings_list
@@ -457,6 +474,63 @@ paths:
               schema:
                 $ref: '#/components/schemas/Profile'
           description: ''
+  /api/user/{user_id}/profile/avatar:
+    put:
+      operationId: user_profile_avatar_update
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - user
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProfileAvatarRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProfileAvatarRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileAvatar'
+          description: ''
+    patch:
+      operationId: user_profile_avatar_partial_update
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - user
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfileAvatarRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfileAvatarRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileAvatar'
+          description: ''
   /api/user/current:
     get:
       operationId: user_current_retrieve
@@ -577,6 +651,17 @@ paths:
           description: Generic server error
 components:
   schemas:
+    Competency:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
     Exception:
       type: object
       properties:
@@ -713,6 +798,14 @@ components:
           format: email
           minLength: 1
           maxLength: 254
+    PatchedProfileAvatarRequest:
+      type: object
+      properties:
+        avatar:
+          type: string
+          format: binary
+          nullable: true
+          pattern: (?:jpg|jpeg|png)$
     PatchedProfileRequest:
       type: object
       properties:
@@ -729,6 +822,15 @@ components:
           minLength: 1
         user:
           type: integer
+        avatar:
+          type: string
+          format: binary
+          nullable: true
+          pattern: (?:jpg|jpeg|png)$
+        competencies:
+          type: array
+          items:
+            type: integer
     Profile:
       type: object
       properties:
@@ -745,8 +847,34 @@ components:
           readOnly: true
         user:
           type: integer
+        avatar:
+          type: string
+          format: uri
+          nullable: true
+          pattern: (?:jpg|jpeg|png)$
+        competencies:
+          type: array
+          items:
+            type: integer
       required:
+      - competencies
       - user
+    ProfileAvatar:
+      type: object
+      properties:
+        avatar:
+          type: string
+          format: uri
+          nullable: true
+          pattern: (?:jpg|jpeg|png)$
+    ProfileAvatarRequest:
+      type: object
+      properties:
+        avatar:
+          type: string
+          format: binary
+          nullable: true
+          pattern: (?:jpg|jpeg|png)$
     ProfileRequest:
       type: object
       properties:
@@ -763,7 +891,17 @@ components:
           minLength: 1
         user:
           type: integer
+        avatar:
+          type: string
+          format: binary
+          nullable: true
+          pattern: (?:jpg|jpeg|png)$
+        competencies:
+          type: array
+          items:
+            type: integer
       required:
+      - competencies
       - user
     User:
       type: object
