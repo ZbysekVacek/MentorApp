@@ -119,6 +119,14 @@ export type PatchedMeetingRequest = {
   menteeEmail?: string
 }
 
+export type PatchedProfileAvatarRequest = {
+  /**
+   * @format binary
+   * @pattern (?:jpg|jpeg|png)$
+   */
+  avatar?: Blob
+}
+
 export type PatchedProfileRequest = {
   accepts_mentees?: boolean
   /**
@@ -153,6 +161,22 @@ export type Profile = {
    * @pattern (?:jpg|jpeg|png)$
    */
   avatar?: string | null
+}
+
+export type ProfileAvatar = {
+  /**
+   * @format uri
+   * @pattern (?:jpg|jpeg|png)$
+   */
+  avatar?: string | null
+}
+
+export type ProfileAvatarRequest = {
+  /**
+   * @format binary
+   * @pattern (?:jpg|jpeg|png)$
+   */
+  avatar?: Blob
 }
 
 export type ProfileRequest = {

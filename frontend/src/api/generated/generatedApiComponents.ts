@@ -816,7 +816,7 @@ export type UserProfileAvatarUpdatePathParams = {
 export type UserProfileAvatarUpdateError = Fetcher.ErrorWrapper<undefined>
 
 export type UserProfileAvatarUpdateVariables = {
-  body: Schemas.ProfileRequest
+  body?: Schemas.ProfileAvatarRequest
   pathParams: UserProfileAvatarUpdatePathParams
 } & GeneratedApiContext['fetcherOptions']
 
@@ -825,9 +825,9 @@ export const fetchUserProfileAvatarUpdate = (
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
-    Schemas.Profile,
+    Schemas.ProfileAvatar,
     UserProfileAvatarUpdateError,
-    Schemas.ProfileRequest,
+    Schemas.ProfileAvatarRequest,
     {},
     {},
     UserProfileAvatarUpdatePathParams
@@ -841,7 +841,7 @@ export const fetchUserProfileAvatarUpdate = (
 export const useUserProfileAvatarUpdate = (
   options?: Omit<
     reactQuery.UseMutationOptions<
-      Schemas.Profile,
+      Schemas.ProfileAvatar,
       UserProfileAvatarUpdateError,
       UserProfileAvatarUpdateVariables
     >,
@@ -850,7 +850,7 @@ export const useUserProfileAvatarUpdate = (
 ) => {
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
-    Schemas.Profile,
+    Schemas.ProfileAvatar,
     UserProfileAvatarUpdateError,
     UserProfileAvatarUpdateVariables
   >({
@@ -868,7 +868,7 @@ export type UserProfileAvatarPartialUpdateError =
   Fetcher.ErrorWrapper<undefined>
 
 export type UserProfileAvatarPartialUpdateVariables = {
-  body?: Schemas.PatchedProfileRequest
+  body?: Schemas.PatchedProfileAvatarRequest
   pathParams: UserProfileAvatarPartialUpdatePathParams
 } & GeneratedApiContext['fetcherOptions']
 
@@ -877,9 +877,9 @@ export const fetchUserProfileAvatarPartialUpdate = (
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
-    Schemas.Profile,
+    Schemas.ProfileAvatar,
     UserProfileAvatarPartialUpdateError,
-    Schemas.PatchedProfileRequest,
+    Schemas.PatchedProfileAvatarRequest,
     {},
     {},
     UserProfileAvatarPartialUpdatePathParams
@@ -893,7 +893,7 @@ export const fetchUserProfileAvatarPartialUpdate = (
 export const useUserProfileAvatarPartialUpdate = (
   options?: Omit<
     reactQuery.UseMutationOptions<
-      Schemas.Profile,
+      Schemas.ProfileAvatar,
       UserProfileAvatarPartialUpdateError,
       UserProfileAvatarPartialUpdateVariables
     >,
@@ -902,7 +902,7 @@ export const useUserProfileAvatarPartialUpdate = (
 ) => {
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
-    Schemas.Profile,
+    Schemas.ProfileAvatar,
     UserProfileAvatarPartialUpdateError,
     UserProfileAvatarPartialUpdateVariables
   >({

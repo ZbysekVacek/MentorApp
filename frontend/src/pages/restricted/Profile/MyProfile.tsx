@@ -47,16 +47,19 @@ const MyProfile = () => {
     },
     [setAcceptsMentees]
   )
-  const handleSubmit = () => {
+  const handleSubmit = (
+    field: 'about' | 'contact' | 'accepts_mentees' | 'skills'
+  ) => {
     if (userId) {
       updateProfile.mutate(
         {
           pathParams: { userId },
           body: {
-            about,
-            contact,
-            accepts_mentees: acceptsMentees,
-            skills,
+            about: field === 'about' ? about : undefined,
+            contact: field === 'contact' ? contact : undefined,
+            accepts_mentees:
+              field === 'accepts_mentees' ? acceptsMentees : undefined,
+            skills: field === 'skills' ? skills : undefined,
           },
         },
         {
@@ -172,7 +175,7 @@ const MyProfile = () => {
               loading={updateProfile.isPending}
             />
             <br />
-            <Button type="primary" onClick={handleSubmit}>
+            <Button type="primary" onClick={() => handleSubmit('about')}>
               Save
             </Button>
           </div>
@@ -189,7 +192,7 @@ const MyProfile = () => {
               loading={updateProfile.isPending}
             />
             <br />
-            <Button type="primary" onClick={handleSubmit}>
+            <Button type="primary" onClick={() => handleSubmit('contact')}>
               Save
             </Button>
           </div>
@@ -210,7 +213,10 @@ const MyProfile = () => {
                 I want to be shown as mentor who accepts new mentees
               </Checkbox>
             </Typography.Paragraph>
-            <Button type="primary" onClick={handleSubmit}>
+            <Button
+              type="primary"
+              onClick={() => handleSubmit('accepts_mentees')}
+            >
               Save
             </Button>
           </div>
@@ -227,7 +233,7 @@ const MyProfile = () => {
               loading={updateProfile.isPending}
             />
             <br />
-            <Button type="primary" onClick={handleSubmit}>
+            <Button type="primary" onClick={() => handleSubmit('skills')}>
               Save
             </Button>
           </div>
