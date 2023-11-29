@@ -52,11 +52,8 @@
     justify-content: center;
 }
 
-.MainNavigation__iconItem span {
-    min-width: 40px;
-    min-height: 40px;
-    justify-content: center;
-    font-size: 25px !important;
+.MainNavigation__iconItem svg{
+    font-size: 25px;
 }
 
 

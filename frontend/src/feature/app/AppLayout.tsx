@@ -3,7 +3,7 @@ import { Layout, theme } from 'antd'
 import MentorAppBreadcrumbs from '../routing/RouteBreadcrumbs'
 import { Outlet } from 'react-router-dom'
 import AppErrorBoundary from '../../components/errors/AppErrorBoundary'
-import MainNavigation from './MainNavigation'
+import MainNavigation from './navigation/MainNavigation'
 import './AppLayout.css'
 
 const { Content, Footer } = Layout

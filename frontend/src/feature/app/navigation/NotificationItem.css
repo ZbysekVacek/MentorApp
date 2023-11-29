@@ -1,0 +1,7 @@
+.NotificationItem {
+    color: var(--main-navigation-color);
+}
+
+.NotificationItem__indicator * {
+    font-size: 12px;
+}

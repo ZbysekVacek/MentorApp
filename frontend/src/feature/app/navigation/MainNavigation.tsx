@@ -1,17 +1,18 @@
 import React from 'react'
 import { Layout, Menu } from 'antd'
 import { Link, NavLink } from 'react-router-dom'
-import { ExternalRoutes, Routes } from '../routing/routes'
-import Logo from './Logo'
+import { ExternalRoutes, Routes } from '../../routing/routes'
+import Logo from '../Logo'
 import {
   useUserCurrentRetrieve,
   useUserLogoutCreate,
-} from '../../api/generated/generatedApiComponents'
+} from '../../../api/generated/generatedApiComponents'
 import './MainNavigation.css'
-import { BellOutlined, MessageOutlined, UserOutlined } from '@ant-design/icons'
-import { User } from '../../api/generated/generatedApiSchemas'
+import { MessageOutlined, UserOutlined } from '@ant-design/icons'
+import { User } from '../../../api/generated/generatedApiSchemas'
 import { useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
+import NotificationItem from './NotificationItem'
 
 const { Header } = Layout
 
@@ -77,16 +78,16 @@ const getLoggedInMenuItems = (user: User, handleLogout: () => void) => [
   {
     key: 'notifications',
     label: (
-      <NavLink to={Routes.Notifications} className="MainNavigation__iconItem">
-        <BellOutlined />
+      <NavLink to={Routes.Notifications}>
+        <NotificationItem />
       </NavLink>
     ),
   },
   {
     key: 'messages',
     label: (
-      <NavLink to={Routes.Messages} className="MainNavigation__iconItem">
-        <MessageOutlined />
+      <NavLink to={Routes.Messages}>
+        <MessageOutlined className="MainNavigation__iconItem" />
       </NavLink>
     ),
   },

@@ -3,6 +3,7 @@
     --mobile-breakpoint: 400px;
     --hide-logo-text: 700px;
     --contentPadding: 24px;
+    --main-navigation-color: rgba(255, 255, 255, 0.65);
 }
 
 .App {
