@@ -1,0 +1,15 @@
+.NotificationPage {
+
+}
+
+/* We can use variable --hide-logo-text directly in media query */
+@media screen and (max-width: 700px) {
+    .NotificationPage .ant-list-item-meta-avatar {
+        display: none;
+    }
+
+    .NotificationPage .ant-list-items {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}

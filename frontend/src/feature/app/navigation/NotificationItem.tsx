@@ -7,6 +7,7 @@ import './MainNavigation.css'
 import { BellOutlined } from '@ant-design/icons'
 import { Badge } from 'antd'
 import './NotificationItem.css'
+import { NOTIFICATION_REFETCH_INTERVAL } from '../../../utils/constants'
 const NotificationItem: React.FC = () => {
   const {
     isLoading: isLoadingUser,
@@ -15,7 +16,10 @@ const NotificationItem: React.FC = () => {
   } = useUserCurrentRetrieve({})
   const { data: unseenNotifications } = useNotificationsGetUnseen(
     {},
-    { enabled: !isErrorLoadingUser && !isLoadingUser && !!user }
+    {
+      enabled: !isErrorLoadingUser && !isLoadingUser && !!user,
+      refetchInterval: NOTIFICATION_REFETCH_INTERVAL,
+    }
   )
 
   return (
