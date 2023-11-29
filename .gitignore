@@ -165,4 +165,5 @@ mentorapp_env
 static
 staticfiles/
 node_modules
-media/
+media/media/avatars/*
+!default.png

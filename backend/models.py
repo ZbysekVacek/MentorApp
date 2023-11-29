@@ -49,6 +49,7 @@ class Profile(models.Model):
     avatar = models.ImageField(
         # TODO MentorApp: could be improved by renaming file to user_id
         upload_to="media/avatars/",
+        default="media/avatars/default.png",
         blank=True,
         null=True,
         validators=[
