@@ -1,11 +1,13 @@
 from rest_framework import generics, permissions
 
-from backend.features.connection.connection_serializers import ConnectionSerializer
+from backend.features.connection.connection_serializers import (
+    ConnectionListItemSerializer,
+)
 from backend.models import Connection
 
 
-class ConnectionListDetail(generics.ListCreateAPIView):
-    serializer_class = ConnectionSerializer
+class ConnectionListDetail(generics.ListAPIView):
+    serializer_class = ConnectionListItemSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
