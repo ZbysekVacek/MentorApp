@@ -33,6 +33,10 @@ class Profile(models.Model):
 class Notification(models.Model):
     """Notification model is used to show user what is happening with his account"""
 
+    class NotificationFollowUp(models.TextChoices):
+        FILL_PROFILE = "FILL_PROFILE", ("Fill your user profile")
+        NONE = "NONE", ("No followup action")
+
     # Link to the user model
     user = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, related_name="notifications"
@@ -46,7 +50,11 @@ class Notification(models.Model):
     # Title of the notification
     title = models.CharField(max_length=255, null=False)
     # Followup action. Can be empty
-    followup = models.CharField(max_length=255, null=True)
+    followup = models.CharField(
+        max_length=255,
+        choices=NotificationFollowUp.choices,
+        default=NotificationFollowUp.NONE,
+    )
     content = models.TextField(max_length=255, null=False)
 
     def __str__(self):

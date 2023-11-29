@@ -8,6 +8,12 @@ export type Exception = {
   detail?: string
 }
 
+/**
+ * * `FILL_PROFILE` - Fill your user profile
+ * * `NONE` - No followup action
+ */
+export type FollowupEnum = 'FILL_PROFILE' | 'NONE'
+
 export type LoginRequestRequest = {
   /**
    * @minLength 1
@@ -81,10 +87,7 @@ export type Notification = {
    * @maxLength 255
    */
   title: string
-  /**
-   * @maxLength 255
-   */
-  followup?: string | null
+  followup?: FollowupEnum
   /**
    * @maxLength 255
    */
