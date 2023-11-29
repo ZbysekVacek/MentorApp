@@ -7,7 +7,21 @@ from backend.models import Profile
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ("accepts_mentees", "about", "contact", "skills", "id", "user")
+        fields = (
+            "accepts_mentees",
+            "about",
+            "contact",
+            "skills",
+            "id",
+            "user",
+            "avatar",
+        )
+
+
+class ProfileAvatarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ("avatar",)
 
 
 class UserSerializer(serializers.ModelSerializer):

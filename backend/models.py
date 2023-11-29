@@ -1,5 +1,8 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import FileExtensionValidator
 from django.db import models
+from PIL import Image
+from django.core.exceptions import ValidationError
 
 
 class Meeting(models.Model):
@@ -16,6 +19,14 @@ class Meeting(models.Model):
 class Profile(models.Model):
     """Profile model is used to store additional information about the user"""
 
+    # # pylint: disable=no-self-argument
+    def validate_avatar_dimensions(value):
+        width, height = Image.open(value).size
+        if width < 100 or height < 100 or width > 500 or height > 500:
+            raise ValidationError(
+                "Image dimensions must be between 100x100 and 500x500 pixels."
+            )
+
     #  Link to the user model
     user = models.OneToOneField(
         get_user_model(), on_delete=models.CASCADE, related_name="profile"
@@ -28,6 +39,16 @@ class Profile(models.Model):
     contact = models.TextField(default="")
     # In what skills can user share knowledge
     skills = models.TextField(default="")
+    avatar = models.ImageField(
+        # TODO MentorApp: could be improved by renaming file to user_id
+        upload_to="media/avatars/",
+        blank=True,
+        null=True,
+        validators=[
+            FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"]),
+            validate_avatar_dimensions,
+        ],
+    )
 
 
 class Notification(models.Model):

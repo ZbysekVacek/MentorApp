@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
@@ -15,6 +16,7 @@ from backend.features.user.user_serializers import (
     LoginRequestSerializer,
     ProfileSerializer,
     UserRegisterSerializer,
+    ProfileAvatarSerializer,
 )
 from backend.models import Profile
 
@@ -129,3 +131,18 @@ class ProfileDetail(RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
     lookup_field = "user_id"
     permission_classes = [permissions.IsAuthenticated]
+
+
+class ProfileUpdateAvatarView(generics.UpdateAPIView):
+    queryset = Profile.objects.all()
+    lookup_field = "user_id"
+    serializer_class = ProfileAvatarSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop("partial", False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data, status=status.HTTP_200_OK)

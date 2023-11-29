@@ -134,6 +134,11 @@ export type PatchedProfileRequest = {
    */
   skills?: string
   user?: number
+  /**
+   * @format binary
+   * @pattern (?:jpg|jpeg|png)$
+   */
+  avatar?: Blob
 }
 
 export type Profile = {
@@ -143,6 +148,11 @@ export type Profile = {
   skills?: string
   id?: number
   user: number
+  /**
+   * @format uri
+   * @pattern (?:jpg|jpeg|png)$
+   */
+  avatar?: string | null
 }
 
 export type ProfileRequest = {
@@ -160,6 +170,11 @@ export type ProfileRequest = {
    */
   skills?: string
   user: number
+  /**
+   * @format binary
+   * @pattern (?:jpg|jpeg|png)$
+   */
+  avatar?: Blob
 }
 
 export type User = {
