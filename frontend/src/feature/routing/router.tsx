@@ -19,7 +19,7 @@ import TasksCreatedPage from '../../pages/restricted/tasks/TasksCreatedPage'
 import NotesPage from '../../pages/restricted/NotesPage'
 import ConnectionsPage from '../../pages/restricted/connections/ConnectionsPage'
 import ConnectionsSearchPage from '../../pages/restricted/connections/ConnectionsSearchPage'
-import NotificationsPage from '../../pages/restricted/NotificationsPage'
+import NotificationsPage from '../../pages/restricted/notifications/NotificationsPage'
 import MessagesPage from '../../pages/restricted/MessagesPage'
 import ProfilePage from '../../pages/restricted/Profile/ProfilePage'
 

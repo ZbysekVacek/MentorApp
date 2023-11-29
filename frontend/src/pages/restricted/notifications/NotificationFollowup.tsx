@@ -1,7 +1,7 @@
 import React from 'react'
-import { FollowupEnum } from '../../api/generated/generatedApiSchemas'
+import { FollowupEnum } from '../../../api/generated/generatedApiSchemas'
 import { Link } from 'react-router-dom'
-import { Routes } from '../../feature/routing/routes'
+import { Routes } from '../../../feature/routing/routes'
 
 type Props = {
   followup?: FollowupEnum

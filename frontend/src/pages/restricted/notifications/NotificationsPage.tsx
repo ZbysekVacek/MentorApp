@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from 'react'
 import { Avatar, List, Tag, Typography } from 'antd'
-import RestrictedRoute from '../../feature/routing/RestrictedRoute'
+import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
-import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
-import { Routes } from '../../feature/routing/routes'
+import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
+import { Routes } from '../../../feature/routing/routes'
 import {
   useNotificationsGetAll,
   useNotificationsMarkAsSeen,
   useUserCurrentRetrieve,
-} from '../../api/generated/generatedApiComponents'
-import PageLoader from '../../components/PageLoader'
+} from '../../../api/generated/generatedApiComponents'
+import PageLoader from '../../../components/PageLoader'
 import { BellOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import './NotificationPage.css'
