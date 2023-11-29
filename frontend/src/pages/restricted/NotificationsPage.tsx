@@ -7,13 +7,14 @@ import { Routes } from '../../feature/routing/routes'
 import {
   useNotificationsGetAll,
   useNotificationsMarkAsSeen,
+  useUserCurrentRetrieve,
 } from '../../api/generated/generatedApiComponents'
 import PageLoader from '../../components/PageLoader'
 import { BellOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import './NotificationPage.css'
 import { useQueryClient } from '@tanstack/react-query'
+import NotificationFollowup from './NotificationFollowup'
 
 const NotificationsPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Notifications))
@@ -23,6 +24,7 @@ const NotificationsPage: React.FC = () => {
     isError,
     isSuccess,
   } = useNotificationsGetAll({})
+  const { data: user } = useUserCurrentRetrieve({})
   const wasNewNotificationInvalidated = useRef(false)
   const queryClient = useQueryClient()
 
@@ -61,7 +63,12 @@ const NotificationsPage: React.FC = () => {
         className="NotificationPage"
         renderItem={(item) => (
           <List.Item
-            actions={[<Link to={Routes.Profile}>Go to my profile</Link>]}
+            actions={[
+              <NotificationFollowup
+                followup={item.followup}
+                userId={user?.id}
+              />,
+            ]}
           >
             <List.Item.Meta
               avatar={<Avatar size="large" icon={<BellOutlined />} />}
