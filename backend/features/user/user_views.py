@@ -138,6 +138,7 @@ class ProfileUpdateAvatarView(generics.UpdateAPIView):
     lookup_field = "user_id"
     serializer_class = ProfileAvatarSerializer
     parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [permissions.IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", False)

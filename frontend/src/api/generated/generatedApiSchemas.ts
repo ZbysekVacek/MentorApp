@@ -3,6 +3,14 @@
  *
  * @version 1.0.0
  */
+export type Competency = {
+  id?: number
+  /**
+   * @maxLength 255
+   */
+  name: string
+}
+
 export type Exception = {
   status_code?: number
   detail?: string
@@ -147,6 +155,7 @@ export type PatchedProfileRequest = {
    * @pattern (?:jpg|jpeg|png)$
    */
   avatar?: Blob
+  competencies?: number[]
 }
 
 export type Profile = {
@@ -161,6 +170,7 @@ export type Profile = {
    * @pattern (?:jpg|jpeg|png)$
    */
   avatar?: string | null
+  competencies: number[]
 }
 
 export type ProfileAvatar = {
@@ -199,6 +209,7 @@ export type ProfileRequest = {
    * @pattern (?:jpg|jpeg|png)$
    */
   avatar?: Blob
+  competencies: number[]
 }
 
 export type User = {

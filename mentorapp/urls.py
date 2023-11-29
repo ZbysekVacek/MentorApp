@@ -23,6 +23,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from backend import views
 from backend.features.notification.notification_urls import notificationUrls
+from backend.features.competency.competency_urls import competency_urls
 from backend.features.user.user_urls import userUrls
 
 urlpatterns = [
@@ -31,6 +32,7 @@ urlpatterns = [
     path("api/meetings/<int:pk>", views.MeetingDetail.as_view()),
     path("", TemplateView.as_view(template_name="index.html")),
     path("api/", include(userUrls)),
+    path("api/", include(competency_urls)),
     path("api/", include(notificationUrls)),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
