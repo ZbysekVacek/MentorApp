@@ -20,6 +20,11 @@ from backend.features.user.user_serializers import (
 )
 from backend.models import Profile
 
+"""
+User and Profile related views
+User and Profile models are so interconnected that it makes sense to have them in the same package and files.
+"""
+
 
 class UserDetail(generics.RetrieveAPIView):
     serializer_class = UserSerializer

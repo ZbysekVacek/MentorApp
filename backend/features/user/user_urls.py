@@ -2,6 +2,11 @@ from django.urls import path
 
 from backend.features.user import user_views
 
+"""
+User and Profile related urls.
+User and Profile models are so interconnected that it makes sense to have them in the same package and files.
+"""
+
 user_urls = [
     path("user/current", user_views.UserDetail.as_view()),
     path("user/<int:pk>", user_views.UserDetailById.as_view()),

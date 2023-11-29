@@ -59,6 +59,10 @@ class Profile(models.Model):
     )
     competencies = models.ManyToManyField(Competency)
 
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Profile {self.user.username}"
+
 
 class Notification(models.Model):
     """Notification model is used to show user what is happening with his account"""
@@ -90,3 +94,24 @@ class Notification(models.Model):
     def __str__(self):
         # pylint: disable=E1101
         return f"{self.user.username} - {self.title}"
+
+
+class Connection(models.Model):
+    """Connection model represents a connection between two users"""
+
+    first_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="connections_first_user",
+    )
+    second_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="connections_second_user",
+    )
+    active = models.BooleanField(default=True, null=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=False)
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Connection {self.first_user.username} - {self.second_user.username}"
