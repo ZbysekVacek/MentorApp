@@ -239,11 +239,15 @@ const MyProfile = () => {
             <Typography.Paragraph>
               What are your skills? What can you offer to the mentees
             </Typography.Paragraph>
-            <MarkdownEditor
-              markdown={skills}
-              onChange={setSkills}
-              loading={updateProfile.isPending}
+            <Input.TextArea
+              value={skills}
+              onChange={(e) => setSkills(e.target.value)}
+              disabled={updateProfile.isPending}
+              autoSize={{ minRows: 10 }}
+              maxLength={500}
+              showCount
             />
+            <br />
             <br />
             <Button type="primary" onClick={() => handleSubmit('skills')}>
               Save
