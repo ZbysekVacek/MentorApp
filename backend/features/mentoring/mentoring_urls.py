@@ -39,4 +39,8 @@ mentoring_urls = [
         "mentoring/as-mentee/",
         mentoring_views.MenteesMentoringsList.as_view(),
     ),
+    path(
+        "mentoring/<int:pk>/delete/",
+        mentoring_views.DeleteMentoring.as_view(),
+    ),
 ]
