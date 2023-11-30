@@ -6,6 +6,7 @@ import {
   Descriptions,
   DescriptionsProps,
   Divider,
+  Input,
   message,
   notification,
   Row,
@@ -176,11 +177,15 @@ const MyProfile = () => {
               Tell use something about you. What are you doing, what are your
               objectives, why are here?
             </Typography.Paragraph>
-            <MarkdownEditor
-              markdown={about}
-              onChange={setAbout}
-              loading={updateProfile.isPending}
+            <Input.TextArea
+              value={about}
+              onChange={(e) => setAbout(e.target.value)}
+              disabled={updateProfile.isPending}
+              autoSize={{ minRows: 10 }}
+              maxLength={500}
+              showCount
             />
+            <br />
             <br />
             <Button type="primary" onClick={() => handleSubmit('about')}>
               Save

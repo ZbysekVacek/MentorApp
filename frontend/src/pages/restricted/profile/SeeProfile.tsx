@@ -5,23 +5,16 @@ import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
 import { Routes } from '../../../feature/routing/routes'
 import { useNavigate, useParams } from 'react-router-dom'
-import {
-  useCompetencyAllList,
-  useUserRetrieve,
-} from '../../../api/generated/generatedApiComponents'
+import { useUserRetrieve } from '../../../api/generated/generatedApiComponents'
 import PageLoader from '../../../components/PageLoader'
 import MarkdownDisplay from '../../../components/markdown/MarkdownDisplay'
 import './SeeProfile.css'
+import CompetenciesList from '../../../feature/competency/CompetenciesList'
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate()
   useDocumentTitle(getRouteTitle(Routes.Notifications))
   const params = useParams<{ userId: string }>()
-  const {
-    data: competencies,
-    isLoading: isLoadingCompetencies,
-    isError: isCompetenciesError,
-  } = useCompetencyAllList({})
 
   let userUrl = params.userId
   useEffect(() => {
@@ -73,15 +66,9 @@ const ProfilePage: React.FC = () => {
             </Col>
             <Col lg={12} sm={24}>
               <Card title="My compenecies">
-                {!isLoadingCompetencies &&
-                  !isCompetenciesError &&
-                  competencies &&
-                  profileUser &&
-                  profileUser.profile?.competencies?.map((competency) => (
-                    <Tag color="blue" key={competency}>
-                      {competencies[competency]?.name}
-                    </Tag>
-                  ))}
+                <CompetenciesList
+                  competencyIds={profileUser.profile?.competencies ?? []}
+                />
               </Card>
             </Col>
           </Row>

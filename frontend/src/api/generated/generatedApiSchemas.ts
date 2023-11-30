@@ -11,6 +11,16 @@ export type Competency = {
   name: string
 }
 
+export type ConnectionListItem = {
+  id?: number
+  to?: User
+  active?: boolean
+  /**
+   * @format date-time
+   */
+  created_at?: string
+}
+
 export type Exception = {
   status_code?: number
   detail?: string

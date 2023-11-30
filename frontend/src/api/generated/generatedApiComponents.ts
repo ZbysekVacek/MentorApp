@@ -62,6 +62,55 @@ export const useCompetencyAllList = <TData = CompetencyAllListResponse>(
   })
 }
 
+export type ConnectionsListError = Fetcher.ErrorWrapper<undefined>
+
+export type ConnectionsListResponse = Schemas.ConnectionListItem[]
+
+export type ConnectionsListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchConnectionsList = (
+  variables: ConnectionsListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    ConnectionsListResponse,
+    ConnectionsListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/connections', method: 'get', ...variables, signal })
+
+export const useConnectionsList = <TData = ConnectionsListResponse>(
+  variables: ConnectionsListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      ConnectionsListResponse,
+      ConnectionsListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    ConnectionsListResponse,
+    ConnectionsListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/connections',
+      operationId: 'connectionsList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchConnectionsList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
 export type MeetingsListError = Fetcher.ErrorWrapper<undefined>
 
 export type MeetingsListResponse = Schemas.Meeting[]
@@ -1169,6 +1218,11 @@ export type QueryOperation =
       path: '/api/competency/all'
       operationId: 'competencyAllList'
       variables: CompetencyAllListVariables
+    }
+  | {
+      path: '/api/connections'
+      operationId: 'connectionsList'
+      variables: ConnectionsListVariables
     }
   | {
       path: '/api/meetings/'
