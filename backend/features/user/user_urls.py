@@ -18,4 +18,12 @@ user_urls = [
     path("user/login", user_views.UserLogin.as_view()),
     path("user/logout", user_views.UserLogout.as_view()),
     path("user/register", user_views.UserRegistration.as_view()),
+    path(
+        "user/search/",
+        user_views.SearchUsers.as_view(),
+    ),
+    path(
+        "user/search/<str:competency_ids>/",
+        user_views.SearchUsers.as_view(),
+    ),
 ]

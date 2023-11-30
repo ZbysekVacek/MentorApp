@@ -3,6 +3,7 @@ from drf_spectacular.utils import extend_schema, OpenApiResponse
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
@@ -152,3 +153,27 @@ class ProfileUpdateAvatarView(generics.UpdateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SearchUsers(generics.ListAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        competency_ids_string = self.kwargs.get("competency_ids")
+        current_user = self.request.user
+        competency_ids = [int(id) for id in competency_ids_string.split(",")]
+
+        if competency_ids_string:
+            queryset = (
+                get_user_model()
+                .objects.filter(profile__competencies__in=competency_ids)
+                .distinct()
+            )
+        else:
+            queryset = get_user_model().objects.all()
+
+        # Do not show current user
+        queryset = queryset.exclude(pk=current_user.pk)
+
+        return queryset
