@@ -44,7 +44,7 @@ const ConnectionsRequests: React.FC = () => {
                 isConnectionRequestedByMe={true}
                 isConnectionRequestedByOtherUser={false}
                 connectionRequestId={currConnection.id}
-                otherUserId={currConnection.to_user?.id ?? -1}
+                currentUserId={user?.id ?? -1}
               />
             </Col>
           )
@@ -68,7 +68,7 @@ const ConnectionsRequests: React.FC = () => {
                 isConnectionRequestedByOtherUser={true}
                 hasMentoring={false}
                 connectionRequestId={currConnection.id}
-                otherUserId={currConnection.to_user?.id ?? -1}
+                currentUserId={user?.id ?? -1}
               />
             </Col>
           )

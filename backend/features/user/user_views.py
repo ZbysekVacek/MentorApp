@@ -162,9 +162,9 @@ class SearchUsers(generics.ListAPIView):
     def get_queryset(self):
         competency_ids_string = self.kwargs.get("competency_ids")
         current_user = self.request.user
-        competency_ids = [int(id) for id in competency_ids_string.split(",")]
 
         if competency_ids_string:
+            competency_ids = [int(id) for id in competency_ids_string.split(",")]
             queryset = (
                 get_user_model()
                 .objects.filter(profile__competencies__in=competency_ids)

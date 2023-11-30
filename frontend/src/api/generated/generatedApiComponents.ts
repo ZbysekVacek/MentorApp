@@ -1479,7 +1479,7 @@ export const fetchUserSearchList = (
     {},
     {},
     {}
-  >({ url: '/api/user/search/', method: 'get', ...variables, signal })
+  >({ url: '/api/user/search', method: 'get', ...variables, signal })
 
 export const useUserSearchList = <TData = UserSearchListResponse>(
   variables: UserSearchListVariables,
@@ -1500,7 +1500,7 @@ export const useUserSearchList = <TData = UserSearchListResponse>(
     TData
   >({
     queryKey: queryKeyFn({
-      path: '/api/user/search/',
+      path: '/api/user/search',
       operationId: 'userSearchList',
       variables,
     }),
@@ -1633,7 +1633,7 @@ export type QueryOperation =
       variables: UserCurrentRetrieveVariables
     }
   | {
-      path: '/api/user/search/'
+      path: '/api/user/search'
       operationId: 'userSearchList'
       variables: UserSearchListVariables
     }

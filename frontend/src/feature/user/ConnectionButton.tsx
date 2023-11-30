@@ -130,7 +130,7 @@ const ConnectionButton = (props: Props) => {
     <Button
       disabled={createConnectionRequest.isPending}
       onClick={() => {
-        if (connectionRequestId) {
+        if (otherUserId) {
           createConnectionRequest.mutate(
             { body: { from_user: currentUserId, to_user: otherUserId } },
             {
@@ -140,6 +140,9 @@ const ConnectionButton = (props: Props) => {
                 })
                 queryClient.invalidateQueries({
                   queryKey: ['api', 'connections', 'requests'],
+                })
+                queryClient.invalidateQueries({
+                  queryKey: [['api', 'user', 'search']],
                 })
                 notification.success({
                   message: 'Connection was requested',

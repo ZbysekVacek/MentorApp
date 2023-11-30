@@ -5,7 +5,10 @@ import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
 import { Routes } from '../../../feature/routing/routes'
 import ConnectionsTabs from './ConnectionsTabs'
-import { useConnectionsList } from '../../../api/generated/generatedApiComponents'
+import {
+  useConnectionsList,
+  useUserCurrentRetrieve,
+} from '../../../api/generated/generatedApiComponents'
 import PageLoader from '../../../components/PageLoader'
 import ProfileCard from '../../../feature/user/ProfileCard'
 import { assertIsDefined } from '../../../utils/utils'
@@ -15,6 +18,7 @@ import ConnectionsRequests from './ConnectionsRequests'
 const ConnectionsPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Connections))
   const { data: allConnections, isLoading, isError } = useConnectionsList({})
+  const { data: loggedUser } = useUserCurrentRetrieve({})
 
   return (
     <RestrictedRoute>
@@ -39,7 +43,7 @@ const ConnectionsPage: React.FC = () => {
                 isConnectionRequestedByOtherUser={false}
                 hasMentoring={false /* TODO MentorApp implement */}
                 connectionId={currConnection.id}
-                otherUserId={currConnection.to?.id ?? -1}
+                currentUserId={loggedUser?.id ?? -1}
               />
             )
           })}

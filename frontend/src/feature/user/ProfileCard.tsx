@@ -15,7 +15,7 @@ type Props = {
   isConnectionRequestedByOtherUser: boolean
   connectionRequestId?: number
   connectionId?: number
-  otherUserId: number
+  currentUserId: number
 }
 const ProfileCard = (props: Props) => {
   const {
@@ -26,7 +26,7 @@ const ProfileCard = (props: Props) => {
     isConnectionRequestedByOtherUser,
     connectionRequestId,
     connectionId,
-    otherUserId,
+    currentUserId,
   } = props
 
   const card = (
@@ -42,8 +42,8 @@ const ProfileCard = (props: Props) => {
           isConnectionRequestedByOtherUser={isConnectionRequestedByOtherUser}
           connectionRequestId={connectionRequestId}
           connectionId={connectionId}
-          currentUserId={user?.id ?? -1}
-          otherUserId={otherUserId}
+          currentUserId={currentUserId}
+          otherUserId={user?.id ?? -1}
         />,
       ]}
     >

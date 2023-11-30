@@ -19,7 +19,7 @@ user_urls = [
     path("user/logout", user_views.UserLogout.as_view()),
     path("user/register", user_views.UserRegistration.as_view()),
     path(
-        "user/search/",
+        "user/search",
         user_views.SearchUsers.as_view(),
     ),
     path(
