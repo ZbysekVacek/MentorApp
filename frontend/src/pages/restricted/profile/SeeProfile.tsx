@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Avatar, Card, Col, Divider, Row, Tag, Typography } from 'antd'
+import { Avatar, Card, Col, Divider, Row, Typography } from 'antd'
 import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'

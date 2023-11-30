@@ -111,6 +111,250 @@ export const useConnectionsList = <TData = ConnectionsListResponse>(
   })
 }
 
+export type ConnectionsDeleteDestroyPathParams = {
+  id: number
+}
+
+export type ConnectionsDeleteDestroyError = Fetcher.ErrorWrapper<undefined>
+
+export type ConnectionsDeleteDestroyVariables = {
+  pathParams: ConnectionsDeleteDestroyPathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchConnectionsDeleteDestroy = (
+  variables: ConnectionsDeleteDestroyVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    ConnectionsDeleteDestroyError,
+    undefined,
+    {},
+    {},
+    ConnectionsDeleteDestroyPathParams
+  >({
+    url: '/api/connections/{id}/delete',
+    method: 'delete',
+    ...variables,
+    signal,
+  })
+
+export const useConnectionsDeleteDestroy = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      ConnectionsDeleteDestroyError,
+      ConnectionsDeleteDestroyVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    ConnectionsDeleteDestroyError,
+    ConnectionsDeleteDestroyVariables
+  >({
+    mutationFn: (variables: ConnectionsDeleteDestroyVariables) =>
+      fetchConnectionsDeleteDestroy({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type ConnectionsRequestsListError = Fetcher.ErrorWrapper<undefined>
+
+export type ConnectionsRequestsListResponse = Schemas.ConnectionRequest[]
+
+export type ConnectionsRequestsListVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchConnectionsRequestsList = (
+  variables: ConnectionsRequestsListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    ConnectionsRequestsListResponse,
+    ConnectionsRequestsListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/connections/requests', method: 'get', ...variables, signal })
+
+export const useConnectionsRequestsList = <
+  TData = ConnectionsRequestsListResponse
+>(
+  variables: ConnectionsRequestsListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      ConnectionsRequestsListResponse,
+      ConnectionsRequestsListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    ConnectionsRequestsListResponse,
+    ConnectionsRequestsListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/connections/requests',
+      operationId: 'connectionsRequestsList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchConnectionsRequestsList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type ConnectionsRequestsCreateError = Fetcher.ErrorWrapper<undefined>
+
+export type ConnectionsRequestsCreateVariables = {
+  body: Schemas.ConnectionRequestRequest
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchConnectionsRequestsCreate = (
+  variables: ConnectionsRequestsCreateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.ConnectionRequest,
+    ConnectionsRequestsCreateError,
+    Schemas.ConnectionRequestRequest,
+    {},
+    {},
+    {}
+  >({ url: '/api/connections/requests', method: 'post', ...variables, signal })
+
+export const useConnectionsRequestsCreate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.ConnectionRequest,
+      ConnectionsRequestsCreateError,
+      ConnectionsRequestsCreateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.ConnectionRequest,
+    ConnectionsRequestsCreateError,
+    ConnectionsRequestsCreateVariables
+  >({
+    mutationFn: (variables: ConnectionsRequestsCreateVariables) =>
+      fetchConnectionsRequestsCreate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type ConnectionsRequestsDestroyPathParams = {
+  id: number
+}
+
+export type ConnectionsRequestsDestroyError = Fetcher.ErrorWrapper<undefined>
+
+export type ConnectionsRequestsDestroyVariables = {
+  pathParams: ConnectionsRequestsDestroyPathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchConnectionsRequestsDestroy = (
+  variables: ConnectionsRequestsDestroyVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    ConnectionsRequestsDestroyError,
+    undefined,
+    {},
+    {},
+    ConnectionsRequestsDestroyPathParams
+  >({
+    url: '/api/connections/requests/{id}',
+    method: 'delete',
+    ...variables,
+    signal,
+  })
+
+export const useConnectionsRequestsDestroy = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      ConnectionsRequestsDestroyError,
+      ConnectionsRequestsDestroyVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    ConnectionsRequestsDestroyError,
+    ConnectionsRequestsDestroyVariables
+  >({
+    mutationFn: (variables: ConnectionsRequestsDestroyVariables) =>
+      fetchConnectionsRequestsDestroy({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type ConnectionsRequestsAcceptCreatePathParams = {
+  id: number
+}
+
+export type ConnectionsRequestsAcceptCreateError =
+  Fetcher.ErrorWrapper<undefined>
+
+export type ConnectionsRequestsAcceptCreateVariables = {
+  pathParams: ConnectionsRequestsAcceptCreatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchConnectionsRequestsAcceptCreate = (
+  variables: ConnectionsRequestsAcceptCreateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    ConnectionsRequestsAcceptCreateError,
+    undefined,
+    {},
+    {},
+    ConnectionsRequestsAcceptCreatePathParams
+  >({
+    url: '/api/connections/requests/{id}/accept',
+    method: 'post',
+    ...variables,
+    signal,
+  })
+
+export const useConnectionsRequestsAcceptCreate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      ConnectionsRequestsAcceptCreateError,
+      ConnectionsRequestsAcceptCreateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    ConnectionsRequestsAcceptCreateError,
+    ConnectionsRequestsAcceptCreateVariables
+  >({
+    mutationFn: (variables: ConnectionsRequestsAcceptCreateVariables) =>
+      fetchConnectionsRequestsAcceptCreate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
 export type MeetingsListError = Fetcher.ErrorWrapper<undefined>
 
 export type MeetingsListResponse = Schemas.Meeting[]
@@ -1213,6 +1457,115 @@ export const useRegisterUser = (
   })
 }
 
+export type UserSearchListError = Fetcher.ErrorWrapper<undefined>
+
+export type UserSearchListResponse = Schemas.User[]
+
+export type UserSearchListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchUserSearchList = (
+  variables: UserSearchListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    UserSearchListResponse,
+    UserSearchListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/user/search/', method: 'get', ...variables, signal })
+
+export const useUserSearchList = <TData = UserSearchListResponse>(
+  variables: UserSearchListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      UserSearchListResponse,
+      UserSearchListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    UserSearchListResponse,
+    UserSearchListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/user/search/',
+      operationId: 'userSearchList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchUserSearchList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type UserSearchList2PathParams = {
+  competencyIds: string
+}
+
+export type UserSearchList2Error = Fetcher.ErrorWrapper<undefined>
+
+export type UserSearchList2Response = Schemas.User[]
+
+export type UserSearchList2Variables = {
+  pathParams: UserSearchList2PathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchUserSearchList2 = (
+  variables: UserSearchList2Variables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    UserSearchList2Response,
+    UserSearchList2Error,
+    undefined,
+    {},
+    {},
+    UserSearchList2PathParams
+  >({
+    url: '/api/user/search/{competencyIds}/',
+    method: 'get',
+    ...variables,
+    signal,
+  })
+
+export const useUserSearchList2 = <TData = UserSearchList2Response>(
+  variables: UserSearchList2Variables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      UserSearchList2Response,
+      UserSearchList2Error,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    UserSearchList2Response,
+    UserSearchList2Error,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/user/search/{competencyIds}/',
+      operationId: 'userSearchList2',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchUserSearchList2({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
 export type QueryOperation =
   | {
       path: '/api/competency/all'
@@ -1223,6 +1576,11 @@ export type QueryOperation =
       path: '/api/connections'
       operationId: 'connectionsList'
       variables: ConnectionsListVariables
+    }
+  | {
+      path: '/api/connections/requests'
+      operationId: 'connectionsRequestsList'
+      variables: ConnectionsRequestsListVariables
     }
   | {
       path: '/api/meetings/'
@@ -1268,4 +1626,14 @@ export type QueryOperation =
       path: '/api/user/current'
       operationId: 'userCurrentRetrieve'
       variables: UserCurrentRetrieveVariables
+    }
+  | {
+      path: '/api/user/search/'
+      operationId: 'userSearchList'
+      variables: UserSearchListVariables
+    }
+  | {
+      path: '/api/user/search/{competencyIds}/'
+      operationId: 'userSearchList2'
+      variables: UserSearchList2Variables
     }

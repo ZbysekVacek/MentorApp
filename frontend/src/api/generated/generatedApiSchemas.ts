@@ -21,6 +21,21 @@ export type ConnectionListItem = {
   created_at?: string
 }
 
+export type ConnectionRequest = {
+  id?: number
+  /**
+   * @format date-time
+   */
+  created_at?: string
+  from_user: number
+  to_user: number
+}
+
+export type ConnectionRequestRequest = {
+  from_user: number
+  to_user: number
+}
+
 export type Exception = {
   status_code?: number
   detail?: string
