@@ -6,6 +6,8 @@ from .models import (
     Competency,
     Connection,
     ConnectionRequest,
+    Mentoring,
+    MentoringRequest,
 )
 
 # Register your models here.
@@ -15,3 +17,5 @@ admin.site.register(Notification)
 admin.site.register(Competency)
 admin.site.register(Connection)
 admin.site.register(ConnectionRequest)
+admin.site.register(Mentoring)
+admin.site.register(MentoringRequest)

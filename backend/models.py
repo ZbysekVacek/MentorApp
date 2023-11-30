@@ -69,6 +69,8 @@ class Notification(models.Model):
 
     class NotificationFollowUp(models.TextChoices):
         FILL_PROFILE = "FILL_PROFILE", ("Fill your user profile")
+        MENTORING_REQUESTS_PAGE = "MENTORING_REQUESTS_PAGE", ("See mentoring requests")
+        MENTORINGS_PAGE = "MENTORINGS_PAGE", ("See mentoring page")
         NONE = "NONE", ("No followup action")
 
     # Link to the user model
@@ -80,7 +82,7 @@ class Notification(models.Model):
     # When was the notification created - defaults to now
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     # Has the user seen the notification
-    seen = models.BooleanField(null=False)
+    seen = models.BooleanField(null=False, default=False)
     # Title of the notification
     title = models.CharField(max_length=255, null=False)
     # Followup action. Can be empty
@@ -136,3 +138,37 @@ class ConnectionRequest(models.Model):
     def __str__(self):
         # pylint: disable=no-member
         return f"Connection request from {self.from_user.username} to {self.to_user.username}"
+
+
+class Mentoring(models.Model):
+    connection = models.ForeignKey(Connection, on_delete=models.CASCADE)
+    settings = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    frequency_days = models.IntegerField()
+    objectives = models.TextField()
+    mentor = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="mentoring_mentor"
+    )
+    mentee = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="mentoring_mentee"
+    )
+    active = models.BooleanField(default=True)
+
+
+class MentoringRequest(models.Model):
+    from_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="mentoring_request_from_user",
+    )
+    to_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="mentoring_request_to_user",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Mentoring request from {self.from_user.username} to {self.to_user.username}"
