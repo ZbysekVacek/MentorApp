@@ -2,7 +2,13 @@ from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from backend.features.user.user_serializers import UserSerializer
-from backend.models import Connection
+from backend.models import Connection, ConnectionRequest
+
+
+class ConnectionRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConnectionRequest
+        fields = "__all__"
 
 
 class ConnectionSerializer(serializers.ModelSerializer):

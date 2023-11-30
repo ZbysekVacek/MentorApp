@@ -115,3 +115,24 @@ class Connection(models.Model):
     def __str__(self):
         # pylint: disable=no-member
         return f"Connection {self.first_user.username} - {self.second_user.username}"
+
+
+class ConnectionRequest(models.Model):
+    """Request for a connection from one user to another"""
+
+    from_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="connection_request_first_user",
+    )
+    to_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="connection_request_second_user",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True, null=False)
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Connection request from {self.from_user.username} to {self.to_user.username}"
