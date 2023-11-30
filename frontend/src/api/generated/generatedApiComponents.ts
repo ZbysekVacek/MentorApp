@@ -213,47 +213,6 @@ export const useConnectionsRequestsList = <
   })
 }
 
-export type ConnectionsRequestsCreateError = Fetcher.ErrorWrapper<undefined>
-
-export type ConnectionsRequestsCreateVariables = {
-  body: Schemas.ConnectionRequestRequest
-} & GeneratedApiContext['fetcherOptions']
-
-export const fetchConnectionsRequestsCreate = (
-  variables: ConnectionsRequestsCreateVariables,
-  signal?: AbortSignal
-) =>
-  generatedApiFetch<
-    Schemas.ConnectionRequest,
-    ConnectionsRequestsCreateError,
-    Schemas.ConnectionRequestRequest,
-    {},
-    {},
-    {}
-  >({ url: '/api/connections/requests', method: 'post', ...variables, signal })
-
-export const useConnectionsRequestsCreate = (
-  options?: Omit<
-    reactQuery.UseMutationOptions<
-      Schemas.ConnectionRequest,
-      ConnectionsRequestsCreateError,
-      ConnectionsRequestsCreateVariables
-    >,
-    'mutationFn'
-  >
-) => {
-  const { fetcherOptions } = useGeneratedApiContext()
-  return reactQuery.useMutation<
-    Schemas.ConnectionRequest,
-    ConnectionsRequestsCreateError,
-    ConnectionsRequestsCreateVariables
-  >({
-    mutationFn: (variables: ConnectionsRequestsCreateVariables) =>
-      fetchConnectionsRequestsCreate({ ...fetcherOptions, ...variables }),
-    ...options,
-  })
-}
-
 export type ConnectionsRequestsDestroyPathParams = {
   id: number
 }
@@ -351,6 +310,52 @@ export const useConnectionsRequestsAcceptCreate = (
   >({
     mutationFn: (variables: ConnectionsRequestsAcceptCreateVariables) =>
       fetchConnectionsRequestsAcceptCreate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type ConnectionsRequestsMakeCreateError = Fetcher.ErrorWrapper<undefined>
+
+export type ConnectionsRequestsMakeCreateVariables = {
+  body: Schemas.ConnectionRequestCreateRequest
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchConnectionsRequestsMakeCreate = (
+  variables: ConnectionsRequestsMakeCreateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.ConnectionRequestCreate,
+    ConnectionsRequestsMakeCreateError,
+    Schemas.ConnectionRequestCreateRequest,
+    {},
+    {},
+    {}
+  >({
+    url: '/api/connections/requests/make',
+    method: 'post',
+    ...variables,
+    signal,
+  })
+
+export const useConnectionsRequestsMakeCreate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.ConnectionRequestCreate,
+      ConnectionsRequestsMakeCreateError,
+      ConnectionsRequestsMakeCreateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.ConnectionRequestCreate,
+    ConnectionsRequestsMakeCreateError,
+    ConnectionsRequestsMakeCreateVariables
+  >({
+    mutationFn: (variables: ConnectionsRequestsMakeCreateVariables) =>
+      fetchConnectionsRequestsMakeCreate({ ...fetcherOptions, ...variables }),
     ...options,
   })
 }

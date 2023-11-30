@@ -6,9 +6,18 @@ from backend.models import Connection, ConnectionRequest
 
 
 class ConnectionRequestSerializer(serializers.ModelSerializer):
+    from_user = UserSerializer(many=False, read_only=True)
+    to_user = UserSerializer(many=False, read_only=True)
+
     class Meta:
         model = ConnectionRequest
         fields = "__all__"
+
+
+class ConnectionRequestCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConnectionRequest
+        fields = ("to_user", "from_user")
 
 
 class ConnectionSerializer(serializers.ModelSerializer):

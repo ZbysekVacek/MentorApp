@@ -9,6 +9,7 @@ import { useConnectionsList } from '../../../api/generated/generatedApiComponent
 import PageLoader from '../../../components/PageLoader'
 import ProfileCard from '../../../feature/user/ProfileCard'
 import { assertIsDefined } from '../../../utils/utils'
+import ConnectionsRequests from './ConnectionsRequests'
 
 // TODO MentorApp: implement the page
 const ConnectionsPage: React.FC = () => {
@@ -18,6 +19,7 @@ const ConnectionsPage: React.FC = () => {
   return (
     <RestrictedRoute>
       <ConnectionsTabs />
+      <ConnectionsRequests />
       <Typography.Title>My Connections</Typography.Title>
       {isLoading && <PageLoader />}
       {isError && (
@@ -29,7 +31,17 @@ const ConnectionsPage: React.FC = () => {
             const currUser = currConnection.to
             assertIsDefined(currUser, 'Current user is undefined')
 
-            return <ProfileCard user={currUser} isConnected={true} />
+            return (
+              <ProfileCard
+                user={currUser}
+                isConnected={true}
+                isConnectionRequestedByMe={false}
+                isConnectionRequestedByOtherUser={false}
+                hasMentoring={false /* TODO MentorApp implement */}
+                connectionId={currConnection.id}
+                otherUserId={currConnection.to?.id ?? -1}
+              />
+            )
           })}
         </>
       )}

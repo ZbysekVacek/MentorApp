@@ -5,13 +5,29 @@ import { Link } from 'react-router-dom'
 import { urlGenerator } from '../routing/routes'
 import CompetenciesList from '../competency/CompetenciesList'
 import './ProfileCard.css'
+import ConnectionButton from './ConnectionButton'
 
 type Props = {
   user: User
   isConnected: boolean
+  hasMentoring: boolean
+  isConnectionRequestedByMe: boolean
+  isConnectionRequestedByOtherUser: boolean
+  connectionRequestId?: number
+  connectionId?: number
+  otherUserId: number
 }
 const ProfileCard = (props: Props) => {
-  const { user, isConnected } = props
+  const {
+    user,
+    isConnected,
+    hasMentoring,
+    isConnectionRequestedByMe,
+    isConnectionRequestedByOtherUser,
+    connectionRequestId,
+    connectionId,
+    otherUserId,
+  } = props
 
   const card = (
     <Card
@@ -19,9 +35,16 @@ const ProfileCard = (props: Props) => {
       actions={[
         <Link to={urlGenerator.profile(user.id)}>See profile</Link>,
         // TODO MentorApp: implement the button
-        <Typography.Text>
-          Request connection / Lose connections
-        </Typography.Text>,
+        <ConnectionButton
+          isConnected={isConnected}
+          hasMentoring={hasMentoring}
+          isConnectionRequestedByMe={isConnectionRequestedByMe}
+          isConnectionRequestedByOtherUser={isConnectionRequestedByOtherUser}
+          connectionRequestId={connectionRequestId}
+          connectionId={connectionId}
+          currentUserId={user?.id ?? -1}
+          otherUserId={otherUserId}
+        />,
       ]}
     >
       <Card.Meta

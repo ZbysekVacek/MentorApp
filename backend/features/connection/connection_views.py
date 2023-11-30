@@ -5,6 +5,7 @@ from backend.features.connection.connection_serializers import (
     ConnectionListItemSerializer,
     ConnectionRequestSerializer,
     ConnectionSerializer,
+    ConnectionRequestCreateSerializer,
 )
 from backend.models import Connection, ConnectionRequest
 
@@ -32,7 +33,7 @@ class ConnectionDelete(generics.DestroyAPIView):
         )
 
 
-class ConnectionRequestListCreate(generics.ListCreateAPIView):
+class ConnectionRequestList(generics.ListAPIView):
     serializer_class = ConnectionRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -42,8 +43,14 @@ class ConnectionRequestListCreate(generics.ListCreateAPIView):
             from_user=user
         ) | ConnectionRequest.objects.filter(to_user=user)
 
+
+class MakeConnectionRequest(generics.CreateAPIView):
+    serializer_class = ConnectionRequestCreateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = ConnectionRequest.objects.all()
+
     def post(self, request, *args, **kwargs):
-        serializer = ConnectionRequestSerializer(data=request.data)
+        serializer = ConnectionRequestCreateSerializer(data=request.data)
 
         # Validate serializer data
         if serializer.is_valid():

@@ -5,8 +5,10 @@ from backend.features.connection import connection_views
 connection_urls = [
     path("connections", connection_views.ConnectionListDetail.as_view()),
     path("connections/<int:pk>/delete", connection_views.ConnectionDelete.as_view()),
+    path("connections/requests", connection_views.ConnectionRequestList.as_view()),
     path(
-        "connections/requests", connection_views.ConnectionRequestListCreate.as_view()
+        "connections/requests/make",
+        connection_views.MakeConnectionRequest.as_view(),
     ),
     path(
         "connections/requests/<int:pk>",
