@@ -8,6 +8,7 @@ from .models import (
     ConnectionRequest,
     Mentoring,
     MentoringRequest,
+    Post,
 )
 
 # Register your models here.
@@ -19,3 +20,4 @@ admin.site.register(Connection)
 admin.site.register(ConnectionRequest)
 admin.site.register(Mentoring)
 admin.site.register(MentoringRequest)
+admin.site.register(Post)

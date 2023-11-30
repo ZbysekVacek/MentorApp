@@ -172,3 +172,10 @@ class MentoringRequest(models.Model):
     def __str__(self):
         # pylint: disable=no-member
         return f"Mentoring request from {self.from_user.username} to {self.to_user.username}"
+
+
+class Post(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
