@@ -15,14 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path, include
+from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
-from backend import views
 from backend.features.connection.connection_urls import connection_urls
+from backend.features.meeting.meeting_urls import meeting_urls
 from backend.features.mentoring.mentoring_urls import mentoring_urls
 from backend.features.notification.notification_urls import notification_urls
 from backend.features.competency.competency_urls import competency_urls
@@ -32,8 +32,6 @@ from backend.features.messages.messages_urls import messages_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    re_path(r"^api/meetings/$", views.MeetingsList.as_view()),
-    path("api/meetings/<int:pk>", views.MeetingDetail.as_view()),
     path("", TemplateView.as_view(template_name="index.html")),
     path("api/", include(user_urls)),
     path("api/", include(competency_urls)),
@@ -42,6 +40,7 @@ urlpatterns = [
     path("api/", include(mentoring_urls)),
     path("api/", include(post_urls)),
     path("api/", include(messages_urls)),
+    path("api/", include(meeting_urls)),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/schema/swagger-ui/",

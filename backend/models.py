@@ -5,17 +5,6 @@ from PIL import Image
 from django.core.exceptions import ValidationError
 
 
-class Meeting(models.Model):
-    subject = models.CharField("Name", max_length=240)
-    location = models.TextField()
-    dateTime = models.DateTimeField("Registration Date", auto_now_add=True)
-    mentorEmail = models.EmailField()
-    menteeEmail = models.EmailField()
-
-    def __str__(self):
-        return self.subject
-
-
 class Competency(models.Model):
     name = models.CharField(max_length=255)
 
@@ -191,3 +180,27 @@ class Message(models.Model):
     content = models.TextField()
     send_at = models.DateTimeField(auto_now_add=True)
     seen = models.BooleanField(default=False)
+
+
+class Meeting(models.Model):
+    title = models.CharField("Title", max_length=240)
+    location = models.TextField()
+    created_at = models.DateTimeField("Created Date", auto_now_add=True)
+    meeting_date = models.DateTimeField("Meeting Date", null=False)
+    description = models.TextField()
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="meeting_author",
+        null=False,
+    )
+    registered_mentee = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="meeting_mentee",
+        null=True,
+    )
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Meeting of {self.author.username} - ID{self.id}"
