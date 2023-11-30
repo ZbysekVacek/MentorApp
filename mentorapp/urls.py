@@ -28,6 +28,7 @@ from backend.features.notification.notification_urls import notification_urls
 from backend.features.competency.competency_urls import competency_urls
 from backend.features.post.post_urls import post_urls
 from backend.features.user.user_urls import user_urls
+from backend.features.messages.messages_urls import messages_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -40,6 +41,7 @@ urlpatterns = [
     path("api/", include(connection_urls)),
     path("api/", include(mentoring_urls)),
     path("api/", include(post_urls)),
+    path("api/", include(messages_urls)),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/schema/swagger-ui/",

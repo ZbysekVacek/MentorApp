@@ -179,3 +179,15 @@ class Post(models.Model):
     content = models.TextField()
     title = models.CharField(max_length=255)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="sent_messages"
+    )
+    recipient = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="received_messages"
+    )
+    content = models.TextField()
+    send_at = models.DateTimeField(auto_now_add=True)
+    seen = models.BooleanField(default=False)
