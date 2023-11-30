@@ -49,6 +49,7 @@ class Profile(models.Model):
     avatar = models.ImageField(
         # TODO MentorApp: could be improved by renaming file to user_id
         upload_to="media/avatars/",
+        default="media/avatars/default.png",
         blank=True,
         null=True,
         validators=[
@@ -57,6 +58,10 @@ class Profile(models.Model):
         ],
     )
     competencies = models.ManyToManyField(Competency)
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Profile {self.user.username}"
 
 
 class Notification(models.Model):
@@ -89,3 +94,45 @@ class Notification(models.Model):
     def __str__(self):
         # pylint: disable=E1101
         return f"{self.user.username} - {self.title}"
+
+
+class Connection(models.Model):
+    """Connection model represents a connection between two users"""
+
+    first_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="connections_first_user",
+    )
+    second_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="connections_second_user",
+    )
+    active = models.BooleanField(default=True, null=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=False)
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Connection {self.first_user.username} - {self.second_user.username}"
+
+
+class ConnectionRequest(models.Model):
+    """Request for a connection from one user to another"""
+
+    from_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="connection_request_first_user",
+    )
+    to_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="connection_request_second_user",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True, null=False)
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Connection request from {self.from_user.username} to {self.to_user.username}"

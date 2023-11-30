@@ -11,6 +11,36 @@ export type Competency = {
   name: string
 }
 
+export type ConnectionListItem = {
+  id?: number
+  to?: User
+  active?: boolean
+  /**
+   * @format date-time
+   */
+  created_at?: string
+}
+
+export type ConnectionRequest = {
+  id?: number
+  from_user?: User
+  to_user?: User
+  /**
+   * @format date-time
+   */
+  created_at?: string
+}
+
+export type ConnectionRequestCreate = {
+  to_user: number
+  from_user: number
+}
+
+export type ConnectionRequestCreateRequest = {
+  to_user: number
+  from_user: number
+}
+
 export type Exception = {
   status_code?: number
   detail?: string

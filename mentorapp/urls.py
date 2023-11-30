@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from backend import views
+from backend.features.connection.connection_urls import connection_urls
 from backend.features.notification.notification_urls import notification_urls
 from backend.features.competency.competency_urls import competency_urls
 from backend.features.user.user_urls import user_urls
@@ -34,6 +35,7 @@ urlpatterns = [
     path("api/", include(user_urls)),
     path("api/", include(competency_urls)),
     path("api/", include(notification_urls)),
+    path("api/", include(connection_urls)),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/schema/swagger-ui/",

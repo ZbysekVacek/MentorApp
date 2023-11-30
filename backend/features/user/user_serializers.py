@@ -3,6 +3,11 @@ from rest_framework import serializers
 
 from backend.models import Profile
 
+"""
+User and Profile related serializers.
+User and Profile models are so interconnected that it makes sense to have them in the same package and files.
+"""
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
