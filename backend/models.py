@@ -143,6 +143,12 @@ class Mentoring(models.Model):
     )
     active = models.BooleanField(default=True)
 
+    def __str__(self):
+        # pylint: disable=no-member
+        return (
+            f"Mentoring mentor {self.mentor.username} - mentee {self.mentee.username}"
+        )
+
 
 class MentoringRequest(models.Model):
     from_user = models.ForeignKey(

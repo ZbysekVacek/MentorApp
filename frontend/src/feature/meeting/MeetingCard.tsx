@@ -1,6 +1,6 @@
 import React from 'react'
 import { Meeting } from '../../api/generated/generatedApiSchemas'
-import { Card } from 'antd'
+import { Avatar, Card } from 'antd'
 import { Link } from 'react-router-dom'
 import { urlGenerator } from '../routing/routes'
 import Button from '../../components/Button'
@@ -22,7 +22,7 @@ const MeetingCard = ({ meeting }: Props) => {
       ]}
     >
       <Card.Meta
-        avatar={<CalendarOutlined />}
+        avatar={<Avatar icon={<CalendarOutlined />} />}
         title={<div>{meeting.title}</div>}
         description={<span>Since {formatDate(meeting.created_at)}</span>}
       />

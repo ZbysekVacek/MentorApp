@@ -17,8 +17,10 @@ export enum Routes {
   MyMentoringSearchMentor = '/my-mentoring/search-mentor',
   MyMentoringDetail = '/my-mentoring/detail/:id',
   Tasks = '/tasks',
+  TaskDetail = '/tasks/:id',
   TasksCreated = '/tasks/created',
   Notes = '/notes',
+  NoteDetail = '/notes/:id',
   Connections = '/connections',
   ConnectionsSearch = '/connections-search',
   Notifications = '/notifications',
@@ -48,4 +50,6 @@ export const urlGenerator = {
     Routes.MyMentoringDetail.replace(':id', String(mentoringId)),
   meetingDetail: (meetingId?: number) =>
     Routes.MeetingDetail.replace(':id', String(meetingId)),
+  taskDetail: (id?: number) => Routes.TaskDetail.replace(':id', String(id)),
+  noteDetail: (id?: number) => Routes.NoteDetail.replace(':id', String(id)),
 }

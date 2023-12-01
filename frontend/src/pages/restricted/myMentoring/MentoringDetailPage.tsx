@@ -8,12 +8,16 @@ import {
   useMeetingFromMentorsList,
   useMeetingList,
   useMentoringRetrieve,
+  useNotesList,
+  useTasksAssignedList,
   useUserCurrentRetrieve,
 } from '../../../api/generated/generatedApiComponents'
 import { Link, useParams } from 'react-router-dom'
 import ProfileCard from '../../../feature/user/ProfileCard'
 import PageLoader from '../../../components/PageLoader'
 import MeetingCard from '../../../feature/meeting/MeetingCard'
+import NotFinishedTaskCard from '../../../feature/task/NotFinishedTaskCard'
+import RelatedNotesCard from '../../../feature/notes/RelatedNotesCard'
 
 // TODO MentorApp: implement the page
 const MentoringDetailPage = () => {
@@ -40,6 +44,21 @@ const MentoringDetailPage = () => {
     isError: isMeetingsFromMentorsError,
     isLoading: isMeetingsFromMentorsLoading,
   } = useMeetingFromMentorsList({})
+  const {
+    data: tasksAssigned,
+    isError: isTasksAssignedError,
+    isLoading: isTasksAssignedLoading,
+  } = useTasksAssignedList({})
+  const {
+    data: tasksCreated,
+    isError: isTasksCreatedError,
+    isLoading: isTasksCreatedLoading,
+  } = useTasksAssignedList({})
+  const {
+    data: notes,
+    isError: isNotesError,
+    isLoading: isNotesLoading,
+  } = useNotesList({})
   const isCurrentUserMentor = currentUser?.id === mentoring?.mentor?.id
   const title =
     mentoring && currentUser
@@ -57,12 +76,18 @@ const MentoringDetailPage = () => {
     isCurrentUserLoading ||
     isMentoringLoading ||
     isMeetingsFromUserLoading ||
-    isMeetingsFromMentorsLoading
+    isMeetingsFromMentorsLoading ||
+    isTasksAssignedLoading ||
+    isTasksCreatedLoading ||
+    isNotesLoading
   const isError =
     isCurrentUserError ||
     isMentoringError ||
     isMeetingsFromUserError ||
-    isMeetingsFromMentorsError
+    isMeetingsFromMentorsError ||
+    isTasksAssignedError ||
+    isTasksCreatedError ||
+    isNotesError
 
   if (isLoading) {
     return <PageLoader />
@@ -72,7 +97,15 @@ const MentoringDetailPage = () => {
     return <Typography.Title>Something went wrong</Typography.Title>
   }
 
-  if (!currentUser || !mentoring || !meetingsFromUser || !meetingsFromMentors) {
+  if (
+    !currentUser ||
+    !mentoring ||
+    !meetingsFromUser ||
+    !meetingsFromMentors ||
+    !tasksAssigned ||
+    !tasksCreated ||
+    !notes
+  ) {
     return <Typography.Title>Something went wrong</Typography.Title>
   }
 
@@ -88,6 +121,17 @@ const MentoringDetailPage = () => {
         (first, second) => (first?.id ?? 0) - (second?.id ?? 0)
       )[meetingsForMentoring.length - 1]
     : null
+
+  const validTasksAssigned = (
+    isCurrentUserMentor ? tasksCreated : tasksAssigned
+  ).filter((currTask) => currTask?.related_mentoring === mentoring?.id)
+  const notFinishedTasks = validTasksAssigned.filter(
+    (currTask) => !currTask.resolved
+  )
+
+  const relatedNotes = notes.filter(
+    (note) => note.related_mentoring === mentoring.id
+  )
 
   return (
     <RestrictedRoute>
@@ -118,6 +162,12 @@ const MentoringDetailPage = () => {
             )}
             {!!latestMeeting && <MeetingCard meeting={latestMeeting} />}
           </Card>
+        </Col>
+        <Col lg={12} sm={24}>
+          <NotFinishedTaskCard tasks={notFinishedTasks} />
+        </Col>
+        <Col lg={12} sm={24}>
+          <RelatedNotesCard notes={relatedNotes} />
         </Col>
       </Row>
     </RestrictedRoute>
