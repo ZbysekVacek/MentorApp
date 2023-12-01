@@ -29,7 +29,18 @@ const AppLayout: React.FC = () => {
           </AppErrorBoundary>
         </Content>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>MentorApp ©2023</Footer>
+      <Footer style={{ textAlign: 'center' }}>
+        MentorApp ©2023
+        <br />
+        Visit our{' '}
+        <a
+          href="https://github.com/ZbysekVacek/MentorApp"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Github repository
+        </a>
+      </Footer>
     </Layout>
   )
 }
