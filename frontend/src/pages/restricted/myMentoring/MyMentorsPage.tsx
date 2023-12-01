@@ -30,7 +30,7 @@ const MyMentoringPage: React.FC = () => {
       {!isLoading && !isError && myMentorings && (
         <div>
           {myMentorings.map((currMentoring) => (
-            <MentoringCard mentoring={currMentoring} />
+            <MentoringCard mentoring={currMentoring} who="mentor" />
           ))}
         </div>
       )}

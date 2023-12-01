@@ -3,30 +3,32 @@ import { Mentoring } from '../../api/generated/generatedApiSchemas'
 import { Avatar, Card, Col, Row, Tag, Typography } from 'antd'
 import { Link } from 'react-router-dom'
 import { urlGenerator } from '../routing/routes'
-import Button from '../../components/Button'
 import CompetenciesList from '../competency/CompetenciesList'
 import { formatDate } from '../../utils/utils'
 import './MentoringCard.css'
 
 type Props = {
   mentoring: Mentoring
+  who: 'mentor' | 'mentee'
 }
-const MentoringCard = ({ mentoring }: Props) => {
+const MentoringCard = ({ mentoring, who }: Props) => {
+  const userToShow = who === 'mentor' ? mentoring.mentor : mentoring.mentee
+
   return (
     <Card
       className="MentoringCard"
       actions={[
-        <Link to={urlGenerator.profile(mentoring.mentor.id)}>See profile</Link>,
+        <Link to={urlGenerator.profile(userToShow.id)}>See profile</Link>,
         <Link to={urlGenerator.mentoringDetail(mentoring.id)}>
-          <Button>Go to mentoring detail</Button>
+          Go to mentoring detail
         </Link>,
       ]}
     >
       <Card.Meta
-        avatar={<Avatar src={mentoring.mentor?.profile?.avatar} />}
+        avatar={<Avatar src={userToShow?.profile?.avatar} />}
         title={
           <div>
-            {mentoring.mentor?.first_name + ' ' + mentoring.mentor?.last_name}
+            {userToShow?.first_name + ' ' + userToShow?.last_name}
             <div>
               <Tag color="green"> Mentor</Tag>
             </div>
@@ -35,22 +37,22 @@ const MentoringCard = ({ mentoring }: Props) => {
         description={<span>Since {formatDate(mentoring.created_at)}</span>}
       />
       <Row gutter={[20, 20]}>
-        {mentoring.mentor?.profile?.skills && (
+        {userToShow?.profile?.skills && (
           <Col lg={12} sm={24}>
             <div>
               <Typography.Title level={5}>My Expertise</Typography.Title>
               <Typography.Paragraph>
-                {mentoring.mentor?.profile?.skills}
+                {userToShow?.profile?.skills}
               </Typography.Paragraph>
             </div>
           </Col>
         )}
-        {!!mentoring.mentor?.profile?.competencies?.length && (
+        {!!userToShow?.profile?.competencies?.length && (
           <Col lg={12} sm={24}>
             <div>
               <Typography.Title level={5}>Competencies</Typography.Title>
               <CompetenciesList
-                competencyIds={mentoring.mentor?.profile?.competencies ?? []}
+                competencyIds={userToShow?.profile?.competencies ?? []}
               />
             </div>
           </Col>
