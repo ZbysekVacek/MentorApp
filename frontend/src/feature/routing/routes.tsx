@@ -6,6 +6,7 @@ export enum Routes {
   Index = '/',
   HomePage = '/home',
   Meetings = '/meetings',
+  MeetingDetail = '/meetings/:id',
   About = '/about',
   Login = '/login',
   Register = '/register',
@@ -14,6 +15,7 @@ export enum Routes {
   MyMentoringMyMentors = '/my-mentoring/my-mentors',
   MyMentoringMyMentees = '/my-mentoring/my-mentees',
   MyMentoringSearchMentor = '/my-mentoring/search-mentor',
+  MyMentoringDetail = '/my-mentoring/detail/:id',
   Tasks = '/tasks',
   TasksCreated = '/tasks/created',
   Notes = '/notes',
@@ -42,4 +44,8 @@ export function assertIsRoute(path: string): asserts path is Routes {
 export const urlGenerator = {
   profile: (userId?: number) =>
     Routes.Profile.replace(':userId', String(userId)),
+  mentoringDetail: (mentoringId?: number) =>
+    Routes.MyMentoringDetail.replace(':id', String(mentoringId)),
+  meetingDetail: (meetingId?: number) =>
+    Routes.MeetingDetail.replace(':id', String(meetingId)),
 }

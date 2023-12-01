@@ -10,6 +10,7 @@ const routeByRoute: Record<Routes, string> = {
   // Restricted routes
   [Routes.HomePage]: 'Home - MentorApp',
   [Routes.Meetings]: 'Meetings - MentorApp',
+  [Routes.MeetingDetail]: 'Meeting Detail - MentorApp',
   [Routes.MyMentoring]: 'My Mentoring - MentorApp',
   [Routes.MyMentoringMyMentors]: 'My Mentors - MentorApp',
   [Routes.MyMentoringMyMentees]: 'My Mentees - MentorApp',
@@ -23,6 +24,7 @@ const routeByRoute: Record<Routes, string> = {
   [Routes.Notifications]: 'Notifications - MentorApp',
   [Routes.Messages]: 'Messages - MentorApp',
   [Routes.Profile]: 'User detail - MentorApp',
+  [Routes.MyMentoringDetail]: 'Mentoring detail - MentorApp',
 }
 
 /**

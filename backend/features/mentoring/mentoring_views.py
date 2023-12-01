@@ -19,6 +19,16 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 
+class MentoringRetrieve(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = MentoringSerializer
+
+    def get_queryset(self):
+        return Mentoring.objects.filter(
+            mentor=self.request.user
+        ) | Mentoring.objects.filter(mentee=self.request.user)
+
+
 class CreateMentoringRequest(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = MentoringRequestCreateSerializer

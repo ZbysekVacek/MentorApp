@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 /**
  * Asserts that the given value is defined.
  * @param value
@@ -12,4 +14,20 @@ export function assertIsDefined<T>(
       customErrorMessage ? customErrorMessage : `${value} is not defined`
     )
   }
+}
+
+export function formatDate(date: Date | string | undefined): string {
+  if (!date) {
+    return ''
+  }
+
+  return dayjs(date).format('DD. MM. YYYY')
+}
+
+export function formatDateTime(date: Date | string | undefined): string {
+  if (!date) {
+    return ''
+  }
+
+  return dayjs(date).format('DD. MM. YYYY HH:mm:ss')
 }

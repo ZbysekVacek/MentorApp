@@ -631,6 +631,55 @@ export const useMeetingFromMentorsList = <
   })
 }
 
+export type MentoringRetrievePathParams = {
+  id: number
+}
+
+export type MentoringRetrieveError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringRetrieveVariables = {
+  pathParams: MentoringRetrievePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringRetrieve = (
+  variables: MentoringRetrieveVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Mentoring,
+    MentoringRetrieveError,
+    undefined,
+    {},
+    {},
+    MentoringRetrievePathParams
+  >({ url: '/api/mentoring/{id}/', method: 'get', ...variables, signal })
+
+export const useMentoringRetrieve = <TData = Schemas.Mentoring>(
+  variables: MentoringRetrieveVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      Schemas.Mentoring,
+      MentoringRetrieveError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<Schemas.Mentoring, MentoringRetrieveError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/mentoring/{id}/',
+      operationId: 'mentoringRetrieve',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMentoringRetrieve({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
 export type MentoringDeleteDestroyPathParams = {
   id: number
 }
@@ -3135,6 +3184,11 @@ export type QueryOperation =
       path: '/api/meeting/from-mentors'
       operationId: 'meetingFromMentorsList'
       variables: MeetingFromMentorsListVariables
+    }
+  | {
+      path: '/api/mentoring/{id}/'
+      operationId: 'mentoringRetrieve'
+      variables: MentoringRetrieveVariables
     }
   | {
       path: '/api/mentoring/as-mentee/'

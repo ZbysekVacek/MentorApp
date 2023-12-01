@@ -22,6 +22,8 @@ import ConnectionsSearchPage from '../../pages/restricted/connections/Connection
 import NotificationsPage from '../../pages/restricted/notifications/NotificationsPage'
 import MessagesPage from '../../pages/restricted/MessagesPage'
 import ProfilePage from '../../pages/restricted/profile/ProfilePage'
+import MentoringDetailPage from '../../pages/restricted/myMentoring/MentoringDetailPage'
+import MeetingDetailPage from '../../pages/restricted/meetings/MeetingDetailPage'
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +54,10 @@ export const router = createBrowserRouter([
         element: <MeetingsPage />,
       },
       {
+        path: Routes.MeetingDetail,
+        element: <MeetingDetailPage />,
+      },
+      {
         path: Routes.MyMentoring,
         element: <MyMentoringPage />,
       },
@@ -66,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.MyMentoringSearchMentor,
         element: <SearchMentorPage />,
+      },
+      {
+        path: Routes.MyMentoringDetail,
+        element: <MentoringDetailPage />,
       },
       {
         path: Routes.Posts,

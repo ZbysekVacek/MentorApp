@@ -40,6 +40,10 @@ mentoring_urls = [
         mentoring_views.MenteesMentoringsList.as_view(),
     ),
     path(
+        "mentoring/<int:pk>/",
+        mentoring_views.MentoringRetrieve.as_view(),
+    ),
+    path(
         "mentoring/<int:pk>/delete/",
         mentoring_views.DeleteMentoring.as_view(),
     ),

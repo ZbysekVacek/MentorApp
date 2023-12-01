@@ -275,6 +275,27 @@ paths:
                 items:
                   $ref: '#/components/schemas/Meeting'
           description: ''
+  /api/mentoring/{id}/:
+    get:
+      operationId: mentoring_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentoring'
+          description: ''
   /api/mentoring/{id}/delete/:
     delete:
       operationId: mentoring_delete_destroy
