@@ -204,3 +204,17 @@ class Meeting(models.Model):
     def __str__(self):
         # pylint: disable=no-member
         return f"Meeting of {self.author.username} - ID{self.id}"
+
+
+class Note(models.Model):
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    summary = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    related_meeting = models.ForeignKey(
+        Meeting, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    related_mentoring = models.ForeignKey(
+        Mentoring, on_delete=models.SET_NULL, null=True, blank=True
+    )
