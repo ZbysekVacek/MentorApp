@@ -18,8 +18,8 @@ const MentoringSettings = ({ mentoring, isCurrentUserMentor }: Props) => {
         pathParams: { id: mentoring?.id ?? -1 },
         body: {
           frequency_days: selectedFrequency,
-          objectives: objectives?.length > 0 ? objectives : undefined,
-          settings: contract?.length > 0 ? contract : undefined,
+          objectives: objectives?.length > 0 ? objectives : '',
+          settings: contract?.length > 0 ? contract : '',
         },
       },
       {

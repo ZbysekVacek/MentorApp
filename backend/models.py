@@ -131,10 +131,10 @@ class ConnectionRequest(models.Model):
 
 class Mentoring(models.Model):
     connection = models.ForeignKey(Connection, on_delete=models.CASCADE)
-    settings = models.TextField()
+    settings = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     frequency_days = models.IntegerField()
-    objectives = models.TextField()
+    objectives = models.TextField(null=True, blank=True)
     mentor = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, related_name="mentoring_mentor"
     )

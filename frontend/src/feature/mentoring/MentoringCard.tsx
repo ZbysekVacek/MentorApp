@@ -13,6 +13,12 @@ type Props = {
 }
 const MentoringCard = ({ mentoring, who }: Props) => {
   const userToShow = who === 'mentor' ? mentoring.mentor : mentoring.mentee
+  const isMentoringSetupped =
+    mentoring.objectives?.length > 0 &&
+    mentoring.settings?.length > 0 &&
+    !!mentoring.frequency_days
+
+  console.log({ mentoring })
 
   return (
     <Card
@@ -30,7 +36,18 @@ const MentoringCard = ({ mentoring, who }: Props) => {
           <div>
             {userToShow?.first_name + ' ' + userToShow?.last_name}
             <div>
-              <Tag color="green"> Mentor</Tag>
+              {who === 'mentor' && <Tag color="green"> Mentor</Tag>}
+              {who === 'mentee' && (
+                <Tag
+                  color="lime"
+                  title="You haven not filled objectives or setttings or frequency yet. Please setup your mentoring"
+                >
+                  Mentee
+                </Tag>
+              )}
+              {!isMentoringSetupped && (
+                <Tag color="red-inverse">Missing settings</Tag>
+              )}
             </div>
           </div>
         }

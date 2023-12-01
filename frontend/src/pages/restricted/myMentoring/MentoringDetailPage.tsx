@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Col, Divider, Row, Typography } from 'antd'
+import { Alert, Card, Col, Divider, Row, Typography } from 'antd'
 import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import { Routes } from '../../../feature/routing/routes'
@@ -134,10 +134,29 @@ const MentoringDetailPage = () => {
     (note) => note.related_mentoring === mentoring.id
   )
 
+  const isMentoringSetupped =
+    mentoring.objectives?.length > 0 &&
+    mentoring.settings?.length > 0 &&
+    !!mentoring.frequency_days
+
   return (
     <RestrictedRoute>
       <MentoringTabs />
       <Typography.Title>Mentoring detail</Typography.Title>
+      {!isMentoringSetupped && (
+        <>
+          <Alert
+            message="You haven't setup your mentoring yet"
+            description="Please setup your mentoring. You should meet and
+             on objectives, settings and frequency of
+            meetings. Everything you agree  on should be filled into objectives
+             or into mentoring contract"
+            type="info"
+            showIcon
+          />
+          <br />
+        </>
+      )}
       <Row gutter={[20, 20]}>
         <Col lg={12} sm={24}>
           <Card title={isCurrentUserMentor ? 'Mentee' : 'Mentor'}>
