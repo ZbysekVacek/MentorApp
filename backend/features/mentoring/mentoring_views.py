@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.utils.timezone import now
+from rest_framework import status
+from rest_framework.response import Response
 
 from backend.features.mentoring.mentoring_serializers import (
     MentoringRequestCreateSerializer,
@@ -99,13 +101,6 @@ class MentoringRequestsToUser(generics.ListAPIView):
     def get_queryset(self):
         current_user = self.request.user
         return MentoringRequest.objects.filter(to_user=current_user)
-
-
-# views.py
-
-from rest_framework import generics, status
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 
 
 class AcceptMentoringRequest(generics.DestroyAPIView):
