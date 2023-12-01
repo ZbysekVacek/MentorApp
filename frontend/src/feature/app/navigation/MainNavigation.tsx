@@ -45,19 +45,19 @@ const getLoggedInMenuItems = (user: User, handleLogout: () => void) => [
           </NavLink>
         ),
       },
+      {
+        key: 'meetings',
+        label: <NavLink to={Routes.Meetings}>Meetings</NavLink>,
+      },
+      {
+        key: 'tasks',
+        label: <NavLink to={Routes.Tasks}>Tasks</NavLink>,
+      },
     ],
   },
   {
     key: 'posts',
     label: <NavLink to={Routes.Posts}>Posts</NavLink>,
-  },
-  {
-    key: 'meetings',
-    label: <NavLink to={Routes.Meetings}>Meetings</NavLink>,
-  },
-  {
-    key: 'tasks',
-    label: <NavLink to={Routes.Tasks}>Tasks</NavLink>,
   },
   {
     key: 'notes',
@@ -71,7 +71,11 @@ const getLoggedInMenuItems = (user: User, handleLogout: () => void) => [
     ? [
         {
           key: 'admin',
-          label: <NavLink to={ExternalRoutes.Admin}>Admin</NavLink>,
+          label: (
+            <a href={ExternalRoutes.Admin} target="_blank" rel="noreferrer">
+              Admin
+            </a>
+          ),
         },
       ]
     : []),
@@ -105,6 +109,10 @@ const getLoggedInMenuItems = (user: User, handleLogout: () => void) => [
       </NavLink>
     ),
     children: [
+      {
+        key: 'my-profile',
+        label: <Link to={urlGenerator.profile(user.id)}>My Profile</Link>,
+      },
       {
         key: 'logout',
         label: (
