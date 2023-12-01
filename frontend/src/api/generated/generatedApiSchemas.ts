@@ -41,6 +41,17 @@ export type ConnectionRequestCreateRequest = {
   from_user: number
 }
 
+export type CreateRequest = {
+  text: string
+}
+
+export type CreateRequestRequest = {
+  /**
+   * @minLength 1
+   */
+  text: string
+}
+
 export type Exception = {
   status_code?: number
   detail?: string
@@ -127,13 +138,13 @@ export type MeetingCreateRequest = {
 export type Mentoring = {
   id?: number
   connection: number
-  settings: string
+  settings?: string | null
   /**
    * @format date-time
    */
   created_at?: string
   frequency_days: number
-  objectives: string
+  objectives?: string | null
   mentor: User
   mentee: User
   active?: boolean
@@ -141,29 +152,12 @@ export type Mentoring = {
 
 export type MentoringRequest = {
   connection: number
-  /**
-   * @minLength 1
-   */
-  settings: string
+  settings?: string | null
   frequency_days: number
-  /**
-   * @minLength 1
-   */
-  objectives: string
+  objectives?: string | null
   mentor: UserRequest
   mentee: UserRequest
   active?: boolean
-}
-
-export type MentoringRequestCreate = {
-  text: string
-}
-
-export type MentoringRequestCreateRequest = {
-  /**
-   * @minLength 1
-   */
-  text: string
 }
 
 export type Message = {
@@ -276,15 +270,9 @@ export type PatchedMeetingCreateRequest = {
 
 export type PatchedMentoringRequest = {
   connection?: number
-  /**
-   * @minLength 1
-   */
-  settings?: string
+  settings?: string | null
   frequency_days?: number
-  /**
-   * @minLength 1
-   */
-  objectives?: string
+  objectives?: string | null
   mentor?: UserRequest
   mentee?: UserRequest
   active?: boolean
@@ -446,6 +434,21 @@ export type ProfileRequest = {
    */
   avatar?: Blob
   competencies: number[]
+}
+
+/**
+ * Serializer for the MentoringRequest model.
+ * Cannot use MentoringRequestSerializer because it for some reason generates duplicate name in openapi schema.
+ */
+export type RequestForMentoring = {
+  id?: number
+  from_user: User
+  to_user: User
+  /**
+   * @format date-time
+   */
+  created_at?: string
+  text: string
 }
 
 export type Task = {

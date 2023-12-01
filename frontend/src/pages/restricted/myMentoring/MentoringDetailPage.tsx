@@ -135,9 +135,9 @@ const MentoringDetailPage = () => {
   )
 
   const isMentoringSetupped =
-    mentoring.objectives?.length > 0 &&
-    mentoring.settings?.length > 0 &&
-    !!mentoring.frequency_days
+    mentoring?.objectives?.length ??
+    (0 > 0 && mentoring?.settings?.length) ??
+    (0 > 0 && !!mentoring?.frequency_days)
 
   return (
     <RestrictedRoute>
@@ -162,11 +162,6 @@ const MentoringDetailPage = () => {
           <Card title={isCurrentUserMentor ? 'Mentee' : 'Mentor'}>
             <ProfileCard
               user={isCurrentUserMentor ? mentoring.mentee : mentoring.mentor}
-              isConnected={true}
-              hasMentoring={true}
-              isConnectionRequestedByMe={false}
-              isConnectionRequestedByOtherUser={false}
-              currentUserId={currentUser?.id ?? -1}
             />
           </Card>
         </Col>
@@ -192,7 +187,10 @@ const MentoringDetailPage = () => {
       </Row>
       <Divider />
       <Typography.Title level={2}>Mentoring settings</Typography.Title>
-      <MentoringSettings mentoring={mentoring} isCurrentUserMentor />
+      <MentoringSettings
+        mentoring={mentoring}
+        isCurrentUserMentor={isCurrentUserMentor}
+      />
     </RestrictedRoute>
   )
 }

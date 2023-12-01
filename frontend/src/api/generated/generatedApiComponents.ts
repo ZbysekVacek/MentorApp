@@ -922,56 +922,6 @@ export const useMentoringAsMentorList = <TData = MentoringAsMentorListResponse>(
   })
 }
 
-export type MentoringRequestsListError = Fetcher.ErrorWrapper<undefined>
-
-export type MentoringRequestsListResponse = Schemas.MentoringRequest[]
-
-export type MentoringRequestsListVariables =
-  GeneratedApiContext['fetcherOptions']
-
-export const fetchMentoringRequestsList = (
-  variables: MentoringRequestsListVariables,
-  signal?: AbortSignal
-) =>
-  generatedApiFetch<
-    MentoringRequestsListResponse,
-    MentoringRequestsListError,
-    undefined,
-    {},
-    {},
-    {}
-  >({ url: '/api/mentoring/requests/', method: 'get', ...variables, signal })
-
-export const useMentoringRequestsList = <TData = MentoringRequestsListResponse>(
-  variables: MentoringRequestsListVariables,
-  options?: Omit<
-    reactQuery.UseQueryOptions<
-      MentoringRequestsListResponse,
-      MentoringRequestsListError,
-      TData
-    >,
-    'queryKey' | 'queryFn' | 'initialData'
-  >
-) => {
-  const { fetcherOptions, queryOptions, queryKeyFn } =
-    useGeneratedApiContext(options)
-  return reactQuery.useQuery<
-    MentoringRequestsListResponse,
-    MentoringRequestsListError,
-    TData
-  >({
-    queryKey: queryKeyFn({
-      path: '/api/mentoring/requests/',
-      operationId: 'mentoringRequestsList',
-      variables,
-    }),
-    queryFn: ({ signal }) =>
-      fetchMentoringRequestsList({ ...fetcherOptions, ...variables }, signal),
-    ...options,
-    ...queryOptions,
-  })
-}
-
 export type MentoringRequestsAcceptDestroyPathParams = {
   mentoringRequestId: number
 }
@@ -1030,7 +980,7 @@ export type MentoringRequestsCreateCreatePathParams = {
 export type MentoringRequestsCreateCreateError = Fetcher.ErrorWrapper<undefined>
 
 export type MentoringRequestsCreateCreateVariables = {
-  body: Schemas.MentoringRequestCreateRequest
+  body: Schemas.CreateRequestRequest
   pathParams: MentoringRequestsCreateCreatePathParams
 } & GeneratedApiContext['fetcherOptions']
 
@@ -1039,9 +989,9 @@ export const fetchMentoringRequestsCreateCreate = (
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
-    Schemas.MentoringRequestCreate,
+    Schemas.CreateRequest,
     MentoringRequestsCreateCreateError,
-    Schemas.MentoringRequestCreateRequest,
+    Schemas.CreateRequestRequest,
     {},
     {},
     MentoringRequestsCreateCreatePathParams
@@ -1055,7 +1005,7 @@ export const fetchMentoringRequestsCreateCreate = (
 export const useMentoringRequestsCreateCreate = (
   options?: Omit<
     reactQuery.UseMutationOptions<
-      Schemas.MentoringRequestCreate,
+      Schemas.CreateRequest,
       MentoringRequestsCreateCreateError,
       MentoringRequestsCreateCreateVariables
     >,
@@ -1064,7 +1014,7 @@ export const useMentoringRequestsCreateCreate = (
 ) => {
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
-    Schemas.MentoringRequestCreate,
+    Schemas.CreateRequest,
     MentoringRequestsCreateCreateError,
     MentoringRequestsCreateCreateVariables
   >({
@@ -1127,7 +1077,8 @@ export const useMentoringRequestsDeleteDestroy = (
 
 export type MentoringRequestsFromUserListError = Fetcher.ErrorWrapper<undefined>
 
-export type MentoringRequestsFromUserListResponse = Schemas.MentoringRequest[]
+export type MentoringRequestsFromUserListResponse =
+  Schemas.RequestForMentoring[]
 
 export type MentoringRequestsFromUserListVariables =
   GeneratedApiContext['fetcherOptions']
@@ -1187,7 +1138,7 @@ export const useMentoringRequestsFromUserList = <
 
 export type MentoringRequestsToUserListError = Fetcher.ErrorWrapper<undefined>
 
-export type MentoringRequestsToUserListResponse = Schemas.MentoringRequest[]
+export type MentoringRequestsToUserListResponse = Schemas.RequestForMentoring[]
 
 export type MentoringRequestsToUserListVariables =
   GeneratedApiContext['fetcherOptions']
@@ -3199,11 +3150,6 @@ export type QueryOperation =
       path: '/api/mentoring/as-mentor/'
       operationId: 'mentoringAsMentorList'
       variables: MentoringAsMentorListVariables
-    }
-  | {
-      path: '/api/mentoring/requests/'
-      operationId: 'mentoringRequestsList'
-      variables: MentoringRequestsListVariables
     }
   | {
       path: '/api/mentoring/requests/from-user/'

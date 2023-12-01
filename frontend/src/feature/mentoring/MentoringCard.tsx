@@ -14,9 +14,9 @@ type Props = {
 const MentoringCard = ({ mentoring, who }: Props) => {
   const userToShow = who === 'mentor' ? mentoring.mentor : mentoring.mentee
   const isMentoringSetupped =
-    mentoring.objectives?.length > 0 &&
-    mentoring.settings?.length > 0 &&
-    !!mentoring.frequency_days
+    mentoring.objectives?.length ??
+    (0 > 0 && mentoring.settings?.length) ??
+    (0 > 0 && !!mentoring.frequency_days)
 
   console.log({ mentoring })
 

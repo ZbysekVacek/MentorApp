@@ -6,45 +6,22 @@ import { urlGenerator } from '../routing/routes'
 import CompetenciesList from '../competency/CompetenciesList'
 import './ProfileCard.css'
 import ConnectionButton from './ConnectionButton'
+import { useConnectionsList } from '../../api/generated/generatedApiComponents'
 
 type Props = {
   user: User
-  isConnected: boolean
-  hasMentoring: boolean
-  isConnectionRequestedByMe: boolean
-  isConnectionRequestedByOtherUser: boolean
-  connectionRequestId?: number
-  connectionId?: number
-  currentUserId: number
 }
 const ProfileCard = (props: Props) => {
-  const {
-    user,
-    isConnected,
-    hasMentoring,
-    isConnectionRequestedByMe,
-    isConnectionRequestedByOtherUser,
-    connectionRequestId,
-    connectionId,
-    currentUserId,
-  } = props
+  const { user } = props
+
+  const { data: connections } = useConnectionsList({})
 
   const card = (
     <Card
       className="ProfileCard"
       actions={[
         <Link to={urlGenerator.profile(user.id)}>See profile</Link>,
-        // TODO MentorApp: implement the button
-        <ConnectionButton
-          isConnected={isConnected}
-          hasMentoring={hasMentoring}
-          isConnectionRequestedByMe={isConnectionRequestedByMe}
-          isConnectionRequestedByOtherUser={isConnectionRequestedByOtherUser}
-          connectionRequestId={connectionRequestId}
-          connectionId={connectionId}
-          currentUserId={currentUserId}
-          otherUserId={user?.id ?? -1}
-        />,
+        <ConnectionButton connectionToUserId={user.id ?? -1} />,
       ]}
     >
       <Card.Meta
@@ -86,7 +63,7 @@ const ProfileCard = (props: Props) => {
     </Card>
   )
 
-  if (isConnected) {
+  if (connections?.some((currCon) => currCon.to?.id === user.id)) {
     return <Badge.Ribbon text="Connected">{card}</Badge.Ribbon>
   }
 
