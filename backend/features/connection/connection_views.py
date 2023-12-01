@@ -7,7 +7,7 @@ from backend.features.connection.connection_serializers import (
     ConnectionSerializer,
     ConnectionRequestCreateSerializer,
 )
-from backend.models import Connection, ConnectionRequest
+from backend.models import Connection, ConnectionRequest, Notification
 
 
 class ConnectionListDetail(generics.ListAPIView):
@@ -79,6 +79,13 @@ class MakeConnectionRequest(generics.CreateAPIView):
 
             # Create the connection request
             serializer.save()
+            notification = Notification(
+                user=to_user,
+                title="New connection request",
+                content=f"You have new connection request.",
+                followup=Notification.NotificationFollowUp.CONNECTION_PAGE,
+            )
+            notification.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -122,6 +129,13 @@ class ConnectionRequestAccept(generics.GenericAPIView):
             connection_request.delete()
 
             connection_serializer = ConnectionSerializer(connection)
+
+            Notification(
+                user=connection_request.from_user,
+                title="Connection accepted",
+                content=f"User {connection_request.to_user.first_name}  {connection_request.to_user.last_name} accepted your connection request",
+                followup=Notification.NotificationFollowUp.CONNECTION_PAGE,
+            )
 
             return Response(
                 connection_serializer.data,

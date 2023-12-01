@@ -26,11 +26,14 @@ const MyMenteesPage: React.FC = () => {
       <Typography.Title>My Mentees</Typography.Title>
       {isLoading && <PageLoader />}
       {isError && <Typography.Text>Something went wrong</Typography.Text>}
-      {!isLoading && !isError && myMentorings && (
+      {!isLoading && !isError && myMentorings !== undefined && (
         <div>
           {myMentorings.map((currMentoring) => (
             <MentoringCard mentoring={currMentoring} who="mentee" />
           ))}
+          {myMentorings.length === 0 && (
+            <Typography.Text>You have no mentees</Typography.Text>
+          )}
         </div>
       )}
     </RestrictedRoute>

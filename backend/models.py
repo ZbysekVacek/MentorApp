@@ -60,6 +60,7 @@ class Notification(models.Model):
         FILL_PROFILE = "FILL_PROFILE", ("Fill your user profile")
         MENTORING_REQUESTS_PAGE = "MENTORING_REQUESTS_PAGE", ("See mentoring requests")
         MENTORINGS_PAGE = "MENTORINGS_PAGE", ("See mentoring page")
+        CONNECTION_PAGE = "CONNECTION_PAGE", ("See connections page")
         NONE = "NONE", ("No followup action")
 
     # Link to the user model

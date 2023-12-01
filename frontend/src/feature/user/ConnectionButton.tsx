@@ -148,6 +148,7 @@ const ConnectionButton = (props: Props) => {
           },
           {
             onSuccess: () => {
+              queryClient.clear() // TODO MentorApp: invalidate only the queries that are affected by this mutation
               queryClient.invalidateQueries({
                 queryKey: ['api', 'connections'],
               })
@@ -182,9 +183,10 @@ const ConnectionButton = (props: Props) => {
         onClick={() => {
           if (mentoring) {
             deleteMentoring.mutate(
-              { pathParams: { id: connectionToUserId } },
+              { pathParams: { id: mentoring.id ?? -1 } },
               {
                 onSuccess: () => {
+                  queryClient.clear() // TODO MentorApp: invalidate only the queries that are affected by this mutation
                   queryClient.invalidateQueries({
                     queryKey: [['api', 'mentoring']],
                   })
@@ -219,6 +221,7 @@ const ConnectionButton = (props: Props) => {
                   { pathParams: { id: mentoringRequest.id ?? -1 } },
                   {
                     onSuccess: () => {
+                      queryClient.clear() // TODO MentorApp: invalidate only the queries that are affected by this mutation
                       queryClient.invalidateQueries({
                         queryKey: [['api', 'mentoring', 'requests', 'to-user']],
                       })
@@ -261,6 +264,7 @@ const ConnectionButton = (props: Props) => {
                       },
                       {
                         onSuccess: () => {
+                          queryClient.clear() // TODO MentorApp: invalidate only the queries that are affected by this mutation
                           queryClient.invalidateQueries({
                             queryKey: [
                               ['api', 'mentoring', 'requests', 'to-user'],
@@ -304,6 +308,7 @@ const ConnectionButton = (props: Props) => {
                 { pathParams: { id: connection.id ?? -1 } },
                 {
                   onSuccess: () => {
+                    queryClient.clear() // TODO MentorApp: invalidate only the queries that are affected by this mutation
                     queryClient.invalidateQueries({
                       queryKey: ['api', 'connections'],
                     })
@@ -346,6 +351,7 @@ const ConnectionButton = (props: Props) => {
                   { pathParams: { id: connectionRequest?.id } },
                   {
                     onSuccess: () => {
+                      queryClient.clear() // TODO MentorApp: invalidate only the queries that are affected by this mutation
                       queryClient.invalidateQueries({
                         queryKey: ['api', 'connections'],
                       })
@@ -377,6 +383,7 @@ const ConnectionButton = (props: Props) => {
                       { pathParams: { id: connectionRequest.id } },
                       {
                         onSuccess: () => {
+                          queryClient.clear() // TODO MentorApp: invalidate only the queries that are affected by this mutation
                           queryClient.invalidateQueries({
                             queryKey: ['api', 'connections'],
                           })
@@ -415,6 +422,7 @@ const ConnectionButton = (props: Props) => {
               },
               {
                 onSuccess: () => {
+                  queryClient.clear() // TODO MentorApp: invalidate only the queries that are affected by this mutation
                   queryClient.invalidateQueries({
                     queryKey: ['api', 'connections'],
                   })

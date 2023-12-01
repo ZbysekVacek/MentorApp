@@ -32,6 +32,9 @@ const MyMentoringPage: React.FC = () => {
           {myMentorings.map((currMentoring) => (
             <MentoringCard mentoring={currMentoring} who="mentor" />
           ))}
+          {myMentorings.length === 0 && (
+            <Typography.Text>You have no mentors</Typography.Text>
+          )}
         </div>
       )}
     </RestrictedRoute>
