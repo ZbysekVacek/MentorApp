@@ -218,3 +218,29 @@ class Note(models.Model):
     related_mentoring = models.ForeignKey(
         Mentoring, on_delete=models.SET_NULL, null=True, blank=True
     )
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Note of {self.title} - ID{self.id}"
+
+
+class Task(models.Model):
+    author = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="authored_tasks"
+    )
+    assignee = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="assigned_tasks"
+    )
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    resolved = models.BooleanField(default=False)
+    resolved_at = models.DateTimeField(null=True, blank=True)
+    response = models.TextField(null=True, blank=True)
+    related_mentoring = models.ForeignKey(
+        Mentoring, on_delete=models.SET_NULL, null=True, blank=True
+    )
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Task of {self.title} - ID{self.id}"

@@ -11,6 +11,7 @@ from .models import (
     Post,
     Message,
     Note,
+    Task,
 )
 
 # Register your models here.
@@ -25,3 +26,4 @@ admin.site.register(MentoringRequest)
 admin.site.register(Post)
 admin.site.register(Message)
 admin.site.register(Note)
+admin.site.register(Task)
