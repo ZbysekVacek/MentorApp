@@ -72,32 +72,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/ConnectionRequest'
           description: ''
-    post:
-      operationId: connections_requests_create
-      tags:
-      - connections
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ConnectionRequestRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ConnectionRequestRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ConnectionRequestRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConnectionRequest'
-          description: ''
   /api/connections/requests/{id}:
     delete:
       operationId: connections_requests_destroy
@@ -132,11 +106,38 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/meetings/:
-    get:
-      operationId: meetings_list
+  /api/connections/requests/make:
+    post:
+      operationId: connections_requests_make_create
       tags:
-      - meetings
+      - connections
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionRequestCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConnectionRequestCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConnectionRequestCreateRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionRequestCreate'
+          description: ''
+  /api/meeting/:
+    get:
+      operationId: meeting_list
+      tags:
+      - meeting
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -149,21 +150,103 @@ paths:
                 items:
                   $ref: '#/components/schemas/Meeting'
           description: ''
-    post:
-      operationId: meetings_create
+  /api/meeting/{id}/delete:
+    delete:
+      operationId: meeting_delete_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
       tags:
-      - meetings
+      - meeting
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/meeting/{id}/update:
+    put:
+      operationId: meeting_update_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - meeting
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MeetingRequest'
+              $ref: '#/components/schemas/MeetingCreateRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/MeetingRequest'
+              $ref: '#/components/schemas/MeetingCreateRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/MeetingRequest'
+              $ref: '#/components/schemas/MeetingCreateRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingCreate'
+          description: ''
+    patch:
+      operationId: meeting_update_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - meeting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMeetingCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMeetingCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMeetingCreateRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingCreate'
+          description: ''
+  /api/meeting/create/:
+    post:
+      operationId: meeting_create_create
+      tags:
+      - meeting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeetingCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MeetingCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MeetingCreateRequest'
         required: true
       security:
       - cookieAuth: []
@@ -173,19 +256,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Meeting'
+                $ref: '#/components/schemas/MeetingCreate'
           description: ''
-  /api/meetings/{id}:
+  /api/meeting/from-mentors:
     get:
-      operationId: meetings_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
+      operationId: meeting_from_mentors_list
       tags:
-      - meetings
+      - meeting
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -194,10 +271,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Meeting'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meeting'
           description: ''
-    put:
-      operationId: meetings_update
+  /api/mentoring/{id}/:
+    get:
+      operationId: mentoring_retrieve
       parameters:
       - in: path
         name: id
@@ -205,18 +285,56 @@ paths:
           type: integer
         required: true
       tags:
-      - meetings
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentoring'
+          description: ''
+  /api/mentoring/{id}/delete/:
+    delete:
+      operationId: mentoring_delete_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/mentoring/{id}/edit/:
+    put:
+      operationId: mentoring_edit_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - mentoring
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MeetingRequest'
+              $ref: '#/components/schemas/MentoringRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/MeetingRequest'
+              $ref: '#/components/schemas/MentoringRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/MeetingRequest'
+              $ref: '#/components/schemas/MentoringRequest'
         required: true
       security:
       - cookieAuth: []
@@ -226,10 +344,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Meeting'
+                $ref: '#/components/schemas/Mentoring'
           description: ''
     patch:
-      operationId: meetings_partial_update
+      operationId: mentoring_edit_partial_update
       parameters:
       - in: path
         name: id
@@ -237,18 +355,18 @@ paths:
           type: integer
         required: true
       tags:
-      - meetings
+      - mentoring
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedMeetingRequest'
+              $ref: '#/components/schemas/PatchedMentoringRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedMeetingRequest'
+              $ref: '#/components/schemas/PatchedMentoringRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedMeetingRequest'
+              $ref: '#/components/schemas/PatchedMentoringRequest'
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -257,10 +375,112 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Meeting'
+                $ref: '#/components/schemas/Mentoring'
           description: ''
+  /api/mentoring/as-mentee/:
+    get:
+      operationId: mentoring_as_mentee_list
+      tags:
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mentoring'
+          description: ''
+  /api/mentoring/as-mentor/:
+    get:
+      operationId: mentoring_as_mentor_list
+      tags:
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mentoring'
+          description: ''
+  /api/mentoring/requests/:
+    get:
+      operationId: mentoring_requests_list
+      tags:
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MentoringRequest'
+          description: ''
+  /api/mentoring/requests/accept/{mentoring_request_id}/:
     delete:
-      operationId: meetings_destroy
+      operationId: mentoring_requests_accept_destroy
+      parameters:
+      - in: path
+        name: mentoring_request_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/mentoring/requests/create/{to_user_id}/:
+    post:
+      operationId: mentoring_requests_create_create
+      parameters:
+      - in: path
+        name: to_user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - mentoring
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MentoringRequestCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MentoringRequestCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MentoringRequestCreateRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MentoringRequestCreate'
+          description: ''
+  /api/mentoring/requests/delete/{id}/:
+    delete:
+      operationId: mentoring_requests_delete_destroy
       parameters:
       - in: path
         name: id
@@ -268,7 +488,284 @@ paths:
           type: integer
         required: true
       tags:
-      - meetings
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/mentoring/requests/from-user/:
+    get:
+      operationId: mentoring_requests_from_user_list
+      tags:
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MentoringRequest'
+          description: ''
+  /api/mentoring/requests/to-user/:
+    get:
+      operationId: mentoring_requests_to_user_list
+      tags:
+      - mentoring
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MentoringRequest'
+          description: ''
+  /api/messages/all/:
+    get:
+      operationId: messages_all_list
+      tags:
+      - messages
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+          description: ''
+  /api/messages/all-users/:
+    get:
+      operationId: messages_all_users_list
+      tags:
+      - messages
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+  /api/messages/mark-seen/:
+    put:
+      operationId: messages_mark_seen_update
+      tags:
+      - messages
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: messages_mark_seen_partial_update
+      tags:
+      - messages
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/messages/send/:
+    post:
+      operationId: messages_send_create
+      tags:
+      - messages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageSendRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MessageSendRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MessageSendRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageSend'
+          description: ''
+  /api/messages/unseen/:
+    get:
+      operationId: messages_unseen_list
+      tags:
+      - messages
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+          description: ''
+  /api/notes/:
+    get:
+      operationId: notes_list
+      tags:
+      - notes
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+          description: ''
+    post:
+      operationId: notes_create
+      tags:
+      - notes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/NoteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/NoteRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: ''
+  /api/notes/{id}/:
+    get:
+      operationId: notes_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - notes
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: ''
+    put:
+      operationId: notes_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - notes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/NoteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/NoteRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: ''
+    patch:
+      operationId: notes_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - notes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedNoteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedNoteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedNoteRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: ''
+  /api/notes/{id}/delete/:
+    delete:
+      operationId: notes_delete_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - notes
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -335,6 +832,67 @@ paths:
                 items:
                   $ref: '#/components/schemas/Notification'
           description: ''
+  /api/posts/:
+    get:
+      operationId: posts_list
+      tags:
+      - posts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+          description: ''
+  /api/posts/create/:
+    post:
+      operationId: posts_create_create
+      tags:
+      - posts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PostCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PostCreateRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostCreate'
+          description: ''
+  /api/posts/delete/{id}/:
+    delete:
+      operationId: posts_delete_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - posts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
   /api/schema/:
     get:
       operationId: schema_retrieve
@@ -479,6 +1037,167 @@ paths:
               schema:
                 type: object
                 additionalProperties: {}
+          description: ''
+  /api/tasks/:
+    get:
+      operationId: tasks_list
+      tags:
+      - tasks
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+          description: ''
+    post:
+      operationId: tasks_create
+      tags:
+      - tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+  /api/tasks/{id}/:
+    get:
+      operationId: tasks_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - tasks
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+    put:
+      operationId: tasks_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+    patch:
+      operationId: tasks_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTaskRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTaskRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTaskRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+  /api/tasks/{id}/delete:
+    delete:
+      operationId: tasks_delete_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - tasks
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/tasks/assigned/:
+    get:
+      operationId: tasks_assigned_list
+      tags:
+      - tasks
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
           description: ''
   /api/user/{id}:
     get:
@@ -760,7 +1479,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Exception'
           description: Generic server error
-  /api/user/search/:
+  /api/user/search:
     get:
       operationId: user_search_list
       tags:
@@ -835,23 +1554,34 @@ components:
         id:
           type: integer
           readOnly: true
+        from_user:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
+        to_user:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
         created_at:
           type: string
           format: date-time
           readOnly: true
-        from_user:
-          type: integer
+    ConnectionRequestCreate:
+      type: object
+      properties:
         to_user:
+          type: integer
+        from_user:
           type: integer
       required:
       - from_user
       - to_user
-    ConnectionRequestRequest:
+    ConnectionRequestCreateRequest:
       type: object
       properties:
-        from_user:
-          type: integer
         to_user:
+          type: integer
+        from_user:
           type: integer
       required:
       - from_user
@@ -866,10 +1596,14 @@ components:
     FollowupEnum:
       enum:
       - FILL_PROFILE
+      - MENTORING_REQUESTS_PAGE
+      - MENTORINGS_PAGE
       - NONE
       type: string
       description: |-
         * `FILL_PROFILE` - Fill your user profile
+        * `MENTORING_REQUESTS_PAGE` - See mentoring requests
+        * `MENTORINGS_PAGE` - See mentoring page
         * `NONE` - No followup action
     LoginRequestRequest:
       type: object
@@ -886,60 +1620,250 @@ components:
     Meeting:
       type: object
       properties:
-        pk:
+        id:
           type: integer
           readOnly: true
-          title: ID
-        subject:
+        author:
+          $ref: '#/components/schemas/User'
+        registered_mentee:
+          $ref: '#/components/schemas/User'
+        title:
           type: string
-          title: Name
           maxLength: 240
         location:
           type: string
-        dateTime:
+        created_at:
           type: string
           format: date-time
           readOnly: true
-          title: Registration Date
-        mentorEmail:
+          title: Created Date
+        meeting_date:
           type: string
-          format: email
-          maxLength: 254
-        menteeEmail:
+          format: date-time
+        description:
           type: string
-          format: email
-          maxLength: 254
       required:
+      - author
+      - description
       - location
-      - menteeEmail
-      - mentorEmail
-      - subject
-    MeetingRequest:
+      - meeting_date
+      - registered_mentee
+      - title
+    MeetingCreate:
       type: object
       properties:
-        subject:
+        meeting_date:
+          type: string
+          format: date-time
+        description:
+          type: string
+        location:
+          type: string
+        registered_mentee:
+          type: integer
+          nullable: true
+        title:
+          type: string
+          maxLength: 240
+      required:
+      - description
+      - location
+      - meeting_date
+      - title
+    MeetingCreateRequest:
+      type: object
+      properties:
+        meeting_date:
+          type: string
+          format: date-time
+        description:
           type: string
           minLength: 1
-          title: Name
-          maxLength: 240
         location:
           type: string
           minLength: 1
-        mentorEmail:
+        registered_mentee:
+          type: integer
+          nullable: true
+        title:
           type: string
-          format: email
           minLength: 1
-          maxLength: 254
-        menteeEmail:
-          type: string
-          format: email
-          minLength: 1
-          maxLength: 254
+          maxLength: 240
       required:
+      - description
       - location
-      - menteeEmail
-      - mentorEmail
-      - subject
+      - meeting_date
+      - title
+    Mentoring:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        connection:
+          type: integer
+        settings:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        frequency_days:
+          type: integer
+        objectives:
+          type: string
+        mentor:
+          $ref: '#/components/schemas/User'
+        mentee:
+          $ref: '#/components/schemas/User'
+        active:
+          type: boolean
+      required:
+      - connection
+      - frequency_days
+      - mentee
+      - mentor
+      - objectives
+      - settings
+    MentoringRequest:
+      type: object
+      properties:
+        connection:
+          type: integer
+        settings:
+          type: string
+          minLength: 1
+        frequency_days:
+          type: integer
+        objectives:
+          type: string
+          minLength: 1
+        mentor:
+          $ref: '#/components/schemas/UserRequest'
+        mentee:
+          $ref: '#/components/schemas/UserRequest'
+        active:
+          type: boolean
+      required:
+      - connection
+      - frequency_days
+      - mentee
+      - mentor
+      - objectives
+      - settings
+    MentoringRequestCreate:
+      type: object
+      properties:
+        text:
+          type: string
+      required:
+      - text
+    MentoringRequestCreateRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+      required:
+      - text
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        content:
+          type: string
+        send_at:
+          type: string
+          format: date-time
+          readOnly: true
+        seen:
+          type: boolean
+        sender:
+          type: integer
+        recipient:
+          type: integer
+      required:
+      - content
+      - recipient
+      - sender
+    MessageSend:
+      type: object
+      properties:
+        recipient:
+          type: integer
+        content:
+          type: string
+      required:
+      - content
+      - recipient
+    MessageSendRequest:
+      type: object
+      properties:
+        recipient:
+          type: integer
+        content:
+          type: string
+          minLength: 1
+      required:
+      - content
+      - recipient
+    Note:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        summary:
+          type: string
+          maxLength: 255
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        related_meeting:
+          type: integer
+          nullable: true
+        related_mentoring:
+          type: integer
+          nullable: true
+      required:
+      - content
+      - summary
+      - title
+    NoteRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        summary:
+          type: string
+          minLength: 1
+          maxLength: 255
+        content:
+          type: string
+          minLength: 1
+        related_meeting:
+          type: integer
+          nullable: true
+        related_mentoring:
+          type: integer
+          nullable: true
+      required:
+      - content
+      - summary
+      - title
     Notification:
       type: object
       properties:
@@ -968,30 +1892,66 @@ components:
           type: integer
       required:
       - content
-      - seen
       - title
       - user
-    PatchedMeetingRequest:
+    PatchedMeetingCreateRequest:
       type: object
       properties:
-        subject:
+        meeting_date:
+          type: string
+          format: date-time
+        description:
           type: string
           minLength: 1
-          title: Name
-          maxLength: 240
         location:
           type: string
           minLength: 1
-        mentorEmail:
+        registered_mentee:
+          type: integer
+          nullable: true
+        title:
           type: string
-          format: email
           minLength: 1
-          maxLength: 254
-        menteeEmail:
+          maxLength: 240
+    PatchedMentoringRequest:
+      type: object
+      properties:
+        connection:
+          type: integer
+        settings:
           type: string
-          format: email
           minLength: 1
-          maxLength: 254
+        frequency_days:
+          type: integer
+        objectives:
+          type: string
+          minLength: 1
+        mentor:
+          $ref: '#/components/schemas/UserRequest'
+        mentee:
+          $ref: '#/components/schemas/UserRequest'
+        active:
+          type: boolean
+    PatchedNoteRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        summary:
+          type: string
+          minLength: 1
+          maxLength: 255
+        content:
+          type: string
+          minLength: 1
+        related_meeting:
+          type: integer
+          nullable: true
+        related_mentoring:
+          type: integer
+          nullable: true
     PatchedProfileAvatarRequest:
       type: object
       properties:
@@ -1025,6 +1985,75 @@ components:
           type: array
           items:
             type: integer
+    PatchedTaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          minLength: 1
+        resolved:
+          type: boolean
+        resolved_at:
+          type: string
+          format: date-time
+          nullable: true
+        response:
+          type: string
+          nullable: true
+        assignee:
+          type: integer
+        related_mentoring:
+          type: integer
+          nullable: true
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          $ref: '#/components/schemas/User'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        content:
+          type: string
+        title:
+          type: string
+          maxLength: 255
+      required:
+      - author
+      - content
+      - title
+    PostCreate:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        content:
+          type: string
+      required:
+      - content
+      - title
+    PostCreateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        content:
+          type: string
+          minLength: 1
+      required:
+      - content
+      - title
     Profile:
       type: object
       properties:
@@ -1097,6 +2126,70 @@ components:
       required:
       - competencies
       - user
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        resolved:
+          type: boolean
+        resolved_at:
+          type: string
+          format: date-time
+          nullable: true
+        response:
+          type: string
+          nullable: true
+        author:
+          type: integer
+          readOnly: true
+        assignee:
+          type: integer
+        related_mentoring:
+          type: integer
+          nullable: true
+      required:
+      - assignee
+      - description
+      - title
+    TaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          minLength: 1
+        resolved:
+          type: boolean
+        resolved_at:
+          type: string
+          format: date-time
+          nullable: true
+        response:
+          type: string
+          nullable: true
+        assignee:
+          type: integer
+        related_mentoring:
+          type: integer
+          nullable: true
+      required:
+      - assignee
+      - description
+      - title
     User:
       type: object
       properties:
@@ -1169,6 +2262,44 @@ components:
           maxLength: 150
       required:
       - password
+      - username
+    UserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 1
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+      required:
       - username
   securitySchemes:
     basicAuth:

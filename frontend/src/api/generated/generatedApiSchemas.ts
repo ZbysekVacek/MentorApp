@@ -41,6 +41,17 @@ export type ConnectionRequestCreateRequest = {
   from_user: number
 }
 
+export type CreateRequest = {
+  text: string
+}
+
+export type CreateRequestRequest = {
+  /**
+   * @minLength 1
+   */
+  text: string
+}
+
 export type Exception = {
   status_code?: number
   detail?: string
@@ -48,9 +59,15 @@ export type Exception = {
 
 /**
  * * `FILL_PROFILE` - Fill your user profile
+ * * `MENTORING_REQUESTS_PAGE` - See mentoring requests
+ * * `MENTORINGS_PAGE` - See mentoring page
  * * `NONE` - No followup action
  */
-export type FollowupEnum = 'FILL_PROFILE' | 'NONE'
+export type FollowupEnum =
+  | 'FILL_PROFILE'
+  | 'MENTORING_REQUESTS_PAGE'
+  | 'MENTORINGS_PAGE'
+  | 'NONE'
 
 export type LoginRequestRequest = {
   /**
@@ -64,50 +81,147 @@ export type LoginRequestRequest = {
 }
 
 export type Meeting = {
-  pk?: number
+  id?: number
+  author: User
+  registered_mentee: User
   /**
    * @maxLength 240
    */
-  subject: string
+  title: string
   location: string
   /**
    * @format date-time
    */
-  dateTime?: string
+  created_at?: string
   /**
-   * @format email
-   * @maxLength 254
+   * @format date-time
    */
-  mentorEmail: string
-  /**
-   * @format email
-   * @maxLength 254
-   */
-  menteeEmail: string
+  meeting_date: string
+  description: string
 }
 
-export type MeetingRequest = {
+export type MeetingCreate = {
   /**
-   * @minLength 1
+   * @format date-time
+   */
+  meeting_date: string
+  description: string
+  location: string
+  registered_mentee?: number | null
+  /**
    * @maxLength 240
    */
-  subject: string
+  title: string
+}
+
+export type MeetingCreateRequest = {
+  /**
+   * @format date-time
+   */
+  meeting_date: string
+  /**
+   * @minLength 1
+   */
+  description: string
   /**
    * @minLength 1
    */
   location: string
+  registered_mentee?: number | null
   /**
-   * @format email
    * @minLength 1
-   * @maxLength 254
+   * @maxLength 240
    */
-  mentorEmail: string
+  title: string
+}
+
+export type Mentoring = {
+  id?: number
+  connection: number
+  settings?: string | null
   /**
-   * @format email
-   * @minLength 1
-   * @maxLength 254
+   * @format date-time
    */
-  menteeEmail: string
+  created_at?: string
+  frequency_days: number
+  objectives?: string | null
+  mentor: User
+  mentee: User
+  active?: boolean
+}
+
+export type MentoringRequest = {
+  connection: number
+  settings?: string | null
+  frequency_days: number
+  objectives?: string | null
+  mentor: UserRequest
+  mentee: UserRequest
+  active?: boolean
+}
+
+export type Message = {
+  id?: number
+  content: string
+  /**
+   * @format date-time
+   */
+  send_at?: string
+  seen?: boolean
+  sender: number
+  recipient: number
+}
+
+export type MessageSend = {
+  recipient: number
+  content: string
+}
+
+export type MessageSendRequest = {
+  recipient: number
+  /**
+   * @minLength 1
+   */
+  content: string
+}
+
+export type Note = {
+  id?: number
+  author?: number
+  /**
+   * @maxLength 255
+   */
+  title: string
+  /**
+   * @maxLength 255
+   */
+  summary: string
+  content: string
+  /**
+   * @format date-time
+   */
+  created_at?: string
+  related_meeting?: number | null
+  related_mentoring?: number | null
+}
+
+export type NoteRequest = {
+  /**
+   * @minLength 1
+   * @maxLength 255
+   */
+  title: string
+  /**
+   * @minLength 1
+   * @maxLength 255
+   */
+  summary: string
+  /**
+   * @minLength 1
+   */
+  content: string
+  related_meeting?: number | null
+  related_mentoring?: number | null
 }
 
 export type Notification = {
@@ -120,7 +234,7 @@ export type Notification = {
    * @format date-time
    */
   created_at?: string
-  seen: boolean
+  seen?: boolean
   /**
    * @maxLength 255
    */
@@ -133,28 +247,54 @@ export type Notification = {
   user: number
 }
 
-export type PatchedMeetingRequest = {
+export type PatchedMeetingCreateRequest = {
+  /**
+   * @format date-time
+   */
+  meeting_date?: string
   /**
    * @minLength 1
-   * @maxLength 240
    */
-  subject?: string
+  description?: string
   /**
    * @minLength 1
    */
   location?: string
+  registered_mentee?: number | null
   /**
-   * @format email
    * @minLength 1
-   * @maxLength 254
+   * @maxLength 240
    */
-  mentorEmail?: string
+  title?: string
+}
+
+export type PatchedMentoringRequest = {
+  connection?: number
+  settings?: string | null
+  frequency_days?: number
+  objectives?: string | null
+  mentor?: UserRequest
+  mentee?: UserRequest
+  active?: boolean
+}
+
+export type PatchedNoteRequest = {
   /**
-   * @format email
    * @minLength 1
-   * @maxLength 254
+   * @maxLength 255
    */
-  menteeEmail?: string
+  title?: string
+  /**
+   * @minLength 1
+   * @maxLength 255
+   */
+  summary?: string
+  /**
+   * @minLength 1
+   */
+  content?: string
+  related_meeting?: number | null
+  related_mentoring?: number | null
 }
 
 export type PatchedProfileAvatarRequest = {
@@ -186,6 +326,60 @@ export type PatchedProfileRequest = {
    */
   avatar?: Blob
   competencies?: number[]
+}
+
+export type PatchedTaskRequest = {
+  /**
+   * @minLength 1
+   * @maxLength 255
+   */
+  title?: string
+  /**
+   * @minLength 1
+   */
+  description?: string
+  resolved?: boolean
+  /**
+   * @format date-time
+   */
+  resolved_at?: string | null
+  response?: string | null
+  assignee?: number
+  related_mentoring?: number | null
+}
+
+export type Post = {
+  id?: number
+  author: User
+  /**
+   * @format date-time
+   */
+  created_at?: string
+  content: string
+  /**
+   * @maxLength 255
+   */
+  title: string
+}
+
+export type PostCreate = {
+  /**
+   * @maxLength 255
+   */
+  title: string
+  content: string
+}
+
+export type PostCreateRequest = {
+  /**
+   * @minLength 1
+   * @maxLength 255
+   */
+  title: string
+  /**
+   * @minLength 1
+   */
+  content: string
 }
 
 export type Profile = {
@@ -240,6 +434,63 @@ export type ProfileRequest = {
    */
   avatar?: Blob
   competencies: number[]
+}
+
+/**
+ * Serializer for the MentoringRequest model.
+ * Cannot use MentoringRequestSerializer because it for some reason generates duplicate name in openapi schema.
+ */
+export type RequestForMentoring = {
+  id?: number
+  from_user: User
+  to_user: User
+  /**
+   * @format date-time
+   */
+  created_at?: string
+  text: string
+}
+
+export type Task = {
+  id?: number
+  /**
+   * @maxLength 255
+   */
+  title: string
+  description: string
+  /**
+   * @format date-time
+   */
+  created_at?: string
+  resolved?: boolean
+  /**
+   * @format date-time
+   */
+  resolved_at?: string | null
+  response?: string | null
+  author?: number
+  assignee: number
+  related_mentoring?: number | null
+}
+
+export type TaskRequest = {
+  /**
+   * @minLength 1
+   * @maxLength 255
+   */
+  title: string
+  /**
+   * @minLength 1
+   */
+  description: string
+  resolved?: boolean
+  /**
+   * @format date-time
+   */
+  resolved_at?: string | null
+  response?: string | null
+  assignee: number
+  related_mentoring?: number | null
 }
 
 export type User = {
@@ -306,4 +557,40 @@ export type UserRegisterRequest = {
    * @maxLength 150
    */
   last_name?: string
+}
+
+export type UserRequest = {
+  /**
+   * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+   *
+   * @minLength 1
+   * @pattern ^[\w.@+-]+$
+   * @maxLength 150
+   */
+  username: string
+  /**
+   * @format email
+   * @maxLength 254
+   */
+  email?: string
+  /**
+   * The groups this user belongs to. A user will get all permissions granted to each of their groups.
+   */
+  groups?: number[]
+  /**
+   * Specific permissions for this user.
+   */
+  user_permissions?: number[]
+  /**
+   * @maxLength 150
+   */
+  first_name?: string
+  /**
+   * @maxLength 150
+   */
+  last_name?: string
+  /**
+   * Designates whether the user can log into this admin site.
+   */
+  is_staff?: boolean
 }

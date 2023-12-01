@@ -27,6 +27,10 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
     { title: <NavLink to={Routes.MyMentoring}>My Mentoring</NavLink> },
     { title: <NavLink to={Routes.MyMentoringMyMentees}>My Mentees</NavLink> },
   ],
+  [Routes.MyMentoringDetail]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.MyMentoring}>My Mentoring</NavLink> },
+  ],
   [Routes.MyMentoringSearchMentor]: [
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.MyMentoring}>My Mentoring</NavLink> },
@@ -44,6 +48,10 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Meetings}>Meetings</NavLink> },
   ],
+  [Routes.MeetingDetail]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.Meetings}>Meetings</NavLink> },
+  ],
   [Routes.Tasks]: [
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Tasks}>Tasks</NavLink> },
@@ -53,7 +61,15 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
     { title: <NavLink to={Routes.Tasks}>Tasks</NavLink> },
     { title: <NavLink to={Routes.TasksCreated}>Tasks Created By Me</NavLink> },
   ],
+  [Routes.TaskDetail]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.Tasks}>Tasks</NavLink> },
+  ],
   [Routes.Notes]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.Notes}>Notes</NavLink> },
+  ],
+  [Routes.NoteDetail]: [
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Notes}>Notes</NavLink> },
   ],

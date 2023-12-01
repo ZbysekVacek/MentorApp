@@ -9,7 +9,6 @@ import {
   useCompetencyAllList,
   useConnectionsList,
   useConnectionsRequestsList,
-  useUserCurrentRetrieve,
   useUserSearchList,
   useUserSearchList2,
 } from '../../../api/generated/generatedApiComponents'
@@ -23,7 +22,6 @@ const ConnectionsSearchPage: React.FC = () => {
   const { data: competenciesList } = useCompetencyAllList({})
   const [selectedCompetencies, setSelectedCompetencies] = React.useState([])
 
-  const { data: loggedUser } = useUserCurrentRetrieve({})
   const {
     data: connectionRequests,
     isLoading: isLoadingConnectionRequests,
@@ -47,6 +45,7 @@ const ConnectionsSearchPage: React.FC = () => {
     { pathParams: { competencyIds: selectedCompetencies.join(',') } },
     { enabled: selectedCompetencies?.length !== 0 }
   )
+
   const isLoading =
     isLoadingPureSearch ||
     isLoadingConnectionRequests ||
@@ -86,34 +85,7 @@ const ConnectionsSearchPage: React.FC = () => {
               }))}
             />
             {results.map((curResult) => (
-              <ProfileCard
-                user={curResult}
-                isConnected={connections.some(
-                  (cur) => cur.to?.id === curResult.id
-                )}
-                hasMentoring={false} // TODO MentorApp implement
-                isConnectionRequestedByMe={connectionRequests.some(
-                  (cur) =>
-                    cur.from_user?.id === loggedUser?.id &&
-                    cur.to_user?.id === curResult.id
-                )}
-                isConnectionRequestedByOtherUser={connectionRequests.some(
-                  (cur) =>
-                    cur.to_user?.id === loggedUser?.id &&
-                    cur.from_user?.id === curResult.id
-                )}
-                currentUserId={loggedUser?.id ?? -1}
-                connectionId={
-                  connections.find((curr) => curr.to?.id === curResult.id)?.id
-                }
-                connectionRequestId={
-                  connectionRequests.find(
-                    (curr) =>
-                      curr.from_user?.id === curResult.id ||
-                      curr.to_user?.id === curResult.id
-                  )?.id
-                }
-              />
+              <ProfileCard user={curResult} />
             ))}
           </div>
         )}

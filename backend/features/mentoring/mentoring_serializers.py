@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from backend.features.user.user_serializers import UserSerializer
-from backend.models import Mentoring, MentoringRequest
+from backend.models import Mentoring
 
 
 class MentoringSerializer(serializers.ModelSerializer):
@@ -21,18 +21,3 @@ class MentoringSerializer(serializers.ModelSerializer):
             "mentee",
             "active",
         ]
-
-
-class MentoringRequestSerializer(serializers.ModelSerializer):
-    from_user = UserSerializer()
-    to_user = UserSerializer()
-
-    class Meta:
-        model = MentoringRequest
-        fields = ["id", "from_user", "to_user", "created_at", "text"]
-
-
-class MentoringRequestCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MentoringRequest
-        fields = ["text"]

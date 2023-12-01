@@ -37,15 +37,7 @@ const ConnectionsRequests: React.FC = () => {
 
           return (
             <Col lg={12} sm={24}>
-              <ProfileCard
-                user={toUser}
-                isConnected={false}
-                hasMentoring={false}
-                isConnectionRequestedByMe={true}
-                isConnectionRequestedByOtherUser={false}
-                connectionRequestId={currConnection.id}
-                currentUserId={user?.id ?? -1}
-              />
+              <ProfileCard user={toUser} />
             </Col>
           )
         })}
@@ -61,15 +53,7 @@ const ConnectionsRequests: React.FC = () => {
 
           return (
             <Col lg={12} sm={24}>
-              <ProfileCard
-                user={fromUser}
-                isConnected={false}
-                isConnectionRequestedByMe={false}
-                isConnectionRequestedByOtherUser={true}
-                hasMentoring={false}
-                connectionRequestId={currConnection.id}
-                currentUserId={user?.id ?? -1}
-              />
+              <ProfileCard user={fromUser} />
             </Col>
           )
         })}

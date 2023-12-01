@@ -5,21 +5,15 @@ import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
 import { Routes } from '../../../feature/routing/routes'
 import ConnectionsTabs from './ConnectionsTabs'
-import {
-  useConnectionsList,
-  useUserCurrentRetrieve,
-} from '../../../api/generated/generatedApiComponents'
+import { useConnectionsList } from '../../../api/generated/generatedApiComponents'
 import PageLoader from '../../../components/PageLoader'
 import ProfileCard from '../../../feature/user/ProfileCard'
 import { assertIsDefined } from '../../../utils/utils'
 import ConnectionsRequests from './ConnectionsRequests'
 
-// TODO MentorApp: implement the page
 const ConnectionsPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Connections))
   const { data: allConnections, isLoading, isError } = useConnectionsList({})
-  const { data: loggedUser } = useUserCurrentRetrieve({})
-
   return (
     <RestrictedRoute>
       <ConnectionsTabs />
@@ -35,17 +29,7 @@ const ConnectionsPage: React.FC = () => {
             const currUser = currConnection.to
             assertIsDefined(currUser, 'Current user is undefined')
 
-            return (
-              <ProfileCard
-                user={currUser}
-                isConnected={true}
-                isConnectionRequestedByMe={false}
-                isConnectionRequestedByOtherUser={false}
-                hasMentoring={false /* TODO MentorApp implement */}
-                connectionId={currConnection.id}
-                currentUserId={loggedUser?.id ?? -1}
-              />
-            )
+            return <ProfileCard user={currUser} />
           })}
         </>
       )}

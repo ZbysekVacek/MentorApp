@@ -24,6 +24,9 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from backend.features.connection.connection_urls import connection_urls
 from backend.features.meeting.meeting_urls import meeting_urls
 from backend.features.mentoring.mentoring_urls import mentoring_urls
+from backend.features.mentoring_request.mentoring_request_urls import (
+    mentoring_request_urls,
+)
 from backend.features.note.note_urls import note_urls
 from backend.features.notification.notification_urls import notification_urls
 from backend.features.competency.competency_urls import competency_urls
@@ -40,6 +43,7 @@ urlpatterns = [
     path("api/", include(notification_urls)),
     path("api/", include(connection_urls)),
     path("api/", include(mentoring_urls)),
+    path("api/", include(mentoring_request_urls)),
     path("api/", include(post_urls)),
     path("api/", include(messages_urls)),
     path("api/", include(meeting_urls)),

@@ -16,12 +16,16 @@ import MyMenteesPage from '../../pages/restricted/myMentoring/MyMenteesPage'
 import SearchMentorPage from '../../pages/restricted/myMentoring/SearchMentorPage'
 import TasksPage from '../../pages/restricted/tasks/TasksPage'
 import TasksCreatedPage from '../../pages/restricted/tasks/TasksCreatedPage'
-import NotesPage from '../../pages/restricted/NotesPage'
+import NotesPage from '../../pages/restricted/notes/NotesPage'
 import ConnectionsPage from '../../pages/restricted/connections/ConnectionsPage'
 import ConnectionsSearchPage from '../../pages/restricted/connections/ConnectionsSearchPage'
 import NotificationsPage from '../../pages/restricted/notifications/NotificationsPage'
 import MessagesPage from '../../pages/restricted/MessagesPage'
 import ProfilePage from '../../pages/restricted/profile/ProfilePage'
+import MentoringDetailPage from '../../pages/restricted/myMentoring/MentoringDetailPage'
+import MeetingDetailPage from '../../pages/restricted/meetings/MeetingDetailPage'
+import TasksDetailPage from '../../pages/restricted/tasks/TasksDetailPage'
+import NotesDetailPage from '../../pages/restricted/notes/NotesDetailPage'
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +56,10 @@ export const router = createBrowserRouter([
         element: <MeetingsPage />,
       },
       {
+        path: Routes.MeetingDetail,
+        element: <MeetingDetailPage />,
+      },
+      {
         path: Routes.MyMentoring,
         element: <MyMentoringPage />,
       },
@@ -68,6 +76,10 @@ export const router = createBrowserRouter([
         element: <SearchMentorPage />,
       },
       {
+        path: Routes.MyMentoringDetail,
+        element: <MentoringDetailPage />,
+      },
+      {
         path: Routes.Posts,
         element: <PostsPage />,
       },
@@ -80,8 +92,16 @@ export const router = createBrowserRouter([
         element: <TasksCreatedPage />,
       },
       {
+        path: Routes.TaskDetail,
+        element: <TasksDetailPage />,
+      },
+      {
         path: Routes.Notes,
         element: <NotesPage />,
+      },
+      {
+        path: Routes.NoteDetail,
+        element: <NotesDetailPage />,
       },
       {
         path: Routes.Connections,

@@ -5,15 +5,14 @@ import { useDocumentTitle } from '@uidotdev/usehooks'
 import { Routes } from '../../../feature/routing/routes'
 import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
 
-const MeetingsPage: React.FC = () => {
-  useDocumentTitle(getRouteTitle(Routes.Meetings))
+const MeetingDetailPage: React.FC = () => {
+  useDocumentTitle(getRouteTitle(Routes.MeetingDetail))
 
   return (
     <RestrictedRoute>
-      <Typography.Title level={2}>Current meetings</Typography.Title>
-      <Typography.Title level={2}>Create meeting</Typography.Title>
+      <Typography.Title level={2}>Meetings detail</Typography.Title>
     </RestrictedRoute>
   )
 }
 
-export default MeetingsPage
+export default MeetingDetailPage

@@ -5,15 +5,34 @@ import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
 import { Routes } from '../../../feature/routing/routes'
 import MentoringTabs from './MentoringTabs'
+import { useMentoringAsMentorList } from '../../../api/generated/generatedApiComponents'
+import PageLoader from '../../../components/PageLoader'
+import MentoringCard from '../../../feature/mentoring/MentoringCard'
 
-// TODO MentorApp: implement the page
 const MyMenteesPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.MyMentoringMyMentees))
+  const {
+    data: myMentorings,
+    isError: isMentorsError,
+    isLoading: isMentorLoading,
+  } = useMentoringAsMentorList({})
+
+  const isLoading = isMentorLoading
+  const isError = isMentorsError
 
   return (
     <RestrictedRoute>
       <MentoringTabs />
       <Typography.Title>My Mentees</Typography.Title>
+      {isLoading && <PageLoader />}
+      {isError && <Typography.Text>Something went wrong</Typography.Text>}
+      {!isLoading && !isError && myMentorings && (
+        <div>
+          {myMentorings.map((currMentoring) => (
+            <MentoringCard mentoring={currMentoring} who="mentee" />
+          ))}
+        </div>
+      )}
     </RestrictedRoute>
   )
 }
