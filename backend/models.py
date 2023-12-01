@@ -5,17 +5,6 @@ from PIL import Image
 from django.core.exceptions import ValidationError
 
 
-class Meeting(models.Model):
-    subject = models.CharField("Name", max_length=240)
-    location = models.TextField()
-    dateTime = models.DateTimeField("Registration Date", auto_now_add=True)
-    mentorEmail = models.EmailField()
-    menteeEmail = models.EmailField()
-
-    def __str__(self):
-        return self.subject
-
-
 class Competency(models.Model):
     name = models.CharField(max_length=255)
 
@@ -69,6 +58,8 @@ class Notification(models.Model):
 
     class NotificationFollowUp(models.TextChoices):
         FILL_PROFILE = "FILL_PROFILE", ("Fill your user profile")
+        MENTORING_REQUESTS_PAGE = "MENTORING_REQUESTS_PAGE", ("See mentoring requests")
+        MENTORINGS_PAGE = "MENTORINGS_PAGE", ("See mentoring page")
         NONE = "NONE", ("No followup action")
 
     # Link to the user model
@@ -80,7 +71,7 @@ class Notification(models.Model):
     # When was the notification created - defaults to now
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     # Has the user seen the notification
-    seen = models.BooleanField(null=False)
+    seen = models.BooleanField(null=False, default=False)
     # Title of the notification
     title = models.CharField(max_length=255, null=False)
     # Followup action. Can be empty
@@ -136,3 +127,120 @@ class ConnectionRequest(models.Model):
     def __str__(self):
         # pylint: disable=no-member
         return f"Connection request from {self.from_user.username} to {self.to_user.username}"
+
+
+class Mentoring(models.Model):
+    connection = models.ForeignKey(Connection, on_delete=models.CASCADE)
+    settings = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    frequency_days = models.IntegerField()
+    objectives = models.TextField()
+    mentor = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="mentoring_mentor"
+    )
+    mentee = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="mentoring_mentee"
+    )
+    active = models.BooleanField(default=True)
+
+
+class MentoringRequest(models.Model):
+    from_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="mentoring_request_from_user",
+    )
+    to_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="mentoring_request_to_user",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Mentoring request from {self.from_user.username} to {self.to_user.username}"
+
+
+class Post(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="sent_messages"
+    )
+    recipient = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="received_messages"
+    )
+    content = models.TextField()
+    send_at = models.DateTimeField(auto_now_add=True)
+    seen = models.BooleanField(default=False)
+
+
+class Meeting(models.Model):
+    title = models.CharField("Title", max_length=240)
+    location = models.TextField()
+    created_at = models.DateTimeField("Created Date", auto_now_add=True)
+    meeting_date = models.DateTimeField("Meeting Date", null=False)
+    description = models.TextField()
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="meeting_author",
+        null=False,
+    )
+    registered_mentee = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="meeting_mentee",
+        null=True,
+    )
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Meeting of {self.author.username} - ID{self.id}"
+
+
+class Note(models.Model):
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    summary = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    related_meeting = models.ForeignKey(
+        Meeting, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    related_mentoring = models.ForeignKey(
+        Mentoring, on_delete=models.SET_NULL, null=True, blank=True
+    )
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Note of {self.title} - ID{self.id}"
+
+
+class Task(models.Model):
+    author = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="authored_tasks"
+    )
+    assignee = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="assigned_tasks"
+    )
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    resolved = models.BooleanField(default=False)
+    resolved_at = models.DateTimeField(null=True, blank=True)
+    response = models.TextField(null=True, blank=True)
+    related_mentoring = models.ForeignKey(
+        Mentoring, on_delete=models.SET_NULL, null=True, blank=True
+    )
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Task of {self.title} - ID{self.id}"
