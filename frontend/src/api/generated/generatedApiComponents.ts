@@ -360,254 +360,76 @@ export const useConnectionsRequestsMakeCreate = (
   })
 }
 
-export type MeetingsListError = Fetcher.ErrorWrapper<undefined>
+export type MeetingListError = Fetcher.ErrorWrapper<undefined>
 
-export type MeetingsListResponse = Schemas.Meeting[]
+export type MeetingListResponse = Schemas.Meeting[]
 
-export type MeetingsListVariables = GeneratedApiContext['fetcherOptions']
+export type MeetingListVariables = GeneratedApiContext['fetcherOptions']
 
-export const fetchMeetingsList = (
-  variables: MeetingsListVariables,
+export const fetchMeetingList = (
+  variables: MeetingListVariables,
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
-    MeetingsListResponse,
-    MeetingsListError,
+    MeetingListResponse,
+    MeetingListError,
     undefined,
     {},
     {},
     {}
-  >({ url: '/api/meetings/', method: 'get', ...variables, signal })
+  >({ url: '/api/meeting/', method: 'get', ...variables, signal })
 
-export const useMeetingsList = <TData = MeetingsListResponse>(
-  variables: MeetingsListVariables,
+export const useMeetingList = <TData = MeetingListResponse>(
+  variables: MeetingListVariables,
   options?: Omit<
-    reactQuery.UseQueryOptions<MeetingsListResponse, MeetingsListError, TData>,
+    reactQuery.UseQueryOptions<MeetingListResponse, MeetingListError, TData>,
     'queryKey' | 'queryFn' | 'initialData'
   >
 ) => {
   const { fetcherOptions, queryOptions, queryKeyFn } =
     useGeneratedApiContext(options)
-  return reactQuery.useQuery<MeetingsListResponse, MeetingsListError, TData>({
+  return reactQuery.useQuery<MeetingListResponse, MeetingListError, TData>({
     queryKey: queryKeyFn({
-      path: '/api/meetings/',
-      operationId: 'meetingsList',
+      path: '/api/meeting/',
+      operationId: 'meetingList',
       variables,
     }),
     queryFn: ({ signal }) =>
-      fetchMeetingsList({ ...fetcherOptions, ...variables }, signal),
+      fetchMeetingList({ ...fetcherOptions, ...variables }, signal),
     ...options,
     ...queryOptions,
   })
 }
 
-export type MeetingsCreateError = Fetcher.ErrorWrapper<undefined>
-
-export type MeetingsCreateVariables = {
-  body: Schemas.MeetingRequest
-} & GeneratedApiContext['fetcherOptions']
-
-export const fetchMeetingsCreate = (
-  variables: MeetingsCreateVariables,
-  signal?: AbortSignal
-) =>
-  generatedApiFetch<
-    Schemas.Meeting,
-    MeetingsCreateError,
-    Schemas.MeetingRequest,
-    {},
-    {},
-    {}
-  >({ url: '/api/meetings/', method: 'post', ...variables, signal })
-
-export const useMeetingsCreate = (
-  options?: Omit<
-    reactQuery.UseMutationOptions<
-      Schemas.Meeting,
-      MeetingsCreateError,
-      MeetingsCreateVariables
-    >,
-    'mutationFn'
-  >
-) => {
-  const { fetcherOptions } = useGeneratedApiContext()
-  return reactQuery.useMutation<
-    Schemas.Meeting,
-    MeetingsCreateError,
-    MeetingsCreateVariables
-  >({
-    mutationFn: (variables: MeetingsCreateVariables) =>
-      fetchMeetingsCreate({ ...fetcherOptions, ...variables }),
-    ...options,
-  })
-}
-
-export type MeetingsRetrievePathParams = {
+export type MeetingDeleteDestroyPathParams = {
   id: number
 }
 
-export type MeetingsRetrieveError = Fetcher.ErrorWrapper<undefined>
+export type MeetingDeleteDestroyError = Fetcher.ErrorWrapper<undefined>
 
-export type MeetingsRetrieveVariables = {
-  pathParams: MeetingsRetrievePathParams
+export type MeetingDeleteDestroyVariables = {
+  pathParams: MeetingDeleteDestroyPathParams
 } & GeneratedApiContext['fetcherOptions']
 
-export const fetchMeetingsRetrieve = (
-  variables: MeetingsRetrieveVariables,
-  signal?: AbortSignal
-) =>
-  generatedApiFetch<
-    Schemas.Meeting,
-    MeetingsRetrieveError,
-    undefined,
-    {},
-    {},
-    MeetingsRetrievePathParams
-  >({ url: '/api/meetings/{id}', method: 'get', ...variables, signal })
-
-export const useMeetingsRetrieve = <TData = Schemas.Meeting>(
-  variables: MeetingsRetrieveVariables,
-  options?: Omit<
-    reactQuery.UseQueryOptions<Schemas.Meeting, MeetingsRetrieveError, TData>,
-    'queryKey' | 'queryFn' | 'initialData'
-  >
-) => {
-  const { fetcherOptions, queryOptions, queryKeyFn } =
-    useGeneratedApiContext(options)
-  return reactQuery.useQuery<Schemas.Meeting, MeetingsRetrieveError, TData>({
-    queryKey: queryKeyFn({
-      path: '/api/meetings/{id}',
-      operationId: 'meetingsRetrieve',
-      variables,
-    }),
-    queryFn: ({ signal }) =>
-      fetchMeetingsRetrieve({ ...fetcherOptions, ...variables }, signal),
-    ...options,
-    ...queryOptions,
-  })
-}
-
-export type MeetingsUpdatePathParams = {
-  id: number
-}
-
-export type MeetingsUpdateError = Fetcher.ErrorWrapper<undefined>
-
-export type MeetingsUpdateVariables = {
-  body: Schemas.MeetingRequest
-  pathParams: MeetingsUpdatePathParams
-} & GeneratedApiContext['fetcherOptions']
-
-export const fetchMeetingsUpdate = (
-  variables: MeetingsUpdateVariables,
-  signal?: AbortSignal
-) =>
-  generatedApiFetch<
-    Schemas.Meeting,
-    MeetingsUpdateError,
-    Schemas.MeetingRequest,
-    {},
-    {},
-    MeetingsUpdatePathParams
-  >({ url: '/api/meetings/{id}', method: 'put', ...variables, signal })
-
-export const useMeetingsUpdate = (
-  options?: Omit<
-    reactQuery.UseMutationOptions<
-      Schemas.Meeting,
-      MeetingsUpdateError,
-      MeetingsUpdateVariables
-    >,
-    'mutationFn'
-  >
-) => {
-  const { fetcherOptions } = useGeneratedApiContext()
-  return reactQuery.useMutation<
-    Schemas.Meeting,
-    MeetingsUpdateError,
-    MeetingsUpdateVariables
-  >({
-    mutationFn: (variables: MeetingsUpdateVariables) =>
-      fetchMeetingsUpdate({ ...fetcherOptions, ...variables }),
-    ...options,
-  })
-}
-
-export type MeetingsPartialUpdatePathParams = {
-  id: number
-}
-
-export type MeetingsPartialUpdateError = Fetcher.ErrorWrapper<undefined>
-
-export type MeetingsPartialUpdateVariables = {
-  body?: Schemas.PatchedMeetingRequest
-  pathParams: MeetingsPartialUpdatePathParams
-} & GeneratedApiContext['fetcherOptions']
-
-export const fetchMeetingsPartialUpdate = (
-  variables: MeetingsPartialUpdateVariables,
-  signal?: AbortSignal
-) =>
-  generatedApiFetch<
-    Schemas.Meeting,
-    MeetingsPartialUpdateError,
-    Schemas.PatchedMeetingRequest,
-    {},
-    {},
-    MeetingsPartialUpdatePathParams
-  >({ url: '/api/meetings/{id}', method: 'patch', ...variables, signal })
-
-export const useMeetingsPartialUpdate = (
-  options?: Omit<
-    reactQuery.UseMutationOptions<
-      Schemas.Meeting,
-      MeetingsPartialUpdateError,
-      MeetingsPartialUpdateVariables
-    >,
-    'mutationFn'
-  >
-) => {
-  const { fetcherOptions } = useGeneratedApiContext()
-  return reactQuery.useMutation<
-    Schemas.Meeting,
-    MeetingsPartialUpdateError,
-    MeetingsPartialUpdateVariables
-  >({
-    mutationFn: (variables: MeetingsPartialUpdateVariables) =>
-      fetchMeetingsPartialUpdate({ ...fetcherOptions, ...variables }),
-    ...options,
-  })
-}
-
-export type MeetingsDestroyPathParams = {
-  id: number
-}
-
-export type MeetingsDestroyError = Fetcher.ErrorWrapper<undefined>
-
-export type MeetingsDestroyVariables = {
-  pathParams: MeetingsDestroyPathParams
-} & GeneratedApiContext['fetcherOptions']
-
-export const fetchMeetingsDestroy = (
-  variables: MeetingsDestroyVariables,
+export const fetchMeetingDeleteDestroy = (
+  variables: MeetingDeleteDestroyVariables,
   signal?: AbortSignal
 ) =>
   generatedApiFetch<
     undefined,
-    MeetingsDestroyError,
+    MeetingDeleteDestroyError,
     undefined,
     {},
     {},
-    MeetingsDestroyPathParams
-  >({ url: '/api/meetings/{id}', method: 'delete', ...variables, signal })
+    MeetingDeleteDestroyPathParams
+  >({ url: '/api/meeting/{id}/delete', method: 'delete', ...variables, signal })
 
-export const useMeetingsDestroy = (
+export const useMeetingDeleteDestroy = (
   options?: Omit<
     reactQuery.UseMutationOptions<
       undefined,
-      MeetingsDestroyError,
-      MeetingsDestroyVariables
+      MeetingDeleteDestroyError,
+      MeetingDeleteDestroyVariables
     >,
     'mutationFn'
   >
@@ -615,11 +437,1292 @@ export const useMeetingsDestroy = (
   const { fetcherOptions } = useGeneratedApiContext()
   return reactQuery.useMutation<
     undefined,
-    MeetingsDestroyError,
-    MeetingsDestroyVariables
+    MeetingDeleteDestroyError,
+    MeetingDeleteDestroyVariables
   >({
-    mutationFn: (variables: MeetingsDestroyVariables) =>
-      fetchMeetingsDestroy({ ...fetcherOptions, ...variables }),
+    mutationFn: (variables: MeetingDeleteDestroyVariables) =>
+      fetchMeetingDeleteDestroy({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MeetingUpdateUpdatePathParams = {
+  id: number
+}
+
+export type MeetingUpdateUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type MeetingUpdateUpdateVariables = {
+  body: Schemas.MeetingCreateRequest
+  pathParams: MeetingUpdateUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMeetingUpdateUpdate = (
+  variables: MeetingUpdateUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.MeetingCreate,
+    MeetingUpdateUpdateError,
+    Schemas.MeetingCreateRequest,
+    {},
+    {},
+    MeetingUpdateUpdatePathParams
+  >({ url: '/api/meeting/{id}/update', method: 'put', ...variables, signal })
+
+export const useMeetingUpdateUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.MeetingCreate,
+      MeetingUpdateUpdateError,
+      MeetingUpdateUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.MeetingCreate,
+    MeetingUpdateUpdateError,
+    MeetingUpdateUpdateVariables
+  >({
+    mutationFn: (variables: MeetingUpdateUpdateVariables) =>
+      fetchMeetingUpdateUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MeetingUpdatePartialUpdatePathParams = {
+  id: number
+}
+
+export type MeetingUpdatePartialUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type MeetingUpdatePartialUpdateVariables = {
+  body?: Schemas.PatchedMeetingCreateRequest
+  pathParams: MeetingUpdatePartialUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMeetingUpdatePartialUpdate = (
+  variables: MeetingUpdatePartialUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.MeetingCreate,
+    MeetingUpdatePartialUpdateError,
+    Schemas.PatchedMeetingCreateRequest,
+    {},
+    {},
+    MeetingUpdatePartialUpdatePathParams
+  >({ url: '/api/meeting/{id}/update', method: 'patch', ...variables, signal })
+
+export const useMeetingUpdatePartialUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.MeetingCreate,
+      MeetingUpdatePartialUpdateError,
+      MeetingUpdatePartialUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.MeetingCreate,
+    MeetingUpdatePartialUpdateError,
+    MeetingUpdatePartialUpdateVariables
+  >({
+    mutationFn: (variables: MeetingUpdatePartialUpdateVariables) =>
+      fetchMeetingUpdatePartialUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MeetingCreateCreateError = Fetcher.ErrorWrapper<undefined>
+
+export type MeetingCreateCreateVariables = {
+  body: Schemas.MeetingCreateRequest
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMeetingCreateCreate = (
+  variables: MeetingCreateCreateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.MeetingCreate,
+    MeetingCreateCreateError,
+    Schemas.MeetingCreateRequest,
+    {},
+    {},
+    {}
+  >({ url: '/api/meeting/create/', method: 'post', ...variables, signal })
+
+export const useMeetingCreateCreate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.MeetingCreate,
+      MeetingCreateCreateError,
+      MeetingCreateCreateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.MeetingCreate,
+    MeetingCreateCreateError,
+    MeetingCreateCreateVariables
+  >({
+    mutationFn: (variables: MeetingCreateCreateVariables) =>
+      fetchMeetingCreateCreate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MeetingFromMentorsListError = Fetcher.ErrorWrapper<undefined>
+
+export type MeetingFromMentorsListResponse = Schemas.Meeting[]
+
+export type MeetingFromMentorsListVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchMeetingFromMentorsList = (
+  variables: MeetingFromMentorsListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    MeetingFromMentorsListResponse,
+    MeetingFromMentorsListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/meeting/from-mentors', method: 'get', ...variables, signal })
+
+export const useMeetingFromMentorsList = <
+  TData = MeetingFromMentorsListResponse
+>(
+  variables: MeetingFromMentorsListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      MeetingFromMentorsListResponse,
+      MeetingFromMentorsListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    MeetingFromMentorsListResponse,
+    MeetingFromMentorsListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/meeting/from-mentors',
+      operationId: 'meetingFromMentorsList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMeetingFromMentorsList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type MentoringDeleteDestroyPathParams = {
+  id: number
+}
+
+export type MentoringDeleteDestroyError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringDeleteDestroyVariables = {
+  pathParams: MentoringDeleteDestroyPathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringDeleteDestroy = (
+  variables: MentoringDeleteDestroyVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    MentoringDeleteDestroyError,
+    undefined,
+    {},
+    {},
+    MentoringDeleteDestroyPathParams
+  >({
+    url: '/api/mentoring/{id}/delete/',
+    method: 'delete',
+    ...variables,
+    signal,
+  })
+
+export const useMentoringDeleteDestroy = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      MentoringDeleteDestroyError,
+      MentoringDeleteDestroyVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    MentoringDeleteDestroyError,
+    MentoringDeleteDestroyVariables
+  >({
+    mutationFn: (variables: MentoringDeleteDestroyVariables) =>
+      fetchMentoringDeleteDestroy({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MentoringEditUpdatePathParams = {
+  id: number
+}
+
+export type MentoringEditUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringEditUpdateVariables = {
+  body: Schemas.MentoringRequest
+  pathParams: MentoringEditUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringEditUpdate = (
+  variables: MentoringEditUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Mentoring,
+    MentoringEditUpdateError,
+    Schemas.MentoringRequest,
+    {},
+    {},
+    MentoringEditUpdatePathParams
+  >({ url: '/api/mentoring/{id}/edit/', method: 'put', ...variables, signal })
+
+export const useMentoringEditUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Mentoring,
+      MentoringEditUpdateError,
+      MentoringEditUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Mentoring,
+    MentoringEditUpdateError,
+    MentoringEditUpdateVariables
+  >({
+    mutationFn: (variables: MentoringEditUpdateVariables) =>
+      fetchMentoringEditUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MentoringEditPartialUpdatePathParams = {
+  id: number
+}
+
+export type MentoringEditPartialUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringEditPartialUpdateVariables = {
+  body?: Schemas.PatchedMentoringRequest
+  pathParams: MentoringEditPartialUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringEditPartialUpdate = (
+  variables: MentoringEditPartialUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Mentoring,
+    MentoringEditPartialUpdateError,
+    Schemas.PatchedMentoringRequest,
+    {},
+    {},
+    MentoringEditPartialUpdatePathParams
+  >({ url: '/api/mentoring/{id}/edit/', method: 'patch', ...variables, signal })
+
+export const useMentoringEditPartialUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Mentoring,
+      MentoringEditPartialUpdateError,
+      MentoringEditPartialUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Mentoring,
+    MentoringEditPartialUpdateError,
+    MentoringEditPartialUpdateVariables
+  >({
+    mutationFn: (variables: MentoringEditPartialUpdateVariables) =>
+      fetchMentoringEditPartialUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MentoringAsMenteeListError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringAsMenteeListResponse = Schemas.Mentoring[]
+
+export type MentoringAsMenteeListVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringAsMenteeList = (
+  variables: MentoringAsMenteeListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    MentoringAsMenteeListResponse,
+    MentoringAsMenteeListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/mentoring/as-mentee/', method: 'get', ...variables, signal })
+
+export const useMentoringAsMenteeList = <TData = MentoringAsMenteeListResponse>(
+  variables: MentoringAsMenteeListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      MentoringAsMenteeListResponse,
+      MentoringAsMenteeListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    MentoringAsMenteeListResponse,
+    MentoringAsMenteeListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/mentoring/as-mentee/',
+      operationId: 'mentoringAsMenteeList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMentoringAsMenteeList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type MentoringAsMentorListError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringAsMentorListResponse = Schemas.Mentoring[]
+
+export type MentoringAsMentorListVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringAsMentorList = (
+  variables: MentoringAsMentorListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    MentoringAsMentorListResponse,
+    MentoringAsMentorListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/mentoring/as-mentor/', method: 'get', ...variables, signal })
+
+export const useMentoringAsMentorList = <TData = MentoringAsMentorListResponse>(
+  variables: MentoringAsMentorListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      MentoringAsMentorListResponse,
+      MentoringAsMentorListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    MentoringAsMentorListResponse,
+    MentoringAsMentorListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/mentoring/as-mentor/',
+      operationId: 'mentoringAsMentorList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMentoringAsMentorList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type MentoringRequestsListError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringRequestsListResponse = Schemas.MentoringRequest[]
+
+export type MentoringRequestsListVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringRequestsList = (
+  variables: MentoringRequestsListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    MentoringRequestsListResponse,
+    MentoringRequestsListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/mentoring/requests/', method: 'get', ...variables, signal })
+
+export const useMentoringRequestsList = <TData = MentoringRequestsListResponse>(
+  variables: MentoringRequestsListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      MentoringRequestsListResponse,
+      MentoringRequestsListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    MentoringRequestsListResponse,
+    MentoringRequestsListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/mentoring/requests/',
+      operationId: 'mentoringRequestsList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMentoringRequestsList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type MentoringRequestsAcceptDestroyPathParams = {
+  mentoringRequestId: number
+}
+
+export type MentoringRequestsAcceptDestroyError =
+  Fetcher.ErrorWrapper<undefined>
+
+export type MentoringRequestsAcceptDestroyVariables = {
+  pathParams: MentoringRequestsAcceptDestroyPathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringRequestsAcceptDestroy = (
+  variables: MentoringRequestsAcceptDestroyVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    MentoringRequestsAcceptDestroyError,
+    undefined,
+    {},
+    {},
+    MentoringRequestsAcceptDestroyPathParams
+  >({
+    url: '/api/mentoring/requests/accept/{mentoringRequestId}/',
+    method: 'delete',
+    ...variables,
+    signal,
+  })
+
+export const useMentoringRequestsAcceptDestroy = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      MentoringRequestsAcceptDestroyError,
+      MentoringRequestsAcceptDestroyVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    MentoringRequestsAcceptDestroyError,
+    MentoringRequestsAcceptDestroyVariables
+  >({
+    mutationFn: (variables: MentoringRequestsAcceptDestroyVariables) =>
+      fetchMentoringRequestsAcceptDestroy({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MentoringRequestsCreateCreatePathParams = {
+  toUserId: number
+}
+
+export type MentoringRequestsCreateCreateError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringRequestsCreateCreateVariables = {
+  body: Schemas.MentoringRequestCreateRequest
+  pathParams: MentoringRequestsCreateCreatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringRequestsCreateCreate = (
+  variables: MentoringRequestsCreateCreateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.MentoringRequestCreate,
+    MentoringRequestsCreateCreateError,
+    Schemas.MentoringRequestCreateRequest,
+    {},
+    {},
+    MentoringRequestsCreateCreatePathParams
+  >({
+    url: '/api/mentoring/requests/create/{toUserId}/',
+    method: 'post',
+    ...variables,
+    signal,
+  })
+
+export const useMentoringRequestsCreateCreate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.MentoringRequestCreate,
+      MentoringRequestsCreateCreateError,
+      MentoringRequestsCreateCreateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.MentoringRequestCreate,
+    MentoringRequestsCreateCreateError,
+    MentoringRequestsCreateCreateVariables
+  >({
+    mutationFn: (variables: MentoringRequestsCreateCreateVariables) =>
+      fetchMentoringRequestsCreateCreate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MentoringRequestsDeleteDestroyPathParams = {
+  id: number
+}
+
+export type MentoringRequestsDeleteDestroyError =
+  Fetcher.ErrorWrapper<undefined>
+
+export type MentoringRequestsDeleteDestroyVariables = {
+  pathParams: MentoringRequestsDeleteDestroyPathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringRequestsDeleteDestroy = (
+  variables: MentoringRequestsDeleteDestroyVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    MentoringRequestsDeleteDestroyError,
+    undefined,
+    {},
+    {},
+    MentoringRequestsDeleteDestroyPathParams
+  >({
+    url: '/api/mentoring/requests/delete/{id}/',
+    method: 'delete',
+    ...variables,
+    signal,
+  })
+
+export const useMentoringRequestsDeleteDestroy = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      MentoringRequestsDeleteDestroyError,
+      MentoringRequestsDeleteDestroyVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    MentoringRequestsDeleteDestroyError,
+    MentoringRequestsDeleteDestroyVariables
+  >({
+    mutationFn: (variables: MentoringRequestsDeleteDestroyVariables) =>
+      fetchMentoringRequestsDeleteDestroy({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MentoringRequestsFromUserListError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringRequestsFromUserListResponse = Schemas.MentoringRequest[]
+
+export type MentoringRequestsFromUserListVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringRequestsFromUserList = (
+  variables: MentoringRequestsFromUserListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    MentoringRequestsFromUserListResponse,
+    MentoringRequestsFromUserListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({
+    url: '/api/mentoring/requests/from-user/',
+    method: 'get',
+    ...variables,
+    signal,
+  })
+
+export const useMentoringRequestsFromUserList = <
+  TData = MentoringRequestsFromUserListResponse
+>(
+  variables: MentoringRequestsFromUserListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      MentoringRequestsFromUserListResponse,
+      MentoringRequestsFromUserListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    MentoringRequestsFromUserListResponse,
+    MentoringRequestsFromUserListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/mentoring/requests/from-user/',
+      operationId: 'mentoringRequestsFromUserList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMentoringRequestsFromUserList(
+        { ...fetcherOptions, ...variables },
+        signal
+      ),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type MentoringRequestsToUserListError = Fetcher.ErrorWrapper<undefined>
+
+export type MentoringRequestsToUserListResponse = Schemas.MentoringRequest[]
+
+export type MentoringRequestsToUserListVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchMentoringRequestsToUserList = (
+  variables: MentoringRequestsToUserListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    MentoringRequestsToUserListResponse,
+    MentoringRequestsToUserListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({
+    url: '/api/mentoring/requests/to-user/',
+    method: 'get',
+    ...variables,
+    signal,
+  })
+
+export const useMentoringRequestsToUserList = <
+  TData = MentoringRequestsToUserListResponse
+>(
+  variables: MentoringRequestsToUserListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      MentoringRequestsToUserListResponse,
+      MentoringRequestsToUserListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    MentoringRequestsToUserListResponse,
+    MentoringRequestsToUserListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/mentoring/requests/to-user/',
+      operationId: 'mentoringRequestsToUserList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMentoringRequestsToUserList(
+        { ...fetcherOptions, ...variables },
+        signal
+      ),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type MessagesAllListError = Fetcher.ErrorWrapper<undefined>
+
+export type MessagesAllListResponse = Schemas.Message[]
+
+export type MessagesAllListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchMessagesAllList = (
+  variables: MessagesAllListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    MessagesAllListResponse,
+    MessagesAllListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/messages/all/', method: 'get', ...variables, signal })
+
+export const useMessagesAllList = <TData = MessagesAllListResponse>(
+  variables: MessagesAllListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      MessagesAllListResponse,
+      MessagesAllListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    MessagesAllListResponse,
+    MessagesAllListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/messages/all/',
+      operationId: 'messagesAllList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMessagesAllList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type MessagesAllUsersListError = Fetcher.ErrorWrapper<undefined>
+
+export type MessagesAllUsersListResponse = Schemas.User[]
+
+export type MessagesAllUsersListVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchMessagesAllUsersList = (
+  variables: MessagesAllUsersListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    MessagesAllUsersListResponse,
+    MessagesAllUsersListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/messages/all-users/', method: 'get', ...variables, signal })
+
+export const useMessagesAllUsersList = <TData = MessagesAllUsersListResponse>(
+  variables: MessagesAllUsersListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      MessagesAllUsersListResponse,
+      MessagesAllUsersListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    MessagesAllUsersListResponse,
+    MessagesAllUsersListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/messages/all-users/',
+      operationId: 'messagesAllUsersList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMessagesAllUsersList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type MessagesMarkSeenUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type MessagesMarkSeenUpdateVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchMessagesMarkSeenUpdate = (
+  variables: MessagesMarkSeenUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    MessagesMarkSeenUpdateError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/messages/mark-seen/', method: 'put', ...variables, signal })
+
+export const useMessagesMarkSeenUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      MessagesMarkSeenUpdateError,
+      MessagesMarkSeenUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    MessagesMarkSeenUpdateError,
+    MessagesMarkSeenUpdateVariables
+  >({
+    mutationFn: (variables: MessagesMarkSeenUpdateVariables) =>
+      fetchMessagesMarkSeenUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MessagesMarkSeenPartialUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type MessagesMarkSeenPartialUpdateVariables =
+  GeneratedApiContext['fetcherOptions']
+
+export const fetchMessagesMarkSeenPartialUpdate = (
+  variables: MessagesMarkSeenPartialUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    MessagesMarkSeenPartialUpdateError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/messages/mark-seen/', method: 'patch', ...variables, signal })
+
+export const useMessagesMarkSeenPartialUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      MessagesMarkSeenPartialUpdateError,
+      MessagesMarkSeenPartialUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    MessagesMarkSeenPartialUpdateError,
+    MessagesMarkSeenPartialUpdateVariables
+  >({
+    mutationFn: (variables: MessagesMarkSeenPartialUpdateVariables) =>
+      fetchMessagesMarkSeenPartialUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MessagesSendCreateError = Fetcher.ErrorWrapper<undefined>
+
+export type MessagesSendCreateVariables = {
+  body: Schemas.MessageSendRequest
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchMessagesSendCreate = (
+  variables: MessagesSendCreateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.MessageSend,
+    MessagesSendCreateError,
+    Schemas.MessageSendRequest,
+    {},
+    {},
+    {}
+  >({ url: '/api/messages/send/', method: 'post', ...variables, signal })
+
+export const useMessagesSendCreate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.MessageSend,
+      MessagesSendCreateError,
+      MessagesSendCreateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.MessageSend,
+    MessagesSendCreateError,
+    MessagesSendCreateVariables
+  >({
+    mutationFn: (variables: MessagesSendCreateVariables) =>
+      fetchMessagesSendCreate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type MessagesUnseenListError = Fetcher.ErrorWrapper<undefined>
+
+export type MessagesUnseenListResponse = Schemas.Message[]
+
+export type MessagesUnseenListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchMessagesUnseenList = (
+  variables: MessagesUnseenListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    MessagesUnseenListResponse,
+    MessagesUnseenListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/messages/unseen/', method: 'get', ...variables, signal })
+
+export const useMessagesUnseenList = <TData = MessagesUnseenListResponse>(
+  variables: MessagesUnseenListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      MessagesUnseenListResponse,
+      MessagesUnseenListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    MessagesUnseenListResponse,
+    MessagesUnseenListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/messages/unseen/',
+      operationId: 'messagesUnseenList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchMessagesUnseenList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type NotesListError = Fetcher.ErrorWrapper<undefined>
+
+export type NotesListResponse = Schemas.Note[]
+
+export type NotesListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchNotesList = (
+  variables: NotesListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<NotesListResponse, NotesListError, undefined, {}, {}, {}>({
+    url: '/api/notes/',
+    method: 'get',
+    ...variables,
+    signal,
+  })
+
+export const useNotesList = <TData = NotesListResponse>(
+  variables: NotesListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<NotesListResponse, NotesListError, TData>,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<NotesListResponse, NotesListError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/notes/',
+      operationId: 'notesList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchNotesList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type NotesCreateError = Fetcher.ErrorWrapper<undefined>
+
+export type NotesCreateVariables = {
+  body: Schemas.NoteRequest
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchNotesCreate = (
+  variables: NotesCreateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Note,
+    NotesCreateError,
+    Schemas.NoteRequest,
+    {},
+    {},
+    {}
+  >({ url: '/api/notes/', method: 'post', ...variables, signal })
+
+export const useNotesCreate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Note,
+      NotesCreateError,
+      NotesCreateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Note,
+    NotesCreateError,
+    NotesCreateVariables
+  >({
+    mutationFn: (variables: NotesCreateVariables) =>
+      fetchNotesCreate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type NotesRetrievePathParams = {
+  id: number
+}
+
+export type NotesRetrieveError = Fetcher.ErrorWrapper<undefined>
+
+export type NotesRetrieveVariables = {
+  pathParams: NotesRetrievePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchNotesRetrieve = (
+  variables: NotesRetrieveVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Note,
+    NotesRetrieveError,
+    undefined,
+    {},
+    {},
+    NotesRetrievePathParams
+  >({ url: '/api/notes/{id}/', method: 'get', ...variables, signal })
+
+export const useNotesRetrieve = <TData = Schemas.Note>(
+  variables: NotesRetrieveVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<Schemas.Note, NotesRetrieveError, TData>,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<Schemas.Note, NotesRetrieveError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/notes/{id}/',
+      operationId: 'notesRetrieve',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchNotesRetrieve({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type NotesUpdatePathParams = {
+  id: number
+}
+
+export type NotesUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type NotesUpdateVariables = {
+  body: Schemas.NoteRequest
+  pathParams: NotesUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchNotesUpdate = (
+  variables: NotesUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Note,
+    NotesUpdateError,
+    Schemas.NoteRequest,
+    {},
+    {},
+    NotesUpdatePathParams
+  >({ url: '/api/notes/{id}/', method: 'put', ...variables, signal })
+
+export const useNotesUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Note,
+      NotesUpdateError,
+      NotesUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Note,
+    NotesUpdateError,
+    NotesUpdateVariables
+  >({
+    mutationFn: (variables: NotesUpdateVariables) =>
+      fetchNotesUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type NotesPartialUpdatePathParams = {
+  id: number
+}
+
+export type NotesPartialUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type NotesPartialUpdateVariables = {
+  body?: Schemas.PatchedNoteRequest
+  pathParams: NotesPartialUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchNotesPartialUpdate = (
+  variables: NotesPartialUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Note,
+    NotesPartialUpdateError,
+    Schemas.PatchedNoteRequest,
+    {},
+    {},
+    NotesPartialUpdatePathParams
+  >({ url: '/api/notes/{id}/', method: 'patch', ...variables, signal })
+
+export const useNotesPartialUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Note,
+      NotesPartialUpdateError,
+      NotesPartialUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Note,
+    NotesPartialUpdateError,
+    NotesPartialUpdateVariables
+  >({
+    mutationFn: (variables: NotesPartialUpdateVariables) =>
+      fetchNotesPartialUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type NotesDeleteDestroyPathParams = {
+  id: number
+}
+
+export type NotesDeleteDestroyError = Fetcher.ErrorWrapper<undefined>
+
+export type NotesDeleteDestroyVariables = {
+  pathParams: NotesDeleteDestroyPathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchNotesDeleteDestroy = (
+  variables: NotesDeleteDestroyVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    NotesDeleteDestroyError,
+    undefined,
+    {},
+    {},
+    NotesDeleteDestroyPathParams
+  >({ url: '/api/notes/{id}/delete/', method: 'delete', ...variables, signal })
+
+export const useNotesDeleteDestroy = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      NotesDeleteDestroyError,
+      NotesDeleteDestroyVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    NotesDeleteDestroyError,
+    NotesDeleteDestroyVariables
+  >({
+    mutationFn: (variables: NotesDeleteDestroyVariables) =>
+      fetchNotesDeleteDestroy({ ...fetcherOptions, ...variables }),
     ...options,
   })
 }
@@ -797,6 +1900,131 @@ export const useNotificationsGetUnseen = <
   })
 }
 
+export type PostsListError = Fetcher.ErrorWrapper<undefined>
+
+export type PostsListResponse = Schemas.Post[]
+
+export type PostsListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchPostsList = (
+  variables: PostsListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<PostsListResponse, PostsListError, undefined, {}, {}, {}>({
+    url: '/api/posts/',
+    method: 'get',
+    ...variables,
+    signal,
+  })
+
+export const usePostsList = <TData = PostsListResponse>(
+  variables: PostsListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<PostsListResponse, PostsListError, TData>,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<PostsListResponse, PostsListError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/posts/',
+      operationId: 'postsList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchPostsList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type PostsCreateCreateError = Fetcher.ErrorWrapper<undefined>
+
+export type PostsCreateCreateVariables = {
+  body: Schemas.PostCreateRequest
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchPostsCreateCreate = (
+  variables: PostsCreateCreateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.PostCreate,
+    PostsCreateCreateError,
+    Schemas.PostCreateRequest,
+    {},
+    {},
+    {}
+  >({ url: '/api/posts/create/', method: 'post', ...variables, signal })
+
+export const usePostsCreateCreate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.PostCreate,
+      PostsCreateCreateError,
+      PostsCreateCreateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.PostCreate,
+    PostsCreateCreateError,
+    PostsCreateCreateVariables
+  >({
+    mutationFn: (variables: PostsCreateCreateVariables) =>
+      fetchPostsCreateCreate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type PostsDeleteDestroyPathParams = {
+  id: number
+}
+
+export type PostsDeleteDestroyError = Fetcher.ErrorWrapper<undefined>
+
+export type PostsDeleteDestroyVariables = {
+  pathParams: PostsDeleteDestroyPathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchPostsDeleteDestroy = (
+  variables: PostsDeleteDestroyVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    PostsDeleteDestroyError,
+    undefined,
+    {},
+    {},
+    PostsDeleteDestroyPathParams
+  >({ url: '/api/posts/delete/{id}/', method: 'delete', ...variables, signal })
+
+export const usePostsDeleteDestroy = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      PostsDeleteDestroyError,
+      PostsDeleteDestroyVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    PostsDeleteDestroyError,
+    PostsDeleteDestroyVariables
+  >({
+    mutationFn: (variables: PostsDeleteDestroyVariables) =>
+      fetchPostsDeleteDestroy({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
 export type SchemaRetrieveQueryParams = {
   format?: 'json' | 'yaml'
   lang?:
@@ -960,6 +2188,317 @@ export const useSchemaRetrieve = <TData = SchemaRetrieveResponse>(
     }),
     queryFn: ({ signal }) =>
       fetchSchemaRetrieve({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type TasksListError = Fetcher.ErrorWrapper<undefined>
+
+export type TasksListResponse = Schemas.Task[]
+
+export type TasksListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchTasksList = (
+  variables: TasksListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<TasksListResponse, TasksListError, undefined, {}, {}, {}>({
+    url: '/api/tasks/',
+    method: 'get',
+    ...variables,
+    signal,
+  })
+
+export const useTasksList = <TData = TasksListResponse>(
+  variables: TasksListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<TasksListResponse, TasksListError, TData>,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<TasksListResponse, TasksListError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/tasks/',
+      operationId: 'tasksList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchTasksList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type TasksCreateError = Fetcher.ErrorWrapper<undefined>
+
+export type TasksCreateVariables = {
+  body: Schemas.TaskRequest
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchTasksCreate = (
+  variables: TasksCreateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Task,
+    TasksCreateError,
+    Schemas.TaskRequest,
+    {},
+    {},
+    {}
+  >({ url: '/api/tasks/', method: 'post', ...variables, signal })
+
+export const useTasksCreate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Task,
+      TasksCreateError,
+      TasksCreateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Task,
+    TasksCreateError,
+    TasksCreateVariables
+  >({
+    mutationFn: (variables: TasksCreateVariables) =>
+      fetchTasksCreate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type TasksRetrievePathParams = {
+  id: number
+}
+
+export type TasksRetrieveError = Fetcher.ErrorWrapper<undefined>
+
+export type TasksRetrieveVariables = {
+  pathParams: TasksRetrievePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchTasksRetrieve = (
+  variables: TasksRetrieveVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Task,
+    TasksRetrieveError,
+    undefined,
+    {},
+    {},
+    TasksRetrievePathParams
+  >({ url: '/api/tasks/{id}/', method: 'get', ...variables, signal })
+
+export const useTasksRetrieve = <TData = Schemas.Task>(
+  variables: TasksRetrieveVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<Schemas.Task, TasksRetrieveError, TData>,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<Schemas.Task, TasksRetrieveError, TData>({
+    queryKey: queryKeyFn({
+      path: '/api/tasks/{id}/',
+      operationId: 'tasksRetrieve',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchTasksRetrieve({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
+export type TasksUpdatePathParams = {
+  id: number
+}
+
+export type TasksUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type TasksUpdateVariables = {
+  body: Schemas.TaskRequest
+  pathParams: TasksUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchTasksUpdate = (
+  variables: TasksUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Task,
+    TasksUpdateError,
+    Schemas.TaskRequest,
+    {},
+    {},
+    TasksUpdatePathParams
+  >({ url: '/api/tasks/{id}/', method: 'put', ...variables, signal })
+
+export const useTasksUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Task,
+      TasksUpdateError,
+      TasksUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Task,
+    TasksUpdateError,
+    TasksUpdateVariables
+  >({
+    mutationFn: (variables: TasksUpdateVariables) =>
+      fetchTasksUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type TasksPartialUpdatePathParams = {
+  id: number
+}
+
+export type TasksPartialUpdateError = Fetcher.ErrorWrapper<undefined>
+
+export type TasksPartialUpdateVariables = {
+  body?: Schemas.PatchedTaskRequest
+  pathParams: TasksPartialUpdatePathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchTasksPartialUpdate = (
+  variables: TasksPartialUpdateVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    Schemas.Task,
+    TasksPartialUpdateError,
+    Schemas.PatchedTaskRequest,
+    {},
+    {},
+    TasksPartialUpdatePathParams
+  >({ url: '/api/tasks/{id}/', method: 'patch', ...variables, signal })
+
+export const useTasksPartialUpdate = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Task,
+      TasksPartialUpdateError,
+      TasksPartialUpdateVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    Schemas.Task,
+    TasksPartialUpdateError,
+    TasksPartialUpdateVariables
+  >({
+    mutationFn: (variables: TasksPartialUpdateVariables) =>
+      fetchTasksPartialUpdate({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type TasksDeleteDestroyPathParams = {
+  id: number
+}
+
+export type TasksDeleteDestroyError = Fetcher.ErrorWrapper<undefined>
+
+export type TasksDeleteDestroyVariables = {
+  pathParams: TasksDeleteDestroyPathParams
+} & GeneratedApiContext['fetcherOptions']
+
+export const fetchTasksDeleteDestroy = (
+  variables: TasksDeleteDestroyVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    undefined,
+    TasksDeleteDestroyError,
+    undefined,
+    {},
+    {},
+    TasksDeleteDestroyPathParams
+  >({ url: '/api/tasks/{id}/delete', method: 'delete', ...variables, signal })
+
+export const useTasksDeleteDestroy = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      undefined,
+      TasksDeleteDestroyError,
+      TasksDeleteDestroyVariables
+    >,
+    'mutationFn'
+  >
+) => {
+  const { fetcherOptions } = useGeneratedApiContext()
+  return reactQuery.useMutation<
+    undefined,
+    TasksDeleteDestroyError,
+    TasksDeleteDestroyVariables
+  >({
+    mutationFn: (variables: TasksDeleteDestroyVariables) =>
+      fetchTasksDeleteDestroy({ ...fetcherOptions, ...variables }),
+    ...options,
+  })
+}
+
+export type TasksAssignedListError = Fetcher.ErrorWrapper<undefined>
+
+export type TasksAssignedListResponse = Schemas.Task[]
+
+export type TasksAssignedListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchTasksAssignedList = (
+  variables: TasksAssignedListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    TasksAssignedListResponse,
+    TasksAssignedListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/tasks/assigned/', method: 'get', ...variables, signal })
+
+export const useTasksAssignedList = <TData = TasksAssignedListResponse>(
+  variables: TasksAssignedListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      TasksAssignedListResponse,
+      TasksAssignedListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    TasksAssignedListResponse,
+    TasksAssignedListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/tasks/assigned/',
+      operationId: 'tasksAssignedList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchTasksAssignedList({ ...fetcherOptions, ...variables }, signal),
     ...options,
     ...queryOptions,
   })
@@ -1588,14 +3127,64 @@ export type QueryOperation =
       variables: ConnectionsRequestsListVariables
     }
   | {
-      path: '/api/meetings/'
-      operationId: 'meetingsList'
-      variables: MeetingsListVariables
+      path: '/api/meeting/'
+      operationId: 'meetingList'
+      variables: MeetingListVariables
     }
   | {
-      path: '/api/meetings/{id}'
-      operationId: 'meetingsRetrieve'
-      variables: MeetingsRetrieveVariables
+      path: '/api/meeting/from-mentors'
+      operationId: 'meetingFromMentorsList'
+      variables: MeetingFromMentorsListVariables
+    }
+  | {
+      path: '/api/mentoring/as-mentee/'
+      operationId: 'mentoringAsMenteeList'
+      variables: MentoringAsMenteeListVariables
+    }
+  | {
+      path: '/api/mentoring/as-mentor/'
+      operationId: 'mentoringAsMentorList'
+      variables: MentoringAsMentorListVariables
+    }
+  | {
+      path: '/api/mentoring/requests/'
+      operationId: 'mentoringRequestsList'
+      variables: MentoringRequestsListVariables
+    }
+  | {
+      path: '/api/mentoring/requests/from-user/'
+      operationId: 'mentoringRequestsFromUserList'
+      variables: MentoringRequestsFromUserListVariables
+    }
+  | {
+      path: '/api/mentoring/requests/to-user/'
+      operationId: 'mentoringRequestsToUserList'
+      variables: MentoringRequestsToUserListVariables
+    }
+  | {
+      path: '/api/messages/all/'
+      operationId: 'messagesAllList'
+      variables: MessagesAllListVariables
+    }
+  | {
+      path: '/api/messages/all-users/'
+      operationId: 'messagesAllUsersList'
+      variables: MessagesAllUsersListVariables
+    }
+  | {
+      path: '/api/messages/unseen/'
+      operationId: 'messagesUnseenList'
+      variables: MessagesUnseenListVariables
+    }
+  | {
+      path: '/api/notes/'
+      operationId: 'notesList'
+      variables: NotesListVariables
+    }
+  | {
+      path: '/api/notes/{id}/'
+      operationId: 'notesRetrieve'
+      variables: NotesRetrieveVariables
     }
   | {
       path: '/api/notifications'
@@ -1613,9 +3202,29 @@ export type QueryOperation =
       variables: NotificationsGetUnseenVariables
     }
   | {
+      path: '/api/posts/'
+      operationId: 'postsList'
+      variables: PostsListVariables
+    }
+  | {
       path: '/api/schema/'
       operationId: 'schemaRetrieve'
       variables: SchemaRetrieveVariables
+    }
+  | {
+      path: '/api/tasks/'
+      operationId: 'tasksList'
+      variables: TasksListVariables
+    }
+  | {
+      path: '/api/tasks/{id}/'
+      operationId: 'tasksRetrieve'
+      variables: TasksRetrieveVariables
+    }
+  | {
+      path: '/api/tasks/assigned/'
+      operationId: 'tasksAssignedList'
+      variables: TasksAssignedListVariables
     }
   | {
       path: '/api/user/{id}'
