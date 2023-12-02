@@ -7,6 +7,7 @@ export enum Routes {
   HomePage = '/home',
   Meetings = '/meetings',
   MeetingDetail = '/meetings/:id',
+  MeetingCreate = '/meetings/create',
   About = '/about',
   Login = '/login',
   Register = '/register',

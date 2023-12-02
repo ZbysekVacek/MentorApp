@@ -21,7 +21,7 @@ export function formatDate(date: Date | string | undefined): string {
     return ''
   }
 
-  return dayjs(date).format('DD. MM. YYYY')
+  return dayjs(date).format('DD/MM/YYYY')
 }
 
 export function formatDateTime(date: Date | string | undefined): string {
@@ -29,5 +29,5 @@ export function formatDateTime(date: Date | string | undefined): string {
     return ''
   }
 
-  return dayjs(date).format('DD. MM. YYYY HH:mm:ss')
+  return dayjs(date).format('D/MM/YYYY HH:mm')
 }
