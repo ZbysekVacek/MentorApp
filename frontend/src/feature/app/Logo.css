@@ -4,6 +4,7 @@
     color: white;
     font-size: 1.2rem;
     font-weight: bold;
+    cursor: pointer;
 }
 .Logo__image {
     max-height: 60px;

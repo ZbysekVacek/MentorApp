@@ -1,5 +1,6 @@
 import { Routes } from './routes'
 
+// TODO MentorApp: include the name of the application?
 const routeByRoute: Record<Routes, string> = {
   // Public routes
   [Routes.Index]:

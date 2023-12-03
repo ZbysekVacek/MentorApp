@@ -4,6 +4,23 @@ info:
   version: 1.0.0
   description: Internal API specification
 paths:
+  /api/app-settings/:
+    get:
+      operationId: app_settings_list
+      tags:
+      - app-settings
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppSettings'
+          description: ''
   /api/competency/all:
     get:
       operationId: competency_all_list
@@ -411,23 +428,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/Mentoring'
           description: ''
-  /api/mentoring/requests/:
-    get:
-      operationId: mentoring_requests_list
-      tags:
-      - mentoring
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MentoringRequest'
-          description: ''
   /api/mentoring/requests/accept/{mentoring_request_id}/:
     delete:
       operationId: mentoring_requests_accept_destroy
@@ -460,13 +460,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MentoringRequestCreateRequest'
+              $ref: '#/components/schemas/CreateRequestRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/MentoringRequestCreateRequest'
+              $ref: '#/components/schemas/CreateRequestRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/MentoringRequestCreateRequest'
+              $ref: '#/components/schemas/CreateRequestRequest'
         required: true
       security:
       - cookieAuth: []
@@ -476,7 +476,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MentoringRequestCreate'
+                $ref: '#/components/schemas/CreateRequest'
           description: ''
   /api/mentoring/requests/delete/{id}/:
     delete:
@@ -510,7 +510,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MentoringRequest'
+                  $ref: '#/components/schemas/RequestForMentoring'
           description: ''
   /api/mentoring/requests/to-user/:
     get:
@@ -527,7 +527,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MentoringRequest'
+                  $ref: '#/components/schemas/RequestForMentoring'
           description: ''
   /api/messages/all/:
     get:
@@ -1521,6 +1521,19 @@ paths:
           description: ''
 components:
   schemas:
+    AppSettings:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        content:
+          type: string
+      required:
+      - content
+      - type
     Competency:
       type: object
       properties:
@@ -1586,6 +1599,21 @@ components:
       required:
       - from_user
       - to_user
+    CreateRequest:
+      type: object
+      properties:
+        text:
+          type: string
+      required:
+      - text
+    CreateRequestRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+      required:
+      - text
     Exception:
       type: object
       properties:
@@ -1598,12 +1626,14 @@ components:
       - FILL_PROFILE
       - MENTORING_REQUESTS_PAGE
       - MENTORINGS_PAGE
+      - CONNECTION_PAGE
       - NONE
       type: string
       description: |-
         * `FILL_PROFILE` - Fill your user profile
         * `MENTORING_REQUESTS_PAGE` - See mentoring requests
         * `MENTORINGS_PAGE` - See mentoring page
+        * `CONNECTION_PAGE` - See connections page
         * `NONE` - No followup action
     LoginRequestRequest:
       type: object
@@ -1704,6 +1734,7 @@ components:
           type: integer
         settings:
           type: string
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -1712,6 +1743,7 @@ components:
           type: integer
         objectives:
           type: string
+          nullable: true
         mentor:
           $ref: '#/components/schemas/User'
         mentee:
@@ -1723,8 +1755,6 @@ components:
       - frequency_days
       - mentee
       - mentor
-      - objectives
-      - settings
     MentoringRequest:
       type: object
       properties:
@@ -1732,12 +1762,12 @@ components:
           type: integer
         settings:
           type: string
-          minLength: 1
+          nullable: true
         frequency_days:
           type: integer
         objectives:
           type: string
-          minLength: 1
+          nullable: true
         mentor:
           $ref: '#/components/schemas/UserRequest'
         mentee:
@@ -1749,23 +1779,6 @@ components:
       - frequency_days
       - mentee
       - mentor
-      - objectives
-      - settings
-    MentoringRequestCreate:
-      type: object
-      properties:
-        text:
-          type: string
-      required:
-      - text
-    MentoringRequestCreateRequest:
-      type: object
-      properties:
-        text:
-          type: string
-          minLength: 1
-      required:
-      - text
     Message:
       type: object
       properties:
@@ -1920,12 +1933,12 @@ components:
           type: integer
         settings:
           type: string
-          minLength: 1
+          nullable: true
         frequency_days:
           type: integer
         objectives:
           type: string
-          minLength: 1
+          nullable: true
         mentor:
           $ref: '#/components/schemas/UserRequest'
         mentee:
@@ -2126,6 +2139,29 @@ components:
       required:
       - competencies
       - user
+    RequestForMentoring:
+      type: object
+      description: |-
+        Serializer for the MentoringRequest model.
+        Cannot use MentoringRequestSerializer because it for some reason generates duplicate name in openapi schema.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        from_user:
+          $ref: '#/components/schemas/User'
+        to_user:
+          $ref: '#/components/schemas/User'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        text:
+          type: string
+      required:
+      - from_user
+      - text
+      - to_user
     Task:
       type: object
       properties:
@@ -2190,6 +2226,18 @@ components:
       - assignee
       - description
       - title
+    TypeEnum:
+      enum:
+      - APP_NAME
+      - INDEX_CONTENT
+      - HOMEPAGE_CONTENT
+      - ABOUT_CONTENT
+      type: string
+      description: |-
+        * `APP_NAME` - Name of the application. Defaults to MentorApp
+        * `INDEX_CONTENT` - Content of the index page. You can use markdown
+        * `HOMEPAGE_CONTENT` - Content of the homepage (shown after successful login to app). You can use markdown
+        * `ABOUT_CONTENT` - Content of the about page. You can use markdown
     User:
       type: object
       properties:

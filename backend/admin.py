@@ -12,6 +12,7 @@ from .models import (
     Message,
     Note,
     Task,
+    AppSettings,
 )
 
 # Register your models here.
@@ -27,3 +28,4 @@ admin.site.register(Post)
 admin.site.register(Message)
 admin.site.register(Note)
 admin.site.register(Task)
+admin.site.register(AppSettings)

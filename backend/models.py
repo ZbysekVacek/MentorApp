@@ -251,3 +251,31 @@ class Task(models.Model):
     def __str__(self):
         # pylint: disable=no-member
         return f"Task of {self.title} - ID{self.id}"
+
+
+class AppSettings(models.Model):
+    """AppSettings model is used to store application settings and content managed by admins"""
+
+    class AppSettingsEnum(models.TextChoices):
+        APP_NAME = "APP_NAME", ("Name of the application. Defaults to MentorApp")
+        INDEX_CONTENT = "INDEX_CONTENT", (
+            "Content of the index page. You can use markdown"
+        )
+        HOMEPAGE_CONTENT = "HOMEPAGE_CONTENT", (
+            "Content of the homepage (shown after successful login to app). You can use markdown"
+        )
+        ABOUT_CONTENT = "ABOUT_CONTENT", (
+            "Content of the about page. You can use markdown"
+        )
+
+    # Type of the app setting or content
+    type = models.TextField(
+        max_length=255,
+        choices=AppSettingsEnum.choices,
+        null=False,
+    )
+    content = models.TextField()
+
+    def __str__(self):
+        # pylint: disable=no-member
+        return f"Content of {self.type.title()}"

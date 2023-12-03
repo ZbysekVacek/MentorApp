@@ -1,16 +1,23 @@
 import React from 'react'
-import { useUserCurrentRetrieve } from '../../api/generated/generatedApiComponents'
+import {
+  useAppSettingsList,
+  useUserCurrentRetrieve,
+} from '../../api/generated/generatedApiComponents'
 
 import { Routes } from '../../feature/routing/routes'
-import { Result, Typography } from 'antd'
+import { Divider, Result, Typography } from 'antd'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
 import Button from '../../components/Button'
 import { Link } from 'react-router-dom'
+import MarkdownDisplay from '../../components/markdown/MarkdownDisplay'
 
 const IndexPage: React.FC = () => {
   const { data: userData } = useUserCurrentRetrieve({})
   useDocumentTitle(getRouteTitle(Routes.Index))
+  const { data: appSettings } = useAppSettingsList({})
+  const indexContent =
+    appSettings?.find((curr) => curr.type === 'INDEX_CONTENT')?.content || ''
 
   return (
     <>
@@ -37,6 +44,10 @@ const IndexPage: React.FC = () => {
               ]
         }
       />
+      <br />
+      <br />
+      <Divider />
+      <MarkdownDisplay markdown={indexContent} />
     </>
   )
 }

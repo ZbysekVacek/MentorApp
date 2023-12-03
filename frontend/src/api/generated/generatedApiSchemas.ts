@@ -3,6 +3,12 @@
  *
  * @version 1.0.0
  */
+export type AppSettings = {
+  id?: number
+  type: TypeEnum
+  content: string
+}
+
 export type Competency = {
   id?: number
   /**
@@ -61,12 +67,14 @@ export type Exception = {
  * * `FILL_PROFILE` - Fill your user profile
  * * `MENTORING_REQUESTS_PAGE` - See mentoring requests
  * * `MENTORINGS_PAGE` - See mentoring page
+ * * `CONNECTION_PAGE` - See connections page
  * * `NONE` - No followup action
  */
 export type FollowupEnum =
   | 'FILL_PROFILE'
   | 'MENTORING_REQUESTS_PAGE'
   | 'MENTORINGS_PAGE'
+  | 'CONNECTION_PAGE'
   | 'NONE'
 
 export type LoginRequestRequest = {
@@ -492,6 +500,18 @@ export type TaskRequest = {
   assignee: number
   related_mentoring?: number | null
 }
+
+/**
+ * * `APP_NAME` - Name of the application. Defaults to MentorApp
+ * * `INDEX_CONTENT` - Content of the index page. You can use markdown
+ * * `HOMEPAGE_CONTENT` - Content of the homepage (shown after successful login to app). You can use markdown
+ * * `ABOUT_CONTENT` - Content of the about page. You can use markdown
+ */
+export type TypeEnum =
+  | 'APP_NAME'
+  | 'INDEX_CONTENT'
+  | 'HOMEPAGE_CONTENT'
+  | 'ABOUT_CONTENT'
 
 export type User = {
   /**
