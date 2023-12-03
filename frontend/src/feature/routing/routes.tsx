@@ -20,6 +20,7 @@ export enum Routes {
   Tasks = '/tasks',
   TaskDetail = '/tasks/:id',
   TasksCreated = '/tasks/created',
+  TasksCreate = '/tasks/create',
   Notes = '/notes',
   NoteDetail = '/notes/:id',
   Connections = '/connections',

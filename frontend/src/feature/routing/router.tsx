@@ -27,6 +27,7 @@ import MeetingDetailPage from '../../pages/restricted/meetings/MeetingDetailPage
 import TasksDetailPage from '../../pages/restricted/tasks/TasksDetailPage'
 import NotesDetailPage from '../../pages/restricted/notes/NotesDetailPage'
 import MeetingsCreatePage from '../../pages/restricted/meetings/MeetingsCreate'
+import TaskCreatePage from '../../pages/restricted/tasks/TasksCreate'
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.Tasks,
         element: <TasksPage />,
+      },
+      {
+        path: Routes.TasksCreate,
+        element: <TaskCreatePage />,
       },
       {
         path: Routes.TasksCreated,
