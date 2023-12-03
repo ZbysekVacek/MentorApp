@@ -79,7 +79,7 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Notes}>Notes</NavLink> },
   ],
-  [Routes.NoteDetail]: [
+  [Routes.NoteCreate]: [
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Notes}>Notes</NavLink> },
   ],

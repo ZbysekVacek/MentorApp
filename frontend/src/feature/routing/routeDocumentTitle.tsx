@@ -24,6 +24,7 @@ const routeByRoute: Record<Routes, string> = {
   [Routes.TasksCreated]: 'Tasks Created By Me - MentorApp',
   [Routes.Notes]: 'Notes - MentorApp',
   [Routes.NoteDetail]: 'Note Detail - MentorApp',
+  [Routes.NoteCreate]: 'Create Note - MentorApp',
   [Routes.Connections]: 'Connections - MentorApp',
   [Routes.ConnectionsSearch]: 'Search For Connection - MentorApp',
   [Routes.Notifications]: 'Notifications - MentorApp',

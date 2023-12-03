@@ -22,6 +22,7 @@ export enum Routes {
   TasksCreated = '/tasks/created',
   TasksCreate = '/tasks/create',
   Notes = '/notes',
+  NoteCreate = '/notes/create',
   NoteDetail = '/notes/:id',
   Connections = '/connections',
   ConnectionsSearch = '/connections-search',
