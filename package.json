@@ -14,7 +14,8 @@
     "e2eTestHeaded": "npm run pytestHeaded",
     "black": "black ./backend --check",
     "blackFix": "black ./backend",
-    "buildProjectLocal": "pip install -r requirements.txt && cd frontend && npm ci && npm run build && npm run test && npm run lint && npm run prettier && cd .. && npm run pylint && npm run black",
+    "buildProjectLocal": "pip install -r requirements.txt && npm ci && npm run build && npm run lint --workspaces && npm run prettier --workspaces && npm run pylint && npm run black",
+    "test": "npm run test --workspaces",
     "openApiGenerateSchema": "python ./manage.py spectacular --color --file openapi-schema.yml"
   },
   "engines": {
