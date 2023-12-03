@@ -15,7 +15,7 @@ from .models import (
     AppSettings,
 )
 
-# Register your models here.
+"""Register your models here and they will be accessible in the admin panel"""
 admin.site.register(Meeting)
 admin.site.register(Profile)
 admin.site.register(Notification)

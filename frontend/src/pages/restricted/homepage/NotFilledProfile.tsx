@@ -7,6 +7,7 @@ import Button from '../../../components/Button'
 import { assertIsDefined } from '../../../utils/utils'
 import Meta from 'antd/es/card/Meta'
 
+/** Handles not filled profile */
 const NotFilledProfile = () => {
   const { data: user } = useUserCurrentRetrieve({})
   const navigate = useNavigate()

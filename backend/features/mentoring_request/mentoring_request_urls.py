@@ -2,6 +2,7 @@ from django.urls import path
 
 from backend.features.mentoring_request import mentoring_request_views
 
+"""URLs for mentoring request"""
 mentoring_request_urls = [
     path(
         "mentoring/requests/create/<int:to_user_id>/",

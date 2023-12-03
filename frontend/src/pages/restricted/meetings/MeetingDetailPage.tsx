@@ -17,6 +17,7 @@ import Button from '../../../components/Button'
 import { formatDateTime } from '../../../utils/utils'
 import { useQueryClient } from '@tanstack/react-query'
 
+/** Displays meeting detail */
 const MeetingDetailPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.MeetingDetail))
   const { data: createdMeetings } = useMeetingList({})

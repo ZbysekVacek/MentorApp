@@ -14,6 +14,8 @@ from backend.models import Message, Connection
 
 
 class SendMessage(generics.CreateAPIView):
+    """View for sending a message"""
+
     serializer_class = MessageSendSerializer
     permission_classes = [IsAuthenticated]
 
@@ -39,6 +41,8 @@ class SendMessage(generics.CreateAPIView):
 
 
 class ListUnseenMessages(generics.ListAPIView):
+    """View for listing unseen messages"""
+
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
 
@@ -47,6 +51,8 @@ class ListUnseenMessages(generics.ListAPIView):
 
 
 class ListAllMessagesUsers(generics.ListAPIView):
+    """View for listing all users that have sent or received a message"""
+
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
@@ -71,6 +77,8 @@ class ListAllMessagesUsers(generics.ListAPIView):
 
 
 class ListAllMessages(generics.ListAPIView):
+    """View for listing all messages"""
+
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
 
@@ -83,6 +91,8 @@ class ListAllMessages(generics.ListAPIView):
 
 
 class MarkAllMessagesAsSeen(generics.UpdateAPIView):
+    """View for marking all messages as seen"""
+
     permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):

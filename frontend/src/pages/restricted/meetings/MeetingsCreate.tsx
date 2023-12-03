@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import Button from '../../../components/Button'
 import { Meeting } from '../../../api/generated/generatedApiSchemas'
 
+/** Create meeting page */
 const MeetingsCreatePage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Meetings))
   const createMeeting = useMeetingCreateCreate()

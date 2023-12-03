@@ -8,6 +8,7 @@ import { useUserCurrentRetrieve } from '../../../api/generated/generatedApiCompo
 import MyProfile from './MyProfile'
 import SeeProfile from './SeeProfile'
 
+/** Displays profile of a user (logged or requested) */
 const ProfilePage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Notifications))
   const params = useParams<{ userId: string }>()

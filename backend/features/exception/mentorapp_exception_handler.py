@@ -3,6 +3,7 @@ from rest_framework.views import exception_handler
 
 
 def mentorapp_exception_handler(exc, context):
+    """Custom exception handler for MentorApp"""
     # Call REST framework's default exception handler first,
     # to get the standard error response.
     response = exception_handler(exc, context)
@@ -12,7 +13,7 @@ def mentorapp_exception_handler(exc, context):
         response.data["status_code"] = response.status_code
         return response
 
-    responseData = {"status_code": 500, "detail": "Server error"}
-    response = Response(responseData, 500)
+    response_data = {"status_code": 500, "detail": "Server error"}
+    response = Response(response_data, 500)
 
     return response

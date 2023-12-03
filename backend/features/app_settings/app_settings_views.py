@@ -6,6 +6,8 @@ from backend.models import AppSettings
 
 
 class AppSettingsList(generics.ListAPIView):
+    """Views for app_settings"""
+
     serializer_class = AppSettingsSerializer
     permission_classes = [IsAuthenticated]
     queryset = AppSettings.objects.all()

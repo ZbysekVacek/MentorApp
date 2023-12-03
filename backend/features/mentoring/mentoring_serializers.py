@@ -5,6 +5,8 @@ from backend.models import Mentoring
 
 
 class MentoringSerializer(serializers.ModelSerializer):
+    """Serializer for Mentoring model"""
+
     mentor = UserSerializer()
     mentee = UserSerializer()
 

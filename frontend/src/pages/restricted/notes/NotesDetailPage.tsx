@@ -8,7 +8,8 @@ import { Link, useParams } from 'react-router-dom'
 import Button from '../../../components/Button'
 import NoteForm from './NoteForm'
 
-const NotesPage: React.FC = () => {
+/** Displays notes detail */
+const NotesDetailPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.NoteDetail))
   const params = useParams<{ id: string }>()
 
@@ -23,4 +24,4 @@ const NotesPage: React.FC = () => {
   )
 }
 
-export default NotesPage
+export default NotesDetailPage

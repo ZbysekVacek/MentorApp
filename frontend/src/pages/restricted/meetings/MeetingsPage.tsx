@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import Button from '../../../components/Button'
 import { formatDateTime } from '../../../utils/utils'
 
+/** Lists all meetings */
 const MeetingsPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Meetings))
   const { data: createdMeetings } = useMeetingList({})

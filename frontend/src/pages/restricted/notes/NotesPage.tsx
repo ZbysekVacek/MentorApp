@@ -10,6 +10,7 @@ import { Note } from '../../../api/generated/generatedApiSchemas'
 import { formatDateTime } from '../../../utils/utils'
 import { useNotesList } from '../../../api/generated/generatedApiComponents'
 
+/** Displays all notes */
 const NotesPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Notes))
   const { data: notes } = useNotesList({})

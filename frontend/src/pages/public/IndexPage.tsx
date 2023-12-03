@@ -12,6 +12,7 @@ import Button from '../../components/Button'
 import { Link } from 'react-router-dom'
 import MarkdownDisplay from '../../components/markdown/MarkdownDisplay'
 
+/** Index (root) page */
 const IndexPage: React.FC = () => {
   const { data: userData } = useUserCurrentRetrieve({})
   useDocumentTitle(getRouteTitle(Routes.Index))

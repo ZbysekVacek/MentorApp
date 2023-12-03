@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom'
 import { urlGenerator } from '../../../feature/routing/routes'
 
 type Props = { noteId?: number }
+/** Creates or edits note */
 const NoteForm = ({ noteId }: Props) => {
   const createNote = useNotesCreate({})
   const updateNote = useNotesPartialUpdate({})

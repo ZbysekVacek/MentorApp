@@ -11,6 +11,7 @@ import Button from '../../components/Button'
 type Props = {
   tasks: Task[]
 }
+/** Component for displaying not finished tasks */
 const NotFinishedTaskCard = ({ tasks }: Props) => {
   return (
     <Card

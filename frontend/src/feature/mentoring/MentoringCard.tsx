@@ -11,6 +11,7 @@ type Props = {
   mentoring: Mentoring
   who: 'mentor' | 'mentee'
 }
+/** Component for displaying a mentoring */
 const MentoringCard = ({ mentoring, who }: Props) => {
   const userToShow = who === 'mentor' ? mentoring.mentor : mentoring.mentee
   const isMentoringSetupped =

@@ -11,6 +11,7 @@ import { useConnectionsList } from '../../api/generated/generatedApiComponents'
 type Props = {
   user: User
 }
+/** Component for displaying user profile */
 const ProfileCard = (props: Props) => {
   const { user } = props
 

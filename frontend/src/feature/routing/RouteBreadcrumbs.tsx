@@ -5,6 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { assertIsRoute, Routes } from './routes'
 import './RouteBreadcrumbs.css'
 
+/** Breadcrumbs for routes */
 const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
   // Public routes
   [Routes.Index]: [],

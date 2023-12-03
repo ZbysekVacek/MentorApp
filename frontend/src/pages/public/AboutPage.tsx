@@ -7,6 +7,7 @@ import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
 import { useAppSettingsList } from '../../api/generated/generatedApiComponents'
 import MarkdownDisplay from '../../components/markdown/MarkdownDisplay'
 
+/** About page */
 const AboutPage = () => {
   useDocumentTitle(getRouteTitle(Routes.About))
   const { data: appSettings } = useAppSettingsList({})

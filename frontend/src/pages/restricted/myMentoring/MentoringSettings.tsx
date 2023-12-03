@@ -10,6 +10,7 @@ type Props = {
   mentoring: Mentoring
   isCurrentUserMentor: boolean
 }
+/** Displays Mentoring settings */
 const MentoringSettings = ({ mentoring, isCurrentUserMentor }: Props) => {
   const saveSettingsChange = useMentoringEditPartialUpdate({})
   const handleSave = () => {

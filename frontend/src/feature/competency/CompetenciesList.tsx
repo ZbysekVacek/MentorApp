@@ -6,6 +6,7 @@ import { Tag } from 'antd'
 type Props = {
   competencyIds: Profile['competencies']
 }
+/** Component for displaying list of competencies */
 const CompetenciesList = ({ competencyIds }: Props) => {
   const {
     data: competencies,

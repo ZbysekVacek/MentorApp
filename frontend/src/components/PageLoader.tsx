@@ -1,6 +1,9 @@
 import React from 'react'
 import { Spin, Typography } from 'antd'
 
+/**
+ * This component is shown as loader while some data is loading
+ */
 const PageLoader = () => {
   return (
     <Spin

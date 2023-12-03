@@ -21,6 +21,7 @@ function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
 type AppErrorBoundaryProps = PropsWithChildren<{
   withResetOption?: false
 }>
+/** A wrapper component that provides a default error fallback UI. */
 function AppErrorBoundary(props: AppErrorBoundaryProps) {
   const { withResetOption = true } = props
   const [resetKey, setResetKey] = React.useState(null)

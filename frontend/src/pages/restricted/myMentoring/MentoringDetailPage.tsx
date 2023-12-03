@@ -20,6 +20,7 @@ import NotFinishedTaskCard from '../../../feature/task/NotFinishedTaskCard'
 import RelatedNotesCard from '../../../feature/notes/RelatedNotesCard'
 import MentoringSettings from './MentoringSettings'
 
+/** Displays mentoring detail */
 const MentoringDetailPage = () => {
   const params = useParams<{ id: string }>()
   const {

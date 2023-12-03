@@ -12,6 +12,7 @@ import './RelatedNotesCard.css'
 type Props = {
   notes: Note[]
 }
+/** Component for displaying related notes */
 const RelatedNotesCard = ({ notes }: Props) => {
   return (
     <Card

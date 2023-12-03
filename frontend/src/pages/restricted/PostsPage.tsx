@@ -1,15 +1,5 @@
 import React from 'react'
-import {
-  Avatar,
-  Card,
-  Divider,
-  Flex,
-  Form,
-  Input,
-  message,
-  Row,
-  Typography,
-} from 'antd'
+import { Avatar, Card, Divider, Flex, Input, message, Typography } from 'antd'
 import RestrictedRoute from '../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../feature/routing/routeDocumentTitle'
@@ -28,7 +18,7 @@ import Button from '../../components/Button'
 import { useQueryClient } from '@tanstack/react-query'
 import MarkdownEditor from '../../components/markdown/MarkdownEditor'
 
-// TODO MentorApp: implement the page
+/** Posts page */
 const PostsPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Posts))
   const { data: userData } = useUserCurrentRetrieve({})

@@ -26,6 +26,7 @@ import { InfoCircleOutlined } from '@ant-design/icons'
 type Props = {
   connectionToUserId: number
 }
+/** Component for displaying a connection/mentoring buttons */
 const ConnectionButton = (props: Props) => {
   const { connectionToUserId } = props
   const queryClient = useQueryClient()

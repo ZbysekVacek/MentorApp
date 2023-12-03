@@ -11,6 +11,8 @@ from backend.models import Connection, ConnectionRequest, Notification
 
 
 class ConnectionListDetail(generics.ListAPIView):
+    """View that lists users connections"""
+
     serializer_class = ConnectionListItemSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -22,6 +24,8 @@ class ConnectionListDetail(generics.ListAPIView):
 
 
 class ConnectionDelete(generics.DestroyAPIView):
+    """View that deletes a connection"""
+
     serializer_class = ConnectionListItemSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -34,6 +38,8 @@ class ConnectionDelete(generics.DestroyAPIView):
 
 
 class ConnectionRequestList(generics.ListAPIView):
+    """View that lists users connection requests"""
+
     serializer_class = ConnectionRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -45,6 +51,8 @@ class ConnectionRequestList(generics.ListAPIView):
 
 
 class MakeConnectionRequest(generics.CreateAPIView):
+    """View that creates a connection request"""
+
     serializer_class = ConnectionRequestCreateSerializer
     permission_classes = [permissions.IsAuthenticated]
     queryset = ConnectionRequest.objects.all()
@@ -92,6 +100,8 @@ class MakeConnectionRequest(generics.CreateAPIView):
 
 
 class ConnectionRequestDelete(generics.DestroyAPIView):
+    """View that deletes a connection request"""
+
     serializer_class = ConnectionRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -104,6 +114,8 @@ class ConnectionRequestDelete(generics.DestroyAPIView):
 
 
 class ConnectionRequestAccept(generics.GenericAPIView):
+    """View that accepts a connection request"""
+
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):

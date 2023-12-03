@@ -2,6 +2,7 @@ from django.urls import path
 
 from backend.features.connection import connection_views
 
+"""URLs for connection"""
 connection_urls = [
     path("connections", connection_views.ConnectionListDetail.as_view()),
     path("connections/<int:pk>/delete", connection_views.ConnectionDelete.as_view()),

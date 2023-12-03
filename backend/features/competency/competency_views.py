@@ -5,6 +5,8 @@ from backend.models import Competency
 
 
 class CompetencyDetail(generics.ListAPIView):
+    """Views for competencies"""
+
     serializer_class = CompetencySerializer
     queryset = Competency.objects.all()
     permission_classes = [permissions.IsAuthenticated]

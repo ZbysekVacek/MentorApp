@@ -5,6 +5,7 @@ import React from 'react'
 import './Logo.css'
 import { useAppSettingsList } from '../../api/generated/generatedApiComponents'
 
+/** Logo component */
 const Logo = () => {
   const navigate = useNavigate()
   const { data: appSettings } = useAppSettingsList({})

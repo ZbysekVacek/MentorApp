@@ -16,6 +16,7 @@ import PageLoader from '../../../components/PageLoader'
 import ProfileCard from '../../../feature/user/ProfileCard'
 import './ConnectionsSearchPage.css'
 
+/** Connections search page */
 const ConnectionsSearchPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.ConnectionsSearch))
 

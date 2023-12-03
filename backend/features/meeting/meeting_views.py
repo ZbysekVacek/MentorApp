@@ -10,6 +10,8 @@ from backend.models import Meeting, Mentoring
 
 
 class MeetingCreate(generics.CreateAPIView):
+    """View for creating a meeting"""
+
     serializer_class = MeetingCreateSerializer
     permission_classes = [IsAuthenticated]
     queryset = Meeting.objects.all()
@@ -19,12 +21,16 @@ class MeetingCreate(generics.CreateAPIView):
 
 
 class MeetingUpdate(generics.UpdateAPIView):
+    """View for updating a meeting"""
+
     serializer_class = MeetingCreateSerializer
     permission_classes = [IsAuthenticated]
     queryset = Meeting.objects.all()
 
 
 class MeetingDelete(generics.DestroyAPIView):
+    """View for deleting a meeting"""
+
     serializer_class = MeetingSerializer
     permission_classes = [IsAuthenticated]
 
@@ -33,6 +39,8 @@ class MeetingDelete(generics.DestroyAPIView):
 
 
 class MeetingsCreatedByMe(generics.ListAPIView):
+    """View for listing meetings created by the user"""
+
     serializer_class = MeetingSerializer
     permission_classes = [IsAuthenticated]
 
@@ -41,6 +49,8 @@ class MeetingsCreatedByMe(generics.ListAPIView):
 
 
 class MeetingsFromMyMentors(generics.ListAPIView):
+    """View for listing meetings from the user's mentors"""
+
     serializer_class = MeetingSerializer
     permission_classes = [IsAuthenticated]
     model = Meeting

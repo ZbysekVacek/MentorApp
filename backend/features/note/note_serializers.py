@@ -4,6 +4,8 @@ from backend.models import Note
 
 
 class NoteSerializer(serializers.ModelSerializer):
+    """Serializer for Note model"""
+
     class Meta:
         model = Note
         fields = [

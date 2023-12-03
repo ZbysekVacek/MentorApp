@@ -7,6 +7,7 @@ import {
 import ProfileCard from '../../../feature/user/ProfileCard'
 import { assertIsDefined } from '../../../utils/utils'
 
+/** Component for displaying connection requests */
 const ConnectionsRequests: React.FC = () => {
   const { data: user } = useUserCurrentRetrieve({})
   const {

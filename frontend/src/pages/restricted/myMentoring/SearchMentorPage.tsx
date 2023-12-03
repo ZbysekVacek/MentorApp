@@ -4,6 +4,7 @@ import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
 import { Routes } from '../../../feature/routing/routes'
 import { Navigate } from 'react-router-dom'
 
+/** Displays search form for mentors. Not used directly. Currently it redirects to connection search */
 const SearchMentorPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.MyMentoringSearchMentor))
 

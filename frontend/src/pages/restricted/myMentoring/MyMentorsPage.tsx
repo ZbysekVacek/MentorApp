@@ -9,7 +9,7 @@ import { useMentoringAsMenteeList } from '../../../api/generated/generatedApiCom
 import PageLoader from '../../../components/PageLoader'
 import MentoringCard from '../../../feature/mentoring/MentoringCard'
 
-// TODO MentorApp: implement the page
+/** Displays all mentors */
 const MyMentoringPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.MyMentoringMyMentors))
   const {

@@ -5,6 +5,7 @@ import { useDocumentTitle } from '@uidotdev/usehooks'
 import { Routes } from '../../feature/routing/routes'
 import { Button, Result } from 'antd'
 
+/** Page not found */
 const NotFoundPage: React.FC = () => {
   useDocumentTitle('Page not found - MentorApp')
 

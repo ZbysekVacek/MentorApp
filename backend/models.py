@@ -5,7 +5,12 @@ from PIL import Image
 from django.core.exceptions import ValidationError
 
 
+"""Models are stored in one file for easier usage and maintenance. Related views etc. are stored in related feature folders"""
+
+
 class Competency(models.Model):
+    """Competency model is used to store competencies that users can have"""
+
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -131,6 +136,8 @@ class ConnectionRequest(models.Model):
 
 
 class Mentoring(models.Model):
+    """Mentoring model represents a mentoring relationship between two users"""
+
     connection = models.ForeignKey(Connection, on_delete=models.CASCADE)
     settings = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -152,6 +159,8 @@ class Mentoring(models.Model):
 
 
 class MentoringRequest(models.Model):
+    """Request for a mentoring from one user to another"""
+
     from_user = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -171,6 +180,8 @@ class MentoringRequest(models.Model):
 
 
 class Post(models.Model):
+    """Post model is used to store posts created by users"""
+
     created_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     title = models.CharField(max_length=255)
@@ -178,6 +189,8 @@ class Post(models.Model):
 
 
 class Message(models.Model):
+    """Message model is used to store messages sent between users"""
+
     sender = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, related_name="sent_messages"
     )
@@ -190,6 +203,8 @@ class Message(models.Model):
 
 
 class Meeting(models.Model):
+    """Meeting model is used to store meetings between users"""
+
     title = models.CharField("Title", max_length=240)
     location = models.TextField()
     created_at = models.DateTimeField("Created Date", auto_now_add=True)
@@ -214,6 +229,8 @@ class Meeting(models.Model):
 
 
 class Note(models.Model):
+    """Note model is used to store notes created by users"""
+
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     summary = models.CharField(max_length=255)
@@ -232,6 +249,8 @@ class Note(models.Model):
 
 
 class Task(models.Model):
+    """Task model is used to store tasks created by users"""
+
     author = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, related_name="authored_tasks"
     )

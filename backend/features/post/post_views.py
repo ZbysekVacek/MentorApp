@@ -5,6 +5,8 @@ from backend.models import Post
 
 
 class CreatePost(generics.CreateAPIView):
+    """View for creating a post"""
+
     serializer_class = PostCreateSerializer
     permission_classes = [IsAuthenticated]
 
@@ -13,6 +15,8 @@ class CreatePost(generics.CreateAPIView):
 
 
 class DeletePost(generics.DestroyAPIView):
+    """View for deleting a post"""
+
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
 
@@ -21,6 +25,8 @@ class DeletePost(generics.DestroyAPIView):
 
 
 class ListPosts(generics.ListAPIView):
+    """View for listing all posts"""
+
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]

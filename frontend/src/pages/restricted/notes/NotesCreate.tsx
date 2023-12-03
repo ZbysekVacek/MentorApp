@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import Button from '../../../components/Button'
 import NoteForm from './NoteForm'
 
+/** Displays form for creating a note */
 const NotesPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Notes))
 

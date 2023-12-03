@@ -11,6 +11,7 @@ import { CalendarOutlined } from '@ant-design/icons'
 type Props = {
   meeting: Meeting
 }
+/** Component for displaying a meeting */
 const MeetingCard = ({ meeting }: Props) => {
   return (
     <Card

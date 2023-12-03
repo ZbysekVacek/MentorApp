@@ -1,14 +1,14 @@
 import MDEditor from '@uiw/react-md-editor'
 import { useCallback } from 'react'
 
-/**
- * Component for markdown editing
- */
 type Props = {
   markdown: string
   onChange: (markdown: string) => void
   loading?: boolean
 }
+/**
+ * Component for markdown editing
+ */
 const MarkdownEditor = (props: Props) => {
   const { onChange, loading } = props
   const handleChange = useCallback(

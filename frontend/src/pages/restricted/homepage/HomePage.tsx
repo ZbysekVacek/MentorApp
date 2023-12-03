@@ -11,6 +11,7 @@ import {
 import NotFilledProfile from './NotFilledProfile'
 import MarkdownDisplay from '../../../components/markdown/MarkdownDisplay'
 
+/** Home page */
 const HomePage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.HomePage))
   const { data: user } = useUserCurrentRetrieve({})

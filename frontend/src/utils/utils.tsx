@@ -16,6 +16,7 @@ export function assertIsDefined<T>(
   }
 }
 
+/** Formats date to DD/MM/YYYY */
 export function formatDate(date: Date | string | undefined): string {
   if (!date) {
     return ''
@@ -24,6 +25,7 @@ export function formatDate(date: Date | string | undefined): string {
   return dayjs(date).format('DD/MM/YYYY')
 }
 
+/** Formats date to DD/MM/YYYY HH:mm */
 export function formatDateTime(date: Date | string | undefined): string {
   if (!date) {
     return ''

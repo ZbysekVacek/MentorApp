@@ -15,7 +15,7 @@ import Button from '../../components/Button'
 import { formatDateTime } from '../../utils/utils'
 import { useQueryClient } from '@tanstack/react-query'
 
-// TODO MentorApp: implement the page
+/** Messages page */
 const MessagesPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Notifications))
   const { data: messages } = useMessagesAllList({})

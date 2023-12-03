@@ -10,6 +10,8 @@ User and Profile models are so interconnected that it makes sense to have them i
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    """Serializer for Profile model"""
+
     class Meta:
         model = Profile
         fields = (
@@ -25,12 +27,16 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class ProfileAvatarSerializer(serializers.ModelSerializer):
+    """Serializer for Avatar field of Profile model"""
+
     class Meta:
         model = Profile
         fields = ("avatar",)
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """Serializer for User model. Profile is serialized with ProfileSerializer"""
+
     profile = ProfileSerializer(many=False, read_only=True)
 
     class Meta:
@@ -50,6 +56,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
+    """Serializer for registering a new user"""
+
     class Meta:
         model = get_user_model()
         fields = ("username", "password", "email", "first_name", "last_name")
@@ -57,5 +65,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 
 class LoginRequestSerializer(serializers.Serializer):
+    """Serializer for logging in a user"""
+
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)

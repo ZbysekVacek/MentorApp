@@ -6,6 +6,7 @@ import { Routes } from './routes'
 import PageLoader from '../../components/PageLoader'
 import { Typography } from 'antd'
 
+/** Handles restricted routes and redirects if user is not logged in */
 const RestrictedRoute = (props: PropsWithChildren) => {
   const { data: userData, isLoading, isError } = useUserCurrentRetrieve({})
 

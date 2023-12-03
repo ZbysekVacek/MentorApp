@@ -30,6 +30,7 @@ import MeetingsCreatePage from '../../pages/restricted/meetings/MeetingsCreate'
 import TaskCreatePage from '../../pages/restricted/tasks/TasksCreate'
 import NotesCreate from '../../pages/restricted/notes/NotesCreate'
 
+/** Router for the FE application */
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,

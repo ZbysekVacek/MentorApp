@@ -6,6 +6,8 @@ from rest_framework import generics, permissions
 
 
 class ListCreateTasks(generics.ListCreateAPIView):
+    """View for creating and listing tasks"""
+
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -17,6 +19,8 @@ class ListCreateTasks(generics.ListCreateAPIView):
 
 
 class ListAssignedTasks(generics.ListAPIView):
+    """View for listing all tasks assigned to the current user"""
+
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -25,6 +29,8 @@ class ListAssignedTasks(generics.ListAPIView):
 
 
 class UpdateTask(generics.RetrieveUpdateAPIView):
+    """View for updating a task"""
+
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -35,6 +41,8 @@ class UpdateTask(generics.RetrieveUpdateAPIView):
 
 
 class DeleteTask(generics.DestroyAPIView):
+    """View for deleting a task"""
+
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
 

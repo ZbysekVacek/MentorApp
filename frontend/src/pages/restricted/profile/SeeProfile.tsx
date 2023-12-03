@@ -11,6 +11,7 @@ import MarkdownDisplay from '../../../components/markdown/MarkdownDisplay'
 import './SeeProfile.css'
 import CompetenciesList from '../../../feature/competency/CompetenciesList'
 
+/** Displays profile of a user */
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate()
   useDocumentTitle(getRouteTitle(Routes.Notifications))
