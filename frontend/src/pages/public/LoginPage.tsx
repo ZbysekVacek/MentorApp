@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import LoginForm from '../../feature/user/LoginForm'
 import './LoginPage.css'
 
+/** Login page */
 const LoginPage = () => {
   useDocumentTitle(getRouteTitle(Routes.Login))
   const navigate = useNavigate()

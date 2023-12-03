@@ -11,6 +11,7 @@ import MarkdownDisplay from '../../../components/markdown/MarkdownDisplay'
 import './SeeProfile.css'
 import CompetenciesList from '../../../feature/competency/CompetenciesList'
 
+/** Displays profile of a user */
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate()
   useDocumentTitle(getRouteTitle(Routes.Notifications))
@@ -37,9 +38,9 @@ const ProfilePage: React.FC = () => {
       {profileUser && (
         <>
           <div className="SeeProfile__name">
-            <Avatar size={150} src={profileUser.profile?.avatar} />
+            <Avatar size={150} src={profileUser?.profile?.avatar} />
             <Typography.Title level={1}>
-              {profileUser.first_name} {profileUser.last_name}
+              {profileUser?.first_name} {profileUser?.last_name}
             </Typography.Title>
           </div>
           <Divider />
@@ -49,7 +50,7 @@ const ProfilePage: React.FC = () => {
           <Row gutter={[20, 20]}>
             <Col lg={12} sm={24}>
               <Card title="About me">
-                <MarkdownDisplay markdown={profileUser.profile?.about ?? ''} />
+                <MarkdownDisplay markdown={profileUser?.profile?.about ?? ''} />
               </Card>
             </Col>
             <Col lg={12} sm={24}>

@@ -5,6 +5,8 @@ from backend.models import Meeting
 
 
 class MeetingSerializer(serializers.ModelSerializer):
+    """Serializer for Meeting model"""
+
     author = UserSerializer()
     registered_mentee = UserSerializer()
 
@@ -14,6 +16,8 @@ class MeetingSerializer(serializers.ModelSerializer):
 
 
 class MeetingCreateSerializer(serializers.ModelSerializer):
+    """Serializer for creating a Meeting"""
+
     class Meta:
         model = Meeting
         fields = [

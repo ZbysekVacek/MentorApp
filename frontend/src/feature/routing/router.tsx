@@ -26,7 +26,11 @@ import MentoringDetailPage from '../../pages/restricted/myMentoring/MentoringDet
 import MeetingDetailPage from '../../pages/restricted/meetings/MeetingDetailPage'
 import TasksDetailPage from '../../pages/restricted/tasks/TasksDetailPage'
 import NotesDetailPage from '../../pages/restricted/notes/NotesDetailPage'
+import MeetingsCreatePage from '../../pages/restricted/meetings/MeetingsCreate'
+import TaskCreatePage from '../../pages/restricted/tasks/TasksCreate'
+import NotesCreate from '../../pages/restricted/notes/NotesCreate'
 
+/** Router for the FE application */
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -60,6 +64,10 @@ export const router = createBrowserRouter([
         element: <MeetingDetailPage />,
       },
       {
+        path: Routes.MeetingCreate,
+        element: <MeetingsCreatePage />,
+      },
+      {
         path: Routes.MyMentoring,
         element: <MyMentoringPage />,
       },
@@ -88,6 +96,10 @@ export const router = createBrowserRouter([
         element: <TasksPage />,
       },
       {
+        path: Routes.TasksCreate,
+        element: <TaskCreatePage />,
+      },
+      {
         path: Routes.TasksCreated,
         element: <TasksCreatedPage />,
       },
@@ -98,6 +110,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.Notes,
         element: <NotesPage />,
+      },
+      {
+        path: Routes.NoteCreate,
+        element: <NotesCreate />,
       },
       {
         path: Routes.NoteDetail,

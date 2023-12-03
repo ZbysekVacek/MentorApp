@@ -16,6 +16,7 @@ import './NotificationPage.css'
 import { useQueryClient } from '@tanstack/react-query'
 import NotificationFollowup from './NotificationFollowup'
 
+/** Displays all notifications */
 const NotificationsPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Notifications))
   const {

@@ -8,6 +8,7 @@ import { router } from '../routing/router'
 
 const queryClient = new QueryClient()
 
+/** Main application component */
 function App() {
   return (
     <QueryClientProvider client={queryClient}>

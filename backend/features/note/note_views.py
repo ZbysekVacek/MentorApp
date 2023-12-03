@@ -6,6 +6,8 @@ from rest_framework import generics, permissions
 
 
 class CreateListNote(generics.ListCreateAPIView):
+    """View for creating and listing notes"""
+
     serializer_class = NoteSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -17,6 +19,8 @@ class CreateListNote(generics.ListCreateAPIView):
 
 
 class UpdateNote(generics.RetrieveUpdateAPIView):
+    """View for updating a note"""
+
     serializer_class = NoteSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -25,6 +29,8 @@ class UpdateNote(generics.RetrieveUpdateAPIView):
 
 
 class DeleteNote(generics.DestroyAPIView):
+    """View for deleting a note"""
+
     serializer_class = NoteSerializer
     permission_classes = [permissions.IsAuthenticated]
 

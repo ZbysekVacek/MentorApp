@@ -10,6 +10,7 @@ import { useRegisterUser } from '../../api/generated/generatedApiComponents'
 import ValidationErrorList from '../../components/errors/ValidationErrorList'
 import './RegisterPage.css'
 
+/** Register page */
 const RegisterPage = () => {
   useDocumentTitle(getRouteTitle(Routes.Register))
 

@@ -3,6 +3,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Tabs from '../../../components/Tabs'
 
+/** Used for navigating between mentoring tabs */
 const MentoringTabs = () => {
   const location = useLocation()
   return (

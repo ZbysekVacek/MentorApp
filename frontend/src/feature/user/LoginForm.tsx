@@ -7,6 +7,7 @@ import './LoginForm.css'
 import { Link } from 'react-router-dom'
 import { Routes } from '../routing/routes'
 
+/** Login form */
 const LoginForm: React.FC = () => {
   const loginUser = useUserLoginCreate()
   const queryClient = useQueryClient()

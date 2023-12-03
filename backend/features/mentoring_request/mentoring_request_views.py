@@ -19,6 +19,8 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class CreateMentoringRequest(generics.CreateAPIView):
+    """View for creating a mentoring request"""
+
     permission_classes = [IsAuthenticated]
     queryset = MentoringRequest.objects.all()
     serializer_class = CreateRequestSerializer
@@ -86,6 +88,8 @@ class CreateMentoringRequest(generics.CreateAPIView):
 
 
 class MentoringRequestsFromUser(generics.ListAPIView):
+    """View for listing mentoring requests from the user"""
+
     serializer_class = RequestForMentoringSerializer
     permission_classes = [IsAuthenticated]
 
@@ -104,6 +108,8 @@ class MentoringRequestsToUser(generics.ListAPIView):
 
 
 class AcceptMentoringRequest(generics.DestroyAPIView):
+    """View for accepting a mentoring request"""
+
     permission_classes = [IsAuthenticated]
     serializer_class = RequestForMentoringSerializer
 
@@ -188,6 +194,8 @@ class AcceptMentoringRequest(generics.DestroyAPIView):
 
 
 class DeleteMentoringRequest(generics.DestroyAPIView):
+    """View for deleting a mentoring request"""
+
     serializer_class = RequestForMentoringSerializer
     permission_classes = [IsAuthenticated]
 

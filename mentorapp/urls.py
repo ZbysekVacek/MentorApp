@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
+from backend.features.app_settings.app_settings_urls import app_settings_urls
 from backend.features.connection.connection_urls import connection_urls
 from backend.features.meeting.meeting_urls import meeting_urls
 from backend.features.mentoring.mentoring_urls import mentoring_urls
@@ -49,6 +50,7 @@ urlpatterns = [
     path("api/", include(meeting_urls)),
     path("api/", include(note_urls)),
     path("api/", include(task_urls)),
+    path("api/", include(app_settings_urls)),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/schema/swagger-ui/",

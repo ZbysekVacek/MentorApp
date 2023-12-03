@@ -3,6 +3,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Tabs from '../../../components/Tabs'
 
+/** Connections tabs */
 const ConnectionsTabs = () => {
   const location = useLocation()
   return (

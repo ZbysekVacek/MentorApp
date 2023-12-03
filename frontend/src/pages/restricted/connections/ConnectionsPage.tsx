@@ -11,6 +11,7 @@ import ProfileCard from '../../../feature/user/ProfileCard'
 import { assertIsDefined } from '../../../utils/utils'
 import ConnectionsRequests from './ConnectionsRequests'
 
+/** Connections page */
 const ConnectionsPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.Connections))
   const { data: allConnections, isLoading, isError } = useConnectionsList({})

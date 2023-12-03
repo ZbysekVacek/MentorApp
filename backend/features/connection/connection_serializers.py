@@ -6,6 +6,8 @@ from backend.models import Connection, ConnectionRequest
 
 
 class ConnectionRequestSerializer(serializers.ModelSerializer):
+    """Serializer for ConnectionRequest. There is a different serializer for creating a ConnectionRequest"""
+
     from_user = UserSerializer(many=False, read_only=True)
     to_user = UserSerializer(many=False, read_only=True)
 
@@ -15,12 +17,16 @@ class ConnectionRequestSerializer(serializers.ModelSerializer):
 
 
 class ConnectionRequestCreateSerializer(serializers.ModelSerializer):
+    """Serializer for creating a ConnectionRequest"""
+
     class Meta:
         model = ConnectionRequest
         fields = ("to_user", "from_user")
 
 
 class ConnectionSerializer(serializers.ModelSerializer):
+    """Serializer for Connection model"""
+
     class Meta:
         model = Connection
         fields = "__all__"

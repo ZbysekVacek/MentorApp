@@ -2,6 +2,7 @@ from django.urls import path
 
 from backend.features.task import task_views
 
+"""URLs for tasks"""
 task_urls = [
     path("tasks/", task_views.ListCreateTasks.as_view()),
     path("tasks/assigned/", task_views.ListAssignedTasks.as_view()),

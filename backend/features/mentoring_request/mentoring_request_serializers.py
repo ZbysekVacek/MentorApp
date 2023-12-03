@@ -20,6 +20,8 @@ class RequestForMentoringSerializer(serializers.ModelSerializer):
 
 
 class CreateRequestSerializer(serializers.ModelSerializer):
+    """Serializer for creating a MentoringRequest"""
+
     class Meta:
         model = MentoringRequest
         fields = ["text"]

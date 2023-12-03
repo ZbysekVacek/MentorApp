@@ -1,5 +1,5 @@
 import React from 'react'
-import { Select, Typography } from 'antd'
+import { Col, Row, Select, Switch, Typography } from 'antd'
 import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
@@ -16,6 +16,7 @@ import PageLoader from '../../../components/PageLoader'
 import ProfileCard from '../../../feature/user/ProfileCard'
 import './ConnectionsSearchPage.css'
 
+/** Connections search page */
 const ConnectionsSearchPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.ConnectionsSearch))
 
@@ -46,6 +47,8 @@ const ConnectionsSearchPage: React.FC = () => {
     { enabled: selectedCompetencies?.length !== 0 }
   )
 
+  const [showMentorsOnly, setShowMentorsOnly] = React.useState(false)
+
   const isLoading =
     isLoadingPureSearch ||
     isLoadingConnectionRequests ||
@@ -69,25 +72,47 @@ const ConnectionsSearchPage: React.FC = () => {
         results &&
         connections &&
         connectionRequests && (
-          <div>
-            <Typography.Title level={5}>Competencies</Typography.Title>
-            <Typography.Paragraph>
-              Select competencies you want to limit search to
-            </Typography.Paragraph>
-            <Select
-              mode="multiple"
-              className="ConnectionsSearchPage"
-              value={selectedCompetencies}
-              onChange={(value) => setSelectedCompetencies(value)}
-              options={competenciesList?.map((currCompetency) => ({
-                label: currCompetency.name,
-                value: currCompetency.id,
-              }))}
-            />
-            {results.map((curResult) => (
-              <ProfileCard user={curResult} />
-            ))}
-          </div>
+          <>
+            <Row gutter={[20, 20]}>
+              <Col lg={12} md={24}>
+                <Typography.Title level={5}>Competencies</Typography.Title>
+                <Typography.Paragraph>
+                  Select competencies you want to limit search to
+                </Typography.Paragraph>
+                <Select
+                  mode="multiple"
+                  className="ConnectionsSearchPage"
+                  value={selectedCompetencies}
+                  onChange={(value) => setSelectedCompetencies(value)}
+                  options={competenciesList?.map((currCompetency) => ({
+                    label: currCompetency.name,
+                    value: currCompetency.id,
+                  }))}
+                />
+              </Col>
+              <Col lg={12} md={24}>
+                <Typography.Title level={5}>Show only mentors</Typography.Title>
+                <Typography.Paragraph>
+                  Check if you want to limit search only for mentors that accept
+                  new mentees
+                </Typography.Paragraph>
+                <Switch
+                  checkedChildren="Showing mentors only"
+                  unCheckedChildren="Showing all results"
+                  checked={showMentorsOnly}
+                  onChange={(checked) => setShowMentorsOnly(checked)}
+                />
+              </Col>
+            </Row>
+            {results
+              .filter(
+                (currResult) =>
+                  !showMentorsOnly || currResult.profile?.accepts_mentees
+              )
+              .map((curResult) => (
+                <ProfileCard user={curResult} />
+              ))}
+          </>
         )}
     </RestrictedRoute>
   )

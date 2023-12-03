@@ -8,6 +8,7 @@ import './AppLayout.css'
 
 const { Content, Footer } = Layout
 
+/** Main application layout */
 const AppLayout: React.FC = () => {
   const {
     token: { colorBgContainer },

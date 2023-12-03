@@ -2,6 +2,8 @@ from django.urls import path
 
 from backend.features.mentoring import mentoring_views
 
+
+"""URLs for mentoring""" ""
 mentoring_urls = [
     path(
         "mentoring/<int:pk>/edit/",

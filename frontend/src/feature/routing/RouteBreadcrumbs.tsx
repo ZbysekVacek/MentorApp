@@ -5,6 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { assertIsRoute, Routes } from './routes'
 import './RouteBreadcrumbs.css'
 
+/** Breadcrumbs for routes */
 const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
   // Public routes
   [Routes.Index]: [],
@@ -52,6 +53,11 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Meetings}>Meetings</NavLink> },
   ],
+  [Routes.MeetingCreate]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.Meetings}>Meetings</NavLink> },
+    { title: <NavLink to={Routes.MeetingCreate}>Create</NavLink> },
+  ],
   [Routes.Tasks]: [
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Tasks}>Tasks</NavLink> },
@@ -61,11 +67,20 @@ const breadcrumbsByRoute: Record<Routes, ItemType[]> = {
     { title: <NavLink to={Routes.Tasks}>Tasks</NavLink> },
     { title: <NavLink to={Routes.TasksCreated}>Tasks Created By Me</NavLink> },
   ],
+  [Routes.TasksCreate]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.Tasks}>Tasks</NavLink> },
+    { title: <NavLink to={Routes.TasksCreated}>Tasks Created By Me</NavLink> },
+  ],
   [Routes.TaskDetail]: [
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Tasks}>Tasks</NavLink> },
   ],
   [Routes.Notes]: [
+    { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
+    { title: <NavLink to={Routes.Notes}>Notes</NavLink> },
+  ],
+  [Routes.NoteCreate]: [
     { title: <NavLink to={Routes.HomePage}>Home</NavLink> },
     { title: <NavLink to={Routes.Notes}>Notes</NavLink> },
   ],

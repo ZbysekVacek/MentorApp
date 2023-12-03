@@ -29,6 +29,7 @@ import { UploadOutlined } from '@ant-design/icons'
 import { getCSRFToken } from '../../../feature/cookies/cookies'
 import { useQueryClient } from '@tanstack/react-query'
 
+/*** Displays current users profile */
 const MyProfile = () => {
   useDocumentTitle('My profile - MentorApp')
   const { data: user } = useUserCurrentRetrieve({})

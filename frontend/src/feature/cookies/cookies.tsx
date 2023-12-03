@@ -1,3 +1,4 @@
+/** function to parse cookies string and return object of all cookies */
 const parseCookie = (str: string) =>
   str
     .split(';')
@@ -9,4 +10,5 @@ const parseCookie = (str: string) =>
       return acc
     }, {})
 
+/** function to get CSRF token from cookies. Needed for FE to BE communication to work */
 export const getCSRFToken = () => parseCookie(document.cookie)['csrftoken']

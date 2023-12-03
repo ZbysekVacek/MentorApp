@@ -13,6 +13,55 @@ import { generatedApiFetch } from './generatedApiFetcher'
 import type * as Schemas from './generatedApiSchemas'
 import type { ClientErrorStatus, ServerErrorStatus } from './generatedApiUtils'
 
+export type AppSettingsListError = Fetcher.ErrorWrapper<undefined>
+
+export type AppSettingsListResponse = Schemas.AppSettings[]
+
+export type AppSettingsListVariables = GeneratedApiContext['fetcherOptions']
+
+export const fetchAppSettingsList = (
+  variables: AppSettingsListVariables,
+  signal?: AbortSignal
+) =>
+  generatedApiFetch<
+    AppSettingsListResponse,
+    AppSettingsListError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: '/api/app-settings/', method: 'get', ...variables, signal })
+
+export const useAppSettingsList = <TData = AppSettingsListResponse>(
+  variables: AppSettingsListVariables,
+  options?: Omit<
+    reactQuery.UseQueryOptions<
+      AppSettingsListResponse,
+      AppSettingsListError,
+      TData
+    >,
+    'queryKey' | 'queryFn' | 'initialData'
+  >
+) => {
+  const { fetcherOptions, queryOptions, queryKeyFn } =
+    useGeneratedApiContext(options)
+  return reactQuery.useQuery<
+    AppSettingsListResponse,
+    AppSettingsListError,
+    TData
+  >({
+    queryKey: queryKeyFn({
+      path: '/api/app-settings/',
+      operationId: 'appSettingsList',
+      variables,
+    }),
+    queryFn: ({ signal }) =>
+      fetchAppSettingsList({ ...fetcherOptions, ...variables }, signal),
+    ...options,
+    ...queryOptions,
+  })
+}
+
 export type CompetencyAllListError = Fetcher.ErrorWrapper<undefined>
 
 export type CompetencyAllListResponse = Schemas.Competency[]
@@ -3111,6 +3160,11 @@ export const useUserSearchList2 = <TData = UserSearchList2Response>(
 }
 
 export type QueryOperation =
+  | {
+      path: '/api/app-settings/'
+      operationId: 'appSettingsList'
+      variables: AppSettingsListVariables
+    }
   | {
       path: '/api/competency/all'
       operationId: 'competencyAllList'

@@ -1,21 +1,22 @@
 import React from 'react'
-import { Typography } from 'antd'
-import RestrictedRoute from '../../../feature/routing/RestrictedRoute'
 import { useDocumentTitle } from '@uidotdev/usehooks'
 import { getRouteTitle } from '../../../feature/routing/routeDocumentTitle'
 import { Routes } from '../../../feature/routing/routes'
-import MentoringTabs from './MentoringTabs'
+import { Navigate } from 'react-router-dom'
 
-// TODO MentorApp: implement the page
+/** Displays search form for mentors. Not used directly. Currently it redirects to connection search */
 const SearchMentorPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.MyMentoringSearchMentor))
 
-  return (
-    <RestrictedRoute>
-      <MentoringTabs />
-      <Typography.Title>Search For Mentor</Typography.Title>
-    </RestrictedRoute>
-  )
+  return <Navigate to={Routes.ConnectionsSearch} />
+
+  // If you want to have different search form for mentors, uncomment and edit the code below
+  // return (
+  //   <RestrictedRoute>
+  //     <MentoringTabs />
+  //     <Typography.Title>Search For Mentor</Typography.Title>
+  //   </RestrictedRoute>
+  // )
 }
 
 export default SearchMentorPage

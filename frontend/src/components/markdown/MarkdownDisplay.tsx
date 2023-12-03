@@ -16,6 +16,9 @@ const MarkdownDisplay = (props: Props) => {
     <MDEditor.Markdown
       source={props.markdown}
       rehypePlugins={[rehypeSanitize]}
+      wrapperElement={{
+        'data-color-mode': 'light',
+      }}
     />
   )
 }

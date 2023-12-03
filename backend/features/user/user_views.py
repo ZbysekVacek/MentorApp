@@ -28,6 +28,8 @@ User and Profile models are so interconnected that it makes sense to have them i
 
 
 class UserDetail(generics.RetrieveAPIView):
+    """View for getting current user"""
+
     serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
@@ -36,6 +38,8 @@ class UserDetail(generics.RetrieveAPIView):
 
 
 class UserDetailById(generics.RetrieveAPIView):
+    """View for getting user by id"""
+
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -133,6 +137,8 @@ class UserLogout(APIView):
 
 
 class ProfileDetail(RetrieveUpdateAPIView):
+    """View for getting and updating profile"""
+
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
     lookup_field = "user_id"
@@ -140,6 +146,8 @@ class ProfileDetail(RetrieveUpdateAPIView):
 
 
 class ProfileUpdateAvatarView(generics.UpdateAPIView):
+    """View for updating avatar of a profile"""
+
     queryset = Profile.objects.all()
     lookup_field = "user_id"
     serializer_class = ProfileAvatarSerializer
@@ -156,6 +164,8 @@ class ProfileUpdateAvatarView(generics.UpdateAPIView):
 
 
 class SearchUsers(generics.ListAPIView):
+    """View for searching users by competencies"""
+
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 

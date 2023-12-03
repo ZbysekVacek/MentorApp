@@ -12,7 +12,7 @@ import {
 import ProfileCard from '../../../feature/user/ProfileCard'
 import { formatDate } from '../../../utils/utils'
 
-// TODO MentorApp: implement the page
+/** Show all mentorings and requests */
 const MyMentoringPage: React.FC = () => {
   useDocumentTitle(getRouteTitle(Routes.MyMentoring))
   const {

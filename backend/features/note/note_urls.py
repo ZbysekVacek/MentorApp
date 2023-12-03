@@ -2,6 +2,7 @@ from django.urls import path
 
 from backend.features.note import note_views
 
+"""URLs for notes"""
 note_urls = [
     path(
         "notes/<int:pk>/",

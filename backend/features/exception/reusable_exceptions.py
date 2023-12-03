@@ -1,11 +1,9 @@
-# status.HTTP_401_UNAUTHORIZED: OpenApiResponse(
-#     ExceptionSerializer, "Wrong credentials"
-# ),
-# "default": OpenApiResponse(ExceptionSerializer, "Generic server error"),
 from drf_spectacular.utils import OpenApiResponse
 from rest_framework import status
 
 from backend.features.exception.exception_serializer import ExceptionSerializer
+
+"""Reusable exceptions for endpoints"""
 
 validation_exception = {
     status.HTTP_400_BAD_REQUEST: OpenApiResponse(

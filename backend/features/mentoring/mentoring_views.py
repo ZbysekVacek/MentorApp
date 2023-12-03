@@ -14,6 +14,8 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class MentoringRetrieve(generics.RetrieveAPIView):
+    """View for retrieving a mentoring"""
+
     permission_classes = [IsAuthenticated]
     serializer_class = MentoringSerializer
 
@@ -24,6 +26,8 @@ class MentoringRetrieve(generics.RetrieveAPIView):
 
 
 class MenteesMentoringsList(generics.ListAPIView):
+    """View for listing mentees mentorings"""
+
     serializer_class = MentoringSerializer
     permission_classes = [IsAuthenticated]
 
@@ -33,6 +37,8 @@ class MenteesMentoringsList(generics.ListAPIView):
 
 
 class MentorsMentoringList(generics.ListAPIView):
+    """View for listing mentors mentorings"""
+
     serializer_class = MentoringSerializer
     permission_classes = [IsAuthenticated]
 
@@ -42,6 +48,8 @@ class MentorsMentoringList(generics.ListAPIView):
 
 
 class MentoringEdit(generics.UpdateAPIView):
+    """View for editing a mentoring"""
+
     serializer_class = MentoringSerializer
     permission_classes = [IsAuthenticated]
 
@@ -50,6 +58,8 @@ class MentoringEdit(generics.UpdateAPIView):
 
 
 class DeleteMentoring(generics.DestroyAPIView):
+    """View for deleting a mentoring"""
+
     serializer_class = MentoringSerializer
     permission_classes = [IsAuthenticated]
 

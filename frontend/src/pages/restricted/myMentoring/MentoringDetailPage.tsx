@@ -20,6 +20,7 @@ import NotFinishedTaskCard from '../../../feature/task/NotFinishedTaskCard'
 import RelatedNotesCard from '../../../feature/notes/RelatedNotesCard'
 import MentoringSettings from './MentoringSettings'
 
+/** Displays mentoring detail */
 const MentoringDetailPage = () => {
   const params = useParams<{ id: string }>()
   const {
@@ -65,10 +66,10 @@ const MentoringDetailPage = () => {
     mentoring && currentUser
       ? isCurrentUserMentor
         ? `Mentoring detail for mentee ${
-            mentoring?.mentee.first_name + ' ' + mentoring?.mentee.last_name
+            mentoring?.mentee?.first_name + ' ' + mentoring?.mentee?.last_name
           }`
         : `Mentoring detail for mentor ${
-            mentoring.mentor.first_name + ' ' + mentoring.mentor.last_name
+            mentoring.mentor?.first_name + ' ' + mentoring.mentor?.last_name
           }`
       : `Mentoring detail for menotring with ID ${params.id}`
   useDocumentTitle(title)

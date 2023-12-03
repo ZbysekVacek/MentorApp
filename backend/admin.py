@@ -12,9 +12,10 @@ from .models import (
     Message,
     Note,
     Task,
+    AppSettings,
 )
 
-# Register your models here.
+"""Register your models here and they will be accessible in the admin panel"""
 admin.site.register(Meeting)
 admin.site.register(Profile)
 admin.site.register(Notification)
@@ -27,3 +28,4 @@ admin.site.register(Post)
 admin.site.register(Message)
 admin.site.register(Note)
 admin.site.register(Task)
+admin.site.register(AppSettings)
